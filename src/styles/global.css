@@ -65,6 +65,25 @@ h4 {
   letter-spacing: -0.01em;
 }
 
+/* Prevent long/unbroken text (long words, names, URLs) from overflowing
+   their container and getting clipped at the viewport edge. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+button,
+time,
+label,
+li {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 ::selection {
   background: var(--brand-rose);
   color: #fff;

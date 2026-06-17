@@ -4,46 +4,40 @@ import { useAppStore } from '@/store/useAppStore';
 /**
  * Generates a soft, slowly evolving ambient pad with the Web Audio API.
  * No audio files needed — keeps the bundle light and works offline.
+ *
+ * The whole audio graph is built when music turns on and torn down (with a
+ * gentle fade-out) when it turns off or the component unmounts. Every node we
+ * create — including the tremolo LFOs — is tracked so nothing leaks.
  */
 export function MusicController() {
   const enabled = useAppStore((s) => s.musicEnabled);
   const ctxRef = useRef<AudioContext | null>(null);
-  const nodesRef = useRef<{ master: GainNode; oscs: OscillatorNode[] } | null>(
-    null,
-  );
 
   useEffect(() => {
-    if (!enabled) {
-      // Fade out and stop.
-      const ac = ctxRef.current;
-      const nodes = nodesRef.current;
-      if (ac && nodes) {
-        nodes.master.gain.cancelScheduledValues(ac.currentTime);
-        nodes.master.gain.setValueAtTime(nodes.master.gain.value, ac.currentTime);
-        nodes.master.gain.linearRampToValueAtTime(0, ac.currentTime + 1.2);
-        nodes.oscs.forEach((o) => o.stop(ac.currentTime + 1.4));
-        nodesRef.current = null;
-      }
-      return;
-    }
+    if (!enabled) return;
 
     const AC =
       window.AudioContext ||
       (window as unknown as { webkitAudioContext: typeof AudioContext })
         .webkitAudioContext;
     if (!AC) return;
+
     const ac = ctxRef.current ?? new AC();
     ctxRef.current = ac;
-    if (ac.state === 'suspended') ac.resume();
+    void ac.resume();
 
+    const now = ac.currentTime;
     const master = ac.createGain();
-    master.gain.setValueAtTime(0, ac.currentTime);
-    master.gain.linearRampToValueAtTime(0.05, ac.currentTime + 2.5);
+    master.gain.setValueAtTime(0.0001, now);
+    master.gain.linearRampToValueAtTime(0.05, now + 2.5);
     master.connect(ac.destination);
 
-    // A warm, open chord (A major-ish) across two octaves.
+    // Track every oscillator (pad voices + tremolo LFOs) so we can stop them.
+    const allOscs: OscillatorNode[] = [];
+
+    // A warm, open chord across two octaves.
     const freqs = [220, 277.18, 329.63, 440];
-    const oscs = freqs.map((f, i) => {
+    freqs.forEach((f, i) => {
       const osc = ac.createOscillator();
       osc.type = i % 2 === 0 ? 'sine' : 'triangle';
       osc.frequency.value = f;
@@ -64,20 +58,34 @@ export function MusicController() {
       osc.connect(g);
       g.connect(master);
       osc.start();
-      return osc;
+
+      allOscs.push(osc, lfo);
     });
 
-    nodesRef.current = { master, oscs };
-
+    // Cleanup: fade the master down, then stop and disconnect everything.
     return () => {
-      const nodes = nodesRef.current;
-      if (nodes) {
+      const t = ac.currentTime;
+      try {
+        master.gain.cancelScheduledValues(t);
+        master.gain.setValueAtTime(master.gain.value, t);
+        master.gain.linearRampToValueAtTime(0.0001, t + 1.2);
+      } catch {
+        /* ignore */
+      }
+      allOscs.forEach((o) => {
         try {
-          nodes.oscs.forEach((o) => o.stop());
+          o.stop(t + 1.3);
         } catch {
           /* already stopped */
         }
-      }
+      });
+      window.setTimeout(() => {
+        try {
+          master.disconnect();
+        } catch {
+          /* ignore */
+        }
+      }, 1500);
     };
   }, [enabled]);
 
