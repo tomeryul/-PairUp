@@ -3,6 +3,40 @@
   border-radius: var(--r-lg);
   margin-bottom: var(--s-4);
 }
+
+.settings__account {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+.settings__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid var(--surface-border-strong);
+}
+.settings__avatar--ph {
+  display: grid;
+  place-items: center;
+  background: var(--grad-romance);
+  color: #fff;
+  font-weight: 800;
+  font-size: var(--t-xl);
+}
+.settings__account-meta {
+  min-width: 0;
+}
+.settings__account-name {
+  font-weight: 700;
+  color: var(--text-1);
+}
+.settings__account-email {
+  font-size: var(--t-sm);
+  color: var(--text-3);
+}
 .settings__title {
   font-size: var(--t-lg);
   margin-bottom: var(--s-4);

@@ -54,7 +54,63 @@ interface AppState {
 
   snapshot: () => ProgressSnapshot;
   resetAll: () => void;
+
+  /** Replace the persistable slice with data loaded from the cloud. */
+  applyCloudState: (data: Partial<CloudState>) => void;
 }
+
+/** The subset of state that is persisted (locally and to Firestore). */
+export interface CloudState {
+  onboarded: boolean;
+  names: { a: string; b: string };
+  theme: ThemeMode;
+  soundEnabled: boolean;
+  musicEnabled: boolean;
+  saved: SavedItem[];
+  capsules: Capsule[];
+  answeredCount: number;
+  quizPlays: number;
+  bestQuizScore: number;
+  streak: number;
+  lastActiveDay: string | null;
+  birthdayDiscovered: boolean;
+}
+
+export const CLOUD_KEYS: (keyof CloudState)[] = [
+  'onboarded',
+  'names',
+  'theme',
+  'soundEnabled',
+  'musicEnabled',
+  'saved',
+  'capsules',
+  'answeredCount',
+  'quizPlays',
+  'bestQuizScore',
+  'streak',
+  'lastActiveDay',
+  'birthdayDiscovered',
+];
+
+/** Extract just the persistable slice from the full store state. */
+export const getCloudState = (): CloudState => {
+  const s = useAppStore.getState();
+  return {
+    onboarded: s.onboarded,
+    names: s.names,
+    theme: s.theme,
+    soundEnabled: s.soundEnabled,
+    musicEnabled: s.musicEnabled,
+    saved: s.saved,
+    capsules: s.capsules,
+    answeredCount: s.answeredCount,
+    quizPlays: s.quizPlays,
+    bestQuizScore: s.bestQuizScore,
+    streak: s.streak,
+    lastActiveDay: s.lastActiveDay,
+    birthdayDiscovered: s.birthdayDiscovered,
+  };
+};
 
 const uid = () => Math.random().toString(36).slice(2, 10);
 
@@ -152,6 +208,17 @@ export const useAppStore = create<AppState>()(
           streak: 0,
           lastActiveDay: null,
         }),
+
+      applyCloudState: (data) => {
+        const next: Partial<CloudState> = {};
+        for (const key of CLOUD_KEYS) {
+          if (data[key] !== undefined) {
+            // @ts-expect-error index assignment across the union is safe here
+            next[key] = data[key];
+          }
+        }
+        set(next);
+      },
     }),
     {
       name: 'pairup-store-v1',

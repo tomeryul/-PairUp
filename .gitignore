@@ -11,3 +11,11 @@ yarn-error.log*
 .env
 .env.*
 !.env.example
+
+# Firebase
+.firebase
+firebase-debug.log
+.runtimeconfig.json
+
+# TS build cache
+*.tsbuildinfo

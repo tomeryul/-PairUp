@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { useAppStore } from '@/store/useAppStore';
+import { useAuth } from '@/auth/AuthProvider';
 import { useSound } from '@/hooks/useSound';
 import './Settings.css';
 
@@ -19,6 +20,7 @@ export function Settings() {
     toggleMusic,
     resetAll,
   } = useAppStore();
+  const { user, logout } = useAuth();
   const play = useSound();
   const navigate = useNavigate();
   const [a, setA] = useState(names.a);
@@ -33,6 +35,33 @@ export function Settings() {
   return (
     <div className="page">
       <PageHeader eyebrow="הכול עליכם" title="הגדרות" />
+
+      {user && (
+        <section className="settings__group glass">
+          <h3 className="settings__title">החשבון שלך</h3>
+          <div className="settings__account">
+            {user.photoURL ? (
+              <img className="settings__avatar" src={user.photoURL} alt="" referrerPolicy="no-referrer" />
+            ) : (
+              <div className="settings__avatar settings__avatar--ph">
+                {(user.displayName ?? user.email ?? '?').charAt(0)}
+              </div>
+            )}
+            <div className="settings__account-meta">
+              <div className="settings__account-name">
+                {user.displayName ?? 'מחובר/ת'}
+              </div>
+              <div className="settings__account-email">{user.email}</div>
+            </div>
+          </div>
+          <p className="settings__hint">
+            ההתקדמות שלכם נשמרת אוטומטית בענן ומסתנכרנת בין המכשירים. ☁️
+          </p>
+          <Button variant="ghost" block onClick={() => { play('tap'); void logout(); }}>
+            התנתקות
+          </Button>
+        </section>
+      )}
 
       <section className="settings__group glass">
         <h3 className="settings__title">השמות שלכם</h3>

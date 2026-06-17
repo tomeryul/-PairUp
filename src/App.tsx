@@ -3,9 +3,16 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
 import { useAppStore } from '@/store/useAppStore';
+import { useAuth } from '@/auth/AuthProvider';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
 import { BottomNav } from '@/components/BottomNav';
 import { MusicController } from '@/components/MusicController';
+import { Login } from '@/features/auth/Login';
+import {
+  AuthLoading,
+  AuthDenied,
+  AuthUnconfigured,
+} from '@/features/auth/AuthScreens';
 import { Onboarding } from '@/features/onboarding/Onboarding';
 import { Home } from '@/features/home/Home';
 import { Categories } from '@/features/categories/Categories';
@@ -28,6 +35,21 @@ const pageVariants = {
 
 export default function App() {
   useTheme();
+  const { status } = useAuth();
+
+  return (
+    <>
+      <AnimatedBackground />
+      {status === 'unconfigured' && <AuthUnconfigured />}
+      {status === 'loading' && <AuthLoading />}
+      {status === 'signed-out' && <Login />}
+      {status === 'denied' && <AuthDenied />}
+      {status === 'signed-in' && <MainApp />}
+    </>
+  );
+}
+
+function MainApp() {
   const onboarded = useAppStore((s) => s.onboarded);
   const touchStreak = useAppStore((s) => s.touchStreak);
   const location = useLocation();
@@ -37,19 +59,13 @@ export default function App() {
   }, [onboarded, touchStreak]);
 
   if (!onboarded) {
-    return (
-      <>
-        <AnimatedBackground />
-        <Onboarding />
-      </>
-    );
+    return <Onboarding />;
   }
 
   const isBirthday = location.pathname === '/birthday';
 
   return (
     <>
-      <AnimatedBackground />
       <MusicController />
       <main className="app-container">
         <AnimatePresence mode="wait">

@@ -40,31 +40,37 @@ src/
 │   ├── tokens.css         # מערכת עיצוב: צבעים, גרדיאנטים, מרווחים, טיפוגרפיה
 │   └── global.css         # איפוסים, RTL, utilities
 ├── store/
-│   └── useAppStore.ts     # Zustand + persist (localStorage)
+│   └── useAppStore.ts     # Zustand + persist (localStorage) + סנכרון ענן
+├── auth/
+│   └── AuthProvider.tsx   # Context: מצב התחברות, allow-list, הפעלת סנכרון
 ├── hooks/
 │   ├── useTheme.ts        # החלת מצב כהה/בהיר
 │   ├── useSound.ts        # אפקטים קוליים (Web Audio, ללא קבצים)
 │   └── useDailyQuestion.ts# שאלה יומית דטרמיניסטית
 ├── lib/
-│   └── date.ts            # פורמט תאריכים ישראלי
+│   ├── date.ts            # פורמט תאריכים ישראלי
+│   ├── firebase.ts        # אתחול Firebase מתוך משתני סביבה
+│   └── cloudSync.ts       # סנכרון דו-כיווני בין הסטור ל-Firestore
 ├── data/                  # תוכן: שאלות, קטגוריות, חידון, הישגים, יום הולדת
 ├── components/            # רכיבים משותפים (רקע, ניווט, אפקטים, UI)
 └── features/              # כל מסך הוא feature עצמאי
-    ├── onboarding/  home/  categories/  play/  journey/
+    ├── auth/  onboarding/  home/  categories/  play/  journey/
     ├── capsules/  quiz/  surprise/  achievements/  daily/
     └── settings/  birthday/
 ```
 
 ### החלטות מפתח
-- **HashRouter** — ניתוב יציב ב-GitHub Pages ללא צורך ב-`404.html`.
-- **Zustand + persist** — כל המצב נשמר ב-`localStorage` (מפתח `pairup-store-v1`).
+- **Firebase Auth + Firestore** — התחברות Google (allow-list), כל ההתקדמות בענן.
+- **HashRouter** — ניתוב יציב באחסון סטטי ללא צורך ב-`404.html`.
+- **Zustand + persist** — מטמון מקומי ב-`localStorage`; כשמחוברים, Firestore הוא
+  מקור האמת והנתונים מסתנכרנים אוטומטית (עם הגנה מפני לולאת echo).
 - **Web Audio API** — צלילים ומוזיקה נוצרים בקוד, אפס קבצי מדיה, עובד אופליין.
 - **Framer Motion** — אנימציות 60fps, מעברי עמודים, `layoutId` לניווט.
 - **CSS Variables** — מערכת עיצוב אחת, שני נושאים (כהה/בהיר), RTL מלא עם `inset-inline`.
 
 ---
 
-## 💾 מבנה האחסון (localStorage)
+## 💾 מבנה האחסון (localStorage כמטמון + Firestore כמקור אמת)
 
 ```ts
 {
@@ -90,19 +96,57 @@ npm run build      # בנייה לפרודקשן
 npm run preview    # תצוגה מקדימה של ה-build
 ```
 
-האפליקציה נטענת בכתובת `/-pairup/` (תואם לשם הריפו ב-GitHub Pages).
+לפני הרצה ראשונה יש להגדיר את Firebase (ראו למטה) וליצור קובץ `.env`.
 
 ---
 
-## 🌐 פריסה ל-GitHub Pages
+## 🔐 התחברות וסנכרון נתונים (Firebase)
 
-הפריסה אוטומטית דרך GitHub Actions (`.github/workflows/deploy.yml`):
+האפליקציה משתמשת ב-**Firebase Authentication** (התחברות עם Google, רק למשתמשים
+מאושרים מראש) וב-**Cloud Firestore** לשמירת כל ההתקדמות בענן וסנכרון בין מכשירים.
 
-1. ב-GitHub: **Settings → Pages → Source → GitHub Actions**.
-2. כל דחיפה לענף מפעילה build ופריסה.
-3. הכתובת: `https://<user>.github.io/-pairup/`.
+### הגדרה חד-פעמית
 
-> אם שם הריפו משתנה — יש לעדכן את `base` ב-`vite.config.ts` ואת הנתיבים ב-`index.html`.
+1. **צרו פרויקט** ב-[Firebase Console](https://console.firebase.google.com).
+2. **Authentication** → Sign-in method → הפעילו **Google**.
+3. **Firestore Database** → צרו מסד נתונים (Production mode).
+4. **Project settings → General → Your apps → Web app** → העתיקו את ערכי ה-SDK.
+5. בשורש הפרויקט: `cp .env.example .env` ומלאו את הערכים, כולל
+   `VITE_ALLOWED_EMAILS` — רשימת האימיילים (של Google) שמורשים להיכנס.
+   כל מי שמנסה להיכנס עם אימייל שלא ברשימה — נחסם אוטומטית.
+6. פרסמו את חוקי האבטחה של Firestore: `firebase deploy --only firestore:rules`
+   (הקובץ `firestore.rules` מתיר לכל משתמש לגשת רק למסמך שלו).
+
+> **"רק משתמשים קיימים":** עם התחברות Google אין הרשמה עצמית באפליקציה — הגישה
+> נשלטת לחלוטין דרך רשימת `VITE_ALLOWED_EMAILS`. כדי להוסיף משתמש, הוסיפו את
+> האימייל שלו לרשימה ובנו מחדש. כדי להסיר גישה — הסירו אותו מהרשימה.
+
+מבנה הנתונים ב-Firestore: מסמך אחד לכל משתמש בנתיב `users/{uid}` המכיל את כל
+שדות ההתקדמות (זכרונות, קפסולות, הישגים, העדפות וכו').
+
+---
+
+## 🌐 פריסה ל-Firebase Hosting
+
+**אפשרות א׳ — ידנית (הכי פשוט):**
+
+```bash
+npm install -g firebase-tools
+firebase login
+firebase use --add            # בחרו את הפרויקט שלכם (מעדכן את .firebaserc)
+npm run build
+firebase deploy --only hosting
+```
+
+הכתובת תהיה `https://<project-id>.web.app`.
+
+**אפשרות ב׳ — אוטומטית דרך GitHub Actions** (`.github/workflows/firebase-hosting.yml`):
+הוסיפו ב-GitHub תחת **Settings → Secrets and variables → Actions** את הסודות:
+`FIREBASE_SERVICE_ACCOUNT` (מפתח Service Account בפורמט JSON) וכן כל משתני
+`VITE_FIREBASE_*` ו-`VITE_ALLOWED_EMAILS`. כל דחיפה לענף תבנה ותפרוס אוטומטית.
+
+> הבנייה משתמשת ב-`base: './'` (נתיבים יחסיים), כך שהאפליקציה עובדת גם בכתובת
+> השורש של Firebase וגם בתת-נתיב — ללא שינויי קוד.
 
 ---
 
@@ -110,7 +154,8 @@ npm run preview    # תצוגה מקדימה של ה-build
 
 - **MVP** ✅ — אונבורדינג, קטגוריות, מצב תורות, זכרונות, שאלה יומית, מצב כהה/בהיר, PWA.
 - **גרסה מתקדמת** ✅ — קפסולות זמן, חידון תאימות, הישגים, מחולל הפתעות, מוזיקה, מצב יום הולדת.
-- **רעיונות לעתיד** — סנכרון ענן בין מכשירים, ייצוא אלבום זכרונות PDF, התראות יומיות, שיתוף קפסולות בקישור.
+- **ענן** ✅ — התחברות Google מאובטחת, סנכרון התקדמות בין מכשירים, פריסה ב-Firebase.
+- **רעיונות לעתיד** — ייצוא אלבום זכרונות PDF, התראות יומיות, שיתוף קפסולות בקישור.
 
 ---
 
