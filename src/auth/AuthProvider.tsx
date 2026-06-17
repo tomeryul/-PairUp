@@ -33,12 +33,6 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-const isMobile =
-  typeof navigator !== 'undefined' &&
-  (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-    (typeof matchMedia !== 'undefined' &&
-      matchMedia('(pointer: coarse)').matches));
-
 /** Map a Firebase auth error code to a clear Hebrew message. */
 function messageFor(code: string): string {
   switch (code) {
@@ -96,16 +90,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!auth) return;
     setError(null);
 
-    // Mobile browsers frequently block popups — redirect is far more reliable.
-    if (isMobile) {
-      try {
-        await signInWithRedirect(auth, googleProvider);
-      } catch (err: unknown) {
-        setError(messageFor((err as { code?: string }).code ?? ''));
-      }
-      return;
-    }
-
+    // Popup is the most reliable method when the app's domain differs from
+    // Firebase's auth domain (e.g. github.io vs firebaseapp.com): the result
+    // returns to the same page via postMessage, so it isn't lost to mobile
+    // browser storage partitioning the way signInWithRedirect is.
     try {
       await signInWithPopup(auth, googleProvider);
     } catch (err: unknown) {
@@ -114,7 +102,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return; // user dismissed
       }
       if (code === 'auth/popup-blocked') {
-        // Fall back to redirect.
+        // Last resort on browsers that block popups outright.
         try {
           await signInWithRedirect(auth, googleProvider);
           return;
