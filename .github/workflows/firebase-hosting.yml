@@ -1,8 +1,9 @@
 name: Deploy to Firebase Hosting
 
+# Optional: deploy to Firebase Hosting instead of / in addition to GitHub Pages.
+# Manual trigger only — requires the FIREBASE_SERVICE_ACCOUNT secret to be set.
+# (GitHub Pages auto-deploy in deploy.yml is the default hosting.)
 on:
-  push:
-    branches: ['main', 'claude/couples-conversation-app-io4ft8']
   workflow_dispatch:
 
 jobs:
