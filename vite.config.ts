@@ -3,8 +3,10 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import path from 'node:path';
 
-// GitHub Pages project site base path. Repo name is "-pairup".
-const base = '/-pairup/';
+// Use a relative base so the app works on GitHub Pages regardless of the
+// repository name's casing (the repo is "-PairUp"). HashRouter keeps client
+// routing working with a relative base.
+const base = './';
 
 export default defineConfig({
   base,
@@ -28,8 +30,8 @@ export default defineConfig({
         background_color: '#0f0a1e',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: base,
-        scope: base,
+        start_url: './',
+        scope: './',
         icons: [
           {
             src: 'pwa-192.png',
