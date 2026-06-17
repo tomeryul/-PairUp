@@ -6,8 +6,10 @@ import {
   type ReactNode,
 } from 'react';
 import {
+  getRedirectResult,
   onAuthStateChanged,
   signInWithPopup,
+  signInWithRedirect,
   signOut,
   type User,
 } from 'firebase/auth';
@@ -31,6 +33,28 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
+const isMobile =
+  typeof navigator !== 'undefined' &&
+  (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    (typeof matchMedia !== 'undefined' &&
+      matchMedia('(pointer: coarse)').matches));
+
+/** Map a Firebase auth error code to a clear Hebrew message. */
+function messageFor(code: string): string {
+  switch (code) {
+    case 'auth/unauthorized-domain':
+      return 'הדומיין הזה לא מאושר ב-Firebase. יש להוסיף את tomeryul.github.io תחת Authentication ← Settings ← Authorized domains.';
+    case 'auth/operation-not-allowed':
+      return 'התחברות Google אינה מופעלת ב-Firebase (Authentication ← Sign-in method).';
+    case 'auth/network-request-failed':
+      return 'בעיית רשת. בדקו את החיבור לאינטרנט ונסו שוב.';
+    case 'auth/popup-blocked':
+      return 'הדפדפן חסם את חלון ההתחברות. מנסה בדרך אחרת...';
+    default:
+      return `ההתחברות נכשלה${code ? ` (${code})` : ''}. נסו שוב.`;
+  }
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<AuthStatus>(
     firebaseEnabled ? 'loading' : 'unconfigured',
@@ -41,6 +65,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!firebaseEnabled || !auth) return;
     const a = auth;
+
+    // Complete any redirect-based sign-in and surface its errors.
+    getRedirectResult(a).catch((err: { code?: string }) => {
+      setError(messageFor(err.code ?? ''));
+    });
+
     const unsub = onAuthStateChanged(a, async (u) => {
       if (!u) {
         stopCloudSync();
@@ -49,7 +79,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return;
       }
       if (!isEmailAllowed(u.email)) {
-        // Not on the allow-list — reject and sign out.
         setError('המשתמש הזה לא מורשה להיכנס לאפליקציה.');
         setStatus('denied');
         await signOut(a);
@@ -66,14 +95,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signIn = async () => {
     if (!auth) return;
     setError(null);
+
+    // Mobile browsers frequently block popups — redirect is far more reliable.
+    if (isMobile) {
+      try {
+        await signInWithRedirect(auth, googleProvider);
+      } catch (err: unknown) {
+        setError(messageFor((err as { code?: string }).code ?? ''));
+      }
+      return;
+    }
+
     try {
       await signInWithPopup(auth, googleProvider);
     } catch (err: unknown) {
       const code = (err as { code?: string }).code ?? '';
       if (code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request') {
-        return; // user dismissed — not an error worth showing
+        return; // user dismissed
       }
-      setError('ההתחברות נכשלה. נסו שוב.');
+      if (code === 'auth/popup-blocked') {
+        // Fall back to redirect.
+        try {
+          await signInWithRedirect(auth, googleProvider);
+          return;
+        } catch (err2: unknown) {
+          setError(messageFor((err2 as { code?: string }).code ?? ''));
+          return;
+        }
+      }
+      setError(messageFor(code));
       console.error('[auth] signIn failed', err);
     }
   };
