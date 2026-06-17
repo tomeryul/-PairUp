@@ -1,0 +1,108 @@
+.home {
+  padding-top: calc(var(--safe-top) + var(--s-6));
+}
+
+.home__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin-bottom: var(--s-5);
+}
+.home__greeting {
+  color: var(--text-2);
+  font-size: var(--t-lg);
+}
+.home__names {
+  font-size: var(--t-2xl);
+  line-height: 1.1;
+}
+.home__amp {
+  color: var(--brand-rose);
+  font-family: var(--font-display);
+}
+.home__secret {
+  font-size: 1.7rem;
+  padding: 6px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 14px rgba(255, 107, 157, 0.5));
+}
+
+.home__stats {
+  display: flex;
+  gap: var(--s-2);
+  margin-bottom: var(--s-5);
+}
+
+.home__daily {
+  display: block;
+  padding: var(--s-5);
+  margin-bottom: var(--s-5);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--dur-base) var(--ease-spring);
+}
+.home__daily:active {
+  transform: scale(0.98);
+}
+.home__daily-head {
+  margin-bottom: var(--s-3);
+}
+.home__daily-chip {
+  background: var(--grad-romance);
+  color: #fff;
+  border: none;
+}
+.home__daily-q {
+  font-family: var(--font-display);
+  font-size: var(--t-xl);
+  line-height: 1.35;
+  color: var(--text-1);
+  margin-bottom: var(--s-3);
+}
+.home__daily-cta {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--brand-rose);
+}
+
+.home__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-3);
+}
+
+.home__tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  height: 100%;
+  min-height: 124px;
+  border-radius: var(--r-lg);
+  transition: transform var(--dur-base) var(--ease-spring);
+}
+.home__tile:active {
+  transform: scale(0.96);
+}
+.home__tile--wide {
+  flex-direction: row;
+  align-items: center;
+  min-height: auto;
+}
+.home__tile-emoji {
+  font-size: 2rem;
+}
+.home__tile-text {
+  display: flex;
+  flex-direction: column;
+}
+.home__tile-title {
+  font-weight: 700;
+  font-size: var(--t-lg);
+  color: var(--text-1);
+}
+.home__tile-sub {
+  font-size: var(--t-sm);
+  color: var(--text-2);
+}

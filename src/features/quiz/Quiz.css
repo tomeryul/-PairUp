@@ -1,0 +1,109 @@
+.quiz__card {
+  padding: var(--s-6) var(--s-5);
+  border-radius: var(--r-xl);
+  text-align: center;
+}
+.quiz__emoji {
+  font-size: 3.5rem;
+  margin-bottom: var(--s-4);
+}
+.quiz__intro {
+  color: var(--text-2);
+  font-size: var(--t-lg);
+  line-height: 1.6;
+  margin-bottom: var(--s-6);
+}
+
+.quiz__progress {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--t-xs);
+  color: var(--text-3);
+  font-weight: 600;
+  margin-bottom: var(--s-4);
+}
+.quiz__turn {
+  font-size: var(--t-sm);
+  font-weight: 700;
+  color: var(--brand-rose);
+  margin-bottom: var(--s-2);
+}
+.quiz__q {
+  font-family: var(--font-display);
+  font-size: var(--t-xl);
+  color: var(--text-1);
+  margin-bottom: var(--s-5);
+  line-height: 1.4;
+}
+
+.quiz__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin-bottom: var(--s-4);
+}
+.quiz__opt {
+  padding: 15px 18px;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  border: 1.5px solid var(--surface-border);
+  color: var(--text-1);
+  font-weight: 600;
+  font-size: var(--t-base);
+  text-align: start;
+  transition: all var(--dur-fast) var(--ease-soft);
+}
+.quiz__opt:active {
+  transform: scale(0.98);
+}
+.quiz__opt.is-guessed {
+  border-color: var(--brand-violet);
+  background: rgba(160, 107, 255, 0.14);
+}
+.quiz__opt.is-correct {
+  border-color: #4ade80;
+  background: rgba(74, 222, 128, 0.16);
+  color: var(--text-1);
+}
+.quiz__opt.is-wrong {
+  border-color: var(--brand-rose);
+  background: rgba(255, 107, 157, 0.12);
+  opacity: 0.7;
+}
+
+/* Done */
+.quiz__done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.quiz__score-ring {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background: var(--grad-romance);
+  box-shadow: var(--shadow-glow);
+  margin-bottom: var(--s-5);
+}
+.quiz__score-num {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+.quiz__score-label {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--t-sm);
+}
+.quiz__verdict {
+  font-size: var(--t-2xl);
+  margin-bottom: var(--s-2);
+}
+.quiz__verdict-sub {
+  color: var(--text-2);
+  margin-bottom: var(--s-6);
+}

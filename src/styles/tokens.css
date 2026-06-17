@@ -1,0 +1,105 @@
+/* ============================================================
+   PairUp — Design Tokens
+   A single source of truth for the design system.
+   ============================================================ */
+
+:root {
+  /* ---- Brand palette ---- */
+  --brand-rose: #ff6b9d;
+  --brand-rose-soft: #ff9ec1;
+  --brand-violet: #a06bff;
+  --brand-violet-soft: #c79bff;
+  --brand-gold: #ffcf73;
+  --brand-coral: #ff8e6e;
+
+  /* ---- Gradients ---- */
+  --grad-romance: linear-gradient(135deg, #ff6b9d 0%, #a06bff 100%);
+  --grad-sunset: linear-gradient(135deg, #ff8e6e 0%, #ff6b9d 55%, #a06bff 100%);
+  --grad-dawn: linear-gradient(135deg, #ffcf73 0%, #ff8e6e 50%, #ff6b9d 100%);
+  --grad-aurora: linear-gradient(135deg, #a06bff 0%, #6bb9ff 100%);
+
+  /* ---- Radii ---- */
+  --r-xs: 10px;
+  --r-sm: 14px;
+  --r-md: 20px;
+  --r-lg: 28px;
+  --r-xl: 36px;
+  --r-pill: 999px;
+
+  /* ---- Spacing scale ---- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+
+  /* ---- Typography ---- */
+  --font-ui: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Frank Ruhl Libre', 'Heebo', serif;
+
+  --t-xs: 0.78rem;
+  --t-sm: 0.9rem;
+  --t-base: 1rem;
+  --t-lg: 1.18rem;
+  --t-xl: 1.5rem;
+  --t-2xl: 2rem;
+  --t-3xl: 2.7rem;
+  --t-4xl: 3.6rem;
+
+  /* ---- Motion ---- */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 0.18s;
+  --dur-base: 0.32s;
+  --dur-slow: 0.6s;
+
+  /* ---- Layout ---- */
+  --maxw: 560px;
+  --nav-h: 74px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ---- Dark theme (default) ---- */
+:root,
+[data-theme='dark'] {
+  --bg-0: #0c0718;
+  --bg-1: #140c28;
+  --bg-2: #1c1338;
+
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.1);
+  --surface-border: rgba(255, 255, 255, 0.12);
+  --surface-border-strong: rgba(255, 255, 255, 0.2);
+
+  --text-1: #f6f2ff;
+  --text-2: rgba(246, 242, 255, 0.72);
+  --text-3: rgba(246, 242, 255, 0.45);
+
+  --shadow-card: 0 18px 50px -22px rgba(0, 0, 0, 0.75);
+  --shadow-glow: 0 0 60px -10px rgba(160, 107, 255, 0.45);
+  --blur: 22px;
+}
+
+/* ---- Light theme ---- */
+[data-theme='light'] {
+  --bg-0: #fff5f8;
+  --bg-1: #ffeaf2;
+  --bg-2: #f3e8ff;
+
+  --surface: rgba(255, 255, 255, 0.62);
+  --surface-strong: rgba(255, 255, 255, 0.82);
+  --surface-border: rgba(160, 107, 255, 0.16);
+  --surface-border-strong: rgba(160, 107, 255, 0.3);
+
+  --text-1: #2a1640;
+  --text-2: rgba(42, 22, 64, 0.7);
+  --text-3: rgba(42, 22, 64, 0.45);
+
+  --shadow-card: 0 18px 40px -24px rgba(160, 107, 255, 0.5);
+  --shadow-glow: 0 0 50px -12px rgba(255, 107, 157, 0.4);
+  --blur: 20px;
+}

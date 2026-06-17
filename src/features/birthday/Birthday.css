@@ -1,0 +1,237 @@
+.bday {
+  position: relative;
+  min-height: 100dvh;
+  background: radial-gradient(
+      120% 90% at 50% 0%,
+      rgba(255, 107, 157, 0.25),
+      transparent 60%
+    ),
+    radial-gradient(100% 80% at 50% 100%, rgba(160, 107, 255, 0.25), transparent 60%),
+    var(--bg-0);
+  overflow: hidden;
+}
+
+.bday__hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.bday__heart {
+  position: absolute;
+  top: 0;
+}
+
+.bday__exit {
+  position: fixed;
+  top: calc(var(--safe-top) + 14px);
+  inset-inline-end: 16px;
+  z-index: 70;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  backdrop-filter: blur(var(--blur));
+  color: var(--text-1);
+  font-size: 1.1rem;
+}
+
+.bday__content {
+  position: relative;
+  z-index: 10;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: calc(var(--safe-top) + var(--s-7))
+    calc(var(--safe-bottom) + var(--s-7));
+}
+
+.bday__section {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-5);
+}
+
+/* Greeting */
+.bday__cake {
+  font-size: 6rem;
+  filter: drop-shadow(0 16px 40px rgba(255, 107, 157, 0.5));
+}
+.bday__hi {
+  font-size: var(--t-xl);
+  color: var(--text-2);
+}
+.bday__name {
+  font-size: var(--t-4xl);
+  background: var(--grad-dawn);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.05;
+}
+.bday__sub {
+  font-size: var(--t-lg);
+  color: var(--text-2);
+  max-width: 30ch;
+}
+
+/* Headings */
+.bday__h2 {
+  font-size: var(--t-2xl);
+  margin-bottom: var(--s-2);
+}
+
+/* Letter */
+.bday__letter {
+  padding: var(--s-6) var(--s-5);
+  border-radius: var(--r-xl);
+  text-align: start;
+}
+.bday__letter p {
+  font-family: var(--font-display);
+  font-size: var(--t-lg);
+  line-height: 1.75;
+  color: var(--text-1);
+  white-space: pre-line;
+  margin-bottom: var(--s-4);
+}
+.bday__letter p:last-child {
+  margin-bottom: 0;
+}
+
+/* Why I love you */
+.bday__why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-3);
+  width: 100%;
+}
+.bday__why {
+  padding: var(--s-5) var(--s-4);
+  border-radius: var(--r-lg);
+  text-align: center;
+}
+.bday__why-emoji {
+  font-size: 2.4rem;
+}
+.bday__why-title {
+  font-size: var(--t-lg);
+  margin: var(--s-2) 0;
+}
+.bday__why-body {
+  font-size: var(--t-sm);
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+/* Timeline */
+.bday__timeline {
+  width: 100%;
+  position: relative;
+  padding-inline-start: 36px;
+  text-align: start;
+}
+.bday__timeline::before {
+  content: '';
+  position: absolute;
+  inset-block: 16px;
+  inset-inline-start: 17px;
+  width: 2px;
+  background: linear-gradient(var(--brand-gold), var(--brand-rose), var(--brand-violet));
+}
+.bday__milestone {
+  position: relative;
+  margin-bottom: var(--s-4);
+}
+.bday__milestone-emoji {
+  position: absolute;
+  inset-inline-start: -36px;
+  top: 4px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: var(--bg-1);
+  border: 2px solid var(--brand-rose);
+  border-radius: var(--r-pill);
+}
+.bday__milestone-card {
+  padding: var(--s-4);
+  border-radius: var(--r-md);
+}
+.bday__milestone-date {
+  font-size: var(--t-xs);
+  color: var(--brand-rose);
+  font-weight: 700;
+}
+.bday__milestone-title {
+  font-size: var(--t-lg);
+  margin: 2px 0 4px;
+}
+.bday__milestone-desc {
+  font-size: var(--t-sm);
+  color: var(--text-2);
+}
+
+/* Final */
+.bday__final {
+  position: relative;
+}
+.bday__final-glow {
+  position: absolute;
+  top: -10%;
+  inset-inline: 0;
+  margin-inline: auto;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: var(--grad-romance);
+  filter: blur(80px);
+  z-index: -1;
+}
+.bday__final-emoji {
+  font-size: 5rem;
+}
+.bday__final-title {
+  font-size: var(--t-3xl);
+}
+.bday__final-msg {
+  font-family: var(--font-display);
+  font-size: var(--t-lg);
+  line-height: 1.7;
+  color: var(--text-1);
+  max-width: 36ch;
+}
+.bday__final-sign {
+  font-size: var(--t-lg);
+  color: var(--brand-rose);
+  font-weight: 600;
+}
+
+/* Progress dots */
+.bday__progress {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: var(--s-6);
+}
+.bday__progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--surface-border-strong);
+}
+.bday__progress-dot.is-active {
+  background: var(--grad-romance);
+  width: 22px;
+}
+
+@media (min-width: 420px) {
+  .bday__cake {
+    font-size: 7rem;
+  }
+}
