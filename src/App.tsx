@@ -15,6 +15,7 @@ import {
 } from '@/features/auth/AuthScreens';
 import { Onboarding } from '@/features/onboarding/Onboarding';
 import { Home } from '@/features/home/Home';
+import { DateSession } from '@/features/datesession/DateSession';
 import { Categories } from '@/features/categories/Categories';
 import { PlaySession } from '@/features/play/PlaySession';
 import { Journey } from '@/features/journey/Journey';
@@ -79,6 +80,7 @@ function MainApp() {
           >
             <Routes location={location}>
               <Route path="/" element={<Home />} />
+              <Route path="/date" element={<DateSession />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/play/:categoryId" element={<PlaySession />} />
               <Route path="/journey" element={<Journey />} />

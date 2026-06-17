@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type {
   Capsule,
+  DateSessionRecord,
   ProgressSnapshot,
   SavedItem,
   ThemeMode,
@@ -21,6 +22,7 @@ interface AppState {
   /* couple journey */
   saved: SavedItem[];
   capsules: Capsule[];
+  sessions: DateSessionRecord[];
 
   /* progress */
   answeredCount: number;
@@ -47,6 +49,11 @@ interface AppState {
   openCapsule: (id: string) => void;
   removeCapsule: (id: string) => void;
 
+  /** Save a finished date session; returns its id. */
+  addSession: (s: Omit<DateSessionRecord, 'id' | 'createdAt'>) => string;
+  setSessionScore: (id: string, gptScore: number) => void;
+  removeSession: (id: string) => void;
+
   incrementAnswered: (by?: number) => void;
   recordQuiz: (scorePercent: number) => void;
   touchStreak: () => void;
@@ -68,6 +75,7 @@ export interface CloudState {
   musicEnabled: boolean;
   saved: SavedItem[];
   capsules: Capsule[];
+  sessions: DateSessionRecord[];
   answeredCount: number;
   quizPlays: number;
   bestQuizScore: number;
@@ -84,6 +92,7 @@ export const CLOUD_KEYS: (keyof CloudState)[] = [
   'musicEnabled',
   'saved',
   'capsules',
+  'sessions',
   'answeredCount',
   'quizPlays',
   'bestQuizScore',
@@ -103,6 +112,7 @@ export const getCloudState = (): CloudState => {
     musicEnabled: s.musicEnabled,
     saved: s.saved,
     capsules: s.capsules,
+    sessions: s.sessions,
     answeredCount: s.answeredCount,
     quizPlays: s.quizPlays,
     bestQuizScore: s.bestQuizScore,
@@ -124,6 +134,7 @@ export const useAppStore = create<AppState>()(
       musicEnabled: false,
       saved: [],
       capsules: [],
+      sessions: [],
       answeredCount: 0,
       quizPlays: 0,
       bestQuizScore: 0,
@@ -166,6 +177,22 @@ export const useAppStore = create<AppState>()(
       removeCapsule: (id) =>
         set((s) => ({ capsules: s.capsules.filter((c) => c.id !== id) })),
 
+      addSession: (sess) => {
+        const id = uid();
+        set((s) => ({
+          sessions: [{ ...sess, id, createdAt: Date.now() }, ...s.sessions],
+        }));
+        return id;
+      },
+      setSessionScore: (id, gptScore) =>
+        set((s) => ({
+          sessions: s.sessions.map((x) =>
+            x.id === id ? { ...x, gptScore } : x,
+          ),
+        })),
+      removeSession: (id) =>
+        set((s) => ({ sessions: s.sessions.filter((x) => x.id !== id) })),
+
       incrementAnswered: (by = 1) =>
         set((s) => ({ answeredCount: s.answeredCount + by })),
 
@@ -202,6 +229,7 @@ export const useAppStore = create<AppState>()(
         set({
           saved: [],
           capsules: [],
+          sessions: [],
           answeredCount: 0,
           quizPlays: 0,
           bestQuizScore: 0,

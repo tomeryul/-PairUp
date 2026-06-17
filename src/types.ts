@@ -87,3 +87,21 @@ export interface LoveCard {
   title: string;
   body: string;
 }
+
+/** A single question answered by both partners during a date session. */
+export interface SessionQA {
+  q: string;
+  a: string;
+  b: string;
+}
+
+/** A completed (or in-progress) date session, saved to the couple's history. */
+export interface DateSessionRecord {
+  id: string;
+  createdAt: number;
+  daresDone: number;
+  daresTotal: number;
+  qa: SessionQA[];
+  /** Compatibility score (0–100) returned by ChatGPT and entered manually. */
+  gptScore: number | null;
+}

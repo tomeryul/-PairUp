@@ -17,7 +17,7 @@ const greetingForHour = () => {
 };
 
 const features = [
-  { to: '/categories', emoji: '💬', title: 'שאלות', sub: 'בחרו קטגוריה', span: 2 },
+  { to: '/categories', emoji: '💬', title: 'שאלות', sub: 'בחרו קטגוריה' },
   { to: '/quiz', emoji: '🧠', title: 'חידון היכרות', sub: 'נחשו תשובות' },
   { to: '/surprise', emoji: '🎲', title: 'הפתעה', sub: 'אתגר רומנטי' },
   { to: '/journey', emoji: '💝', title: 'המסע שלנו', sub: 'זכרונות' },
@@ -76,6 +76,16 @@ export function Home() {
         <div className="chip">💬 {answered} שאלות</div>
       </div>
 
+      <Link to="/date" className="home__date" onClick={() => play('sparkle')}>
+        <div className="home__date-glow" />
+        <div className="home__date-content">
+          <span className="home__date-eyebrow">החוויה המלאה</span>
+          <h2 className="home__date-title">התחילו דייט 🔥</h2>
+          <p className="home__date-sub">שאלות, אתגרים וציון התאמה בסוף</p>
+        </div>
+        <span className="home__date-arrow">←</span>
+      </Link>
+
       <Link to="/daily" className="home__daily glass" onClick={() => play('tap')}>
         <div className="home__daily-head">
           <span className="chip home__daily-chip">
@@ -93,11 +103,10 @@ export function Home() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 * i, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            style={{ gridColumn: f.span === 2 ? 'span 2' : undefined }}
           >
             <Link
               to={f.to}
-              className={`home__tile glass${f.span === 2 ? ' home__tile--wide' : ''}`}
+              className="home__tile glass"
               onClick={() => play('tap')}
             >
               <span className="home__tile-emoji">{f.emoji}</span>

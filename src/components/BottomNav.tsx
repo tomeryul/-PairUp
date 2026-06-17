@@ -5,9 +5,9 @@ import './BottomNav.css';
 
 const items = [
   { to: '/', label: 'בית', icon: HomeIcon, end: true },
+  { to: '/date', label: 'דייט', icon: SparkIcon },
   { to: '/categories', label: 'שאלות', icon: ChatIcon },
   { to: '/journey', label: 'המסע', icon: HeartIcon },
-  { to: '/capsules', label: 'קפסולות', icon: CapsuleIcon },
   { to: '/settings', label: 'עוד', icon: GridIcon },
 ];
 
@@ -88,19 +88,16 @@ function HeartIcon() {
     </svg>
   );
 }
-function CapsuleIcon() {
+function SparkIcon() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-      <rect
-        x="5"
-        y="3"
-        width="14"
-        height="18"
-        rx="4"
+      <path
+        d="M12 3l1.8 4.9L18.7 9.7l-4.9 1.8L12 16.4l-1.8-4.9L5.3 9.7l4.9-1.8L12 3z"
         stroke="currentColor"
-        strokeWidth="1.8"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
       />
-      <path d="M9 8h6M12 12v5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M18.5 15l.8 2.1 2.1.8-2.1.8-.8 2.1-.8-2.1-2.1-.8 2.1-.8.8-2.1z" fill="currentColor" />
     </svg>
   );
 }

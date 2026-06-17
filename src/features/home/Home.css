@@ -34,6 +34,58 @@
   margin-bottom: var(--s-5);
 }
 
+.home__date {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  margin-bottom: var(--s-4);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--grad-sunset);
+  box-shadow: 0 16px 40px -16px rgba(255, 107, 157, 0.7);
+  transition: transform var(--dur-base) var(--ease-spring);
+}
+.home__date:active {
+  transform: scale(0.98);
+}
+.home__date-glow {
+  position: absolute;
+  inset-block: -50%;
+  inset-inline-end: -20%;
+  width: 60%;
+  background: rgba(255, 255, 255, 0.25);
+  filter: blur(40px);
+}
+.home__date-content {
+  position: relative;
+  flex: 1;
+  color: #fff;
+}
+.home__date-eyebrow {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  opacity: 0.85;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.home__date-title {
+  font-size: var(--t-2xl);
+  color: #fff;
+  margin: 2px 0;
+}
+.home__date-sub {
+  font-size: var(--t-sm);
+  opacity: 0.92;
+}
+.home__date-arrow {
+  position: relative;
+  font-size: var(--t-2xl);
+  color: #fff;
+  font-weight: 700;
+}
+
 .home__daily {
   display: block;
   padding: var(--s-5);

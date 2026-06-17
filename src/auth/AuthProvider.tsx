@@ -57,6 +57,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Dev-only bypass for local UI testing without Google sign-in.
+    // Inert in production builds (import.meta.env.DEV is false there).
+    if (import.meta.env.DEV && import.meta.env.VITE_AUTH_BYPASS === '1') {
+      setUser({ uid: 'dev', email: 'dev@pairup.local', displayName: 'Dev' } as User);
+      setStatus('signed-in');
+      return;
+    }
     if (!firebaseEnabled || !auth) return;
     const a = auth;
 
