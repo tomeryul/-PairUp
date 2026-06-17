@@ -104,4 +104,12 @@ export interface DateSessionRecord {
   qa: SessionQA[];
   /** Compatibility score (0–100) returned by ChatGPT and entered manually. */
   gptScore: number | null;
+  /** ISO day (yyyy-mm-dd) of the actual date, if set. */
+  date?: string;
+  /** What the date was for, e.g. "יום שנה". */
+  occasion?: string;
+  /** Free-text description of what they ate. */
+  mealDesc?: string;
+  /** Small resized photo of the meal, as a data URL. */
+  mealPhoto?: string;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
@@ -8,7 +8,8 @@ import { useSound } from '@/hooks/useSound';
 import { questions } from '@/data/questions';
 import { dares, type Dare } from '@/data/dares';
 import { buildGptPrompt, chatGptUrl } from '@/lib/gptPrompt';
-import { formatDate } from '@/lib/date';
+import { fileToThumbnail } from '@/lib/image';
+import { dayKey, formatDate } from '@/lib/date';
 import type { SessionQA } from '@/types';
 import './DateSession.css';
 
@@ -53,12 +54,14 @@ export function DateSession() {
   const names = useAppStore((s) => s.names);
   const sessions = useAppStore((s) => s.sessions);
   const addSession = useAppStore((s) => s.addSession);
-  const setSessionScore = useAppStore((s) => s.setSessionScore);
+  const updateSession = useAppStore((s) => s.updateSession);
   const incrementAnswered = useAppStore((s) => s.incrementAnswered);
   const play = useSound();
 
   const [phase, setPhase] = useState<Phase>('intro');
   const [length, setLength] = useState(6);
+  const [dateOf, setDateOf] = useState<string>(dayKey());
+  const [occasion, setOccasion] = useState('');
   const [plan, setPlan] = useState<Round[]>([]);
   const [idx, setIdx] = useState(0);
   const [qsub, setQsub] = useState<QSub>('a');
@@ -66,6 +69,7 @@ export function DateSession() {
   const [answerB, setAnswerB] = useState('');
   const [qa, setQa] = useState<SessionQA[]>([]);
   const [daresDone, setDaresDone] = useState(0);
+  const [paused, setPaused] = useState(false);
   const [burst, setBurst] = useState(0);
 
   const daresTotal = useMemo(
@@ -109,6 +113,10 @@ export function DateSession() {
           names={names}
           length={length}
           setLength={setLength}
+          dateOf={dateOf}
+          setDateOf={setDateOf}
+          occasion={occasion}
+          setOccasion={setOccasion}
           onStart={start}
           sessions={sessions}
         />
@@ -124,6 +132,16 @@ export function DateSession() {
                 style={{ width: `${((idx + 1) / plan.length) * 100}%` }}
               />
             </div>
+            <button
+              className="date__pause-btn"
+              onClick={() => {
+                play('tap');
+                setPaused(true);
+              }}
+              aria-label="הפסקה"
+            >
+              ⏸︎
+            </button>
           </div>
 
           <AnimatePresence mode="wait">
@@ -233,6 +251,46 @@ export function DateSession() {
               </motion.div>
             )}
           </AnimatePresence>
+
+          <AnimatePresence>
+            {paused && (
+              <motion.div
+                className="date__pause"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <motion.div
+                  className="date__pause-card glass"
+                  initial={{ scale: 0.9, y: 20 }}
+                  animate={{ scale: 1, y: 0 }}
+                  exit={{ scale: 0.95, opacity: 0 }}
+                >
+                  <motion.div
+                    className="date__pause-emoji"
+                    animate={{ rotate: [0, 8, -8, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    🍽️
+                  </motion.div>
+                  <h2 className="date__pause-title">הפסקה</h2>
+                  <p className="date__pause-text">
+                    קחו את הזמן — תאכלו, תנשמו, תיהנו אחד מהשני. הסשן מחכה לכם.
+                  </p>
+                  <Button
+                    block
+                    size="lg"
+                    onClick={() => {
+                      play('reveal');
+                      setPaused(false);
+                    }}
+                  >
+                    ממשיכים ←
+                  </Button>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
 
@@ -242,8 +300,10 @@ export function DateSession() {
           qa={qa}
           daresDone={daresDone}
           daresTotal={daresTotal}
+          dateOf={dateOf}
+          occasion={occasion}
           addSession={addSession}
-          setSessionScore={setSessionScore}
+          updateSession={updateSession}
           previousBest={sessions.find((s) => s.gptScore != null)?.gptScore ?? null}
           onRestart={() => {
             play('tap');
@@ -260,12 +320,20 @@ function IntroView({
   names,
   length,
   setLength,
+  dateOf,
+  setDateOf,
+  occasion,
+  setOccasion,
   onStart,
   sessions,
 }: {
   names: { a: string; b: string };
   length: number;
   setLength: (n: number) => void;
+  dateOf: string;
+  setDateOf: (s: string) => void;
+  occasion: string;
+  setOccasion: (s: string) => void;
   onStart: () => void;
   sessions: ReturnType<typeof useAppStore.getState>['sessions'];
 }) {
@@ -283,6 +351,29 @@ function IntroView({
         <p className="date__intro-text">
           {names.a} ו{names.b}, מוכנים? בחרו אורך סשן והתחילו.
         </p>
+
+        <div className="date__fields">
+          <label className="field date__field">
+            <span className="field__label">תאריך הדייט</span>
+            <input
+              className="input"
+              type="date"
+              value={dateOf}
+              onChange={(e) => setDateOf(e.target.value)}
+            />
+          </label>
+          <label className="field date__field">
+            <span className="field__label">לכבוד מה? (לא חובה)</span>
+            <input
+              className="input"
+              value={occasion}
+              onChange={(e) => setOccasion(e.target.value)}
+              placeholder="יום שנה, סתם ערב טוב..."
+              maxLength={50}
+            />
+          </label>
+        </div>
+
         <div className="date__lengths">
           {[
             { n: 4, label: 'קצר' },
@@ -324,7 +415,18 @@ function IntroView({
           <div className="date__history-list">
             {sessions.slice(0, 6).map((s) => (
               <div key={s.id} className="date__history-row glass">
-                <span className="date__history-date">{formatDate(s.createdAt)}</span>
+                {s.mealPhoto && (
+                  <img className="date__history-photo" src={s.mealPhoto} alt="" />
+                )}
+                <div className="date__history-info">
+                  <span className="date__history-date">
+                    {formatDate(s.date ?? s.createdAt)}
+                    {s.occasion ? ` · ${s.occasion}` : ''}
+                  </span>
+                  {(s.mealDesc || s.mealPhoto) && (
+                    <span className="date__history-meal">🍽️ {s.mealDesc || 'תיעדנו את הארוחה'}</span>
+                  )}
+                </div>
                 <span className="date__history-meta">
                   🔥 {s.daresDone}/{s.daresTotal}
                   {s.gptScore != null && <> · 💞 {s.gptScore}</>}
@@ -344,8 +446,10 @@ function SummaryView({
   qa,
   daresDone,
   daresTotal,
+  dateOf,
+  occasion,
   addSession,
-  setSessionScore,
+  updateSession,
   previousBest,
   onRestart,
 }: {
@@ -353,8 +457,10 @@ function SummaryView({
   qa: SessionQA[];
   daresDone: number;
   daresTotal: number;
+  dateOf: string;
+  occasion: string;
   addSession: ReturnType<typeof useAppStore.getState>['addSession'];
-  setSessionScore: ReturnType<typeof useAppStore.getState>['setSessionScore'];
+  updateSession: ReturnType<typeof useAppStore.getState>['updateSession'];
   previousBest: number | null;
   onRestart: () => void;
 }) {
@@ -366,13 +472,45 @@ function SummaryView({
   const [score, setScore] = useState('');
   const [savedScore, setSavedScore] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
+  const [mealDesc, setMealDesc] = useState('');
+  const [mealPhoto, setMealPhoto] = useState<string | null>(null);
+  const [photoBusy, setPhotoBusy] = useState(false);
 
   // Auto-save the session once when the summary opens.
   useEffect(() => {
     if (sessionIdRef.current) return;
-    sessionIdRef.current = addSession({ daresDone, daresTotal, qa, gptScore: null });
+    sessionIdRef.current = addSession({
+      daresDone,
+      daresTotal,
+      qa,
+      gptScore: null,
+      date: dateOf,
+      occasion: occasion.trim() || undefined,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const persistMealDesc = () => {
+    if (sessionIdRef.current) {
+      updateSession(sessionIdRef.current, { mealDesc: mealDesc.trim() || undefined });
+    }
+  };
+
+  const onPhoto = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !sessionIdRef.current) return;
+    setPhotoBusy(true);
+    try {
+      const thumb = await fileToThumbnail(file);
+      setMealPhoto(thumb);
+      updateSession(sessionIdRef.current, { mealPhoto: thumb });
+      play('pop');
+    } catch {
+      /* ignore unreadable images */
+    } finally {
+      setPhotoBusy(false);
+    }
+  };
 
   const prompt = useMemo(() => buildGptPrompt(names, qa), [names, qa]);
 
@@ -395,7 +533,7 @@ function SummaryView({
     const n = Math.max(0, Math.min(100, parseInt(score, 10)));
     if (Number.isNaN(n) || !sessionIdRef.current) return;
     play('success');
-    setSessionScore(sessionIdRef.current, n);
+    updateSession(sessionIdRef.current, { gptScore: n });
     setSavedScore(n);
   };
 
@@ -405,7 +543,10 @@ function SummaryView({
 
   return (
     <div className="date__summary">
-      <PageHeader eyebrow="כל הכבוד 💛" title="סיכום הדייט" />
+      <PageHeader
+        eyebrow={occasion.trim() ? `לכבוד ${occasion.trim()} 💛` : 'כל הכבוד 💛'}
+        title="סיכום הדייט"
+      />
 
       <div className="date__stats glass">
         <div className="date__stat">
@@ -461,6 +602,32 @@ function SummaryView({
             )}
             {delta === 0 && <div className="date__result-delta">בדיוק כמו קודם 💫</div>}
           </motion.div>
+        )}
+      </div>
+
+      <div className="date__meal glass">
+        <h3 className="date__gpt-title">🍽️ מה אכלנו?</h3>
+        <textarea
+          className="textarea"
+          rows={2}
+          placeholder="תיאור קצר של הארוחה / המקום..."
+          value={mealDesc}
+          onChange={(e) => setMealDesc(e.target.value)}
+          onBlur={persistMealDesc}
+        />
+        {mealPhoto ? (
+          <div className="date__meal-photo-wrap">
+            <img className="date__meal-photo" src={mealPhoto} alt="הארוחה שלנו" />
+            <label className="date__meal-replace">
+              החליפו תמונה
+              <input type="file" accept="image/*" hidden onChange={onPhoto} />
+            </label>
+          </div>
+        ) : (
+          <label className="date__meal-add">
+            {photoBusy ? 'טוען תמונה...' : '📷 הוסיפו תמונה של הארוחה'}
+            <input type="file" accept="image/*" hidden onChange={onPhoto} />
+          </label>
         )}
       </div>
 

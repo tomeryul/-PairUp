@@ -51,7 +51,7 @@ interface AppState {
 
   /** Save a finished date session; returns its id. */
   addSession: (s: Omit<DateSessionRecord, 'id' | 'createdAt'>) => string;
-  setSessionScore: (id: string, gptScore: number) => void;
+  updateSession: (id: string, patch: Partial<DateSessionRecord>) => void;
   removeSession: (id: string) => void;
 
   incrementAnswered: (by?: number) => void;
@@ -184,10 +184,10 @@ export const useAppStore = create<AppState>()(
         }));
         return id;
       },
-      setSessionScore: (id, gptScore) =>
+      updateSession: (id, patch) =>
         set((s) => ({
           sessions: s.sessions.map((x) =>
-            x.id === id ? { ...x, gptScore } : x,
+            x.id === id ? { ...x, ...patch } : x,
           ),
         })),
       removeSession: (id) =>
