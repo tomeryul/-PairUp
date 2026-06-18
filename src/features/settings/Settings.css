@@ -47,6 +47,16 @@
   color: var(--text-2);
   margin-bottom: var(--s-4);
 }
+.settings__letter {
+  margin-top: var(--s-4);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--surface-border);
+}
+.settings__letter .textarea {
+  font-family: var(--font-display);
+  line-height: 1.7;
+}
+
 .settings__birthday {
   border-color: var(--brand-rose);
   background: linear-gradient(

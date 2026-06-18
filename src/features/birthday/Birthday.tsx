@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { HeartBurst } from '@/components/HeartBurst';
 import { useSound } from '@/hooks/useSound';
+import { useAppStore } from '@/store/useAppStore';
 import {
   birthdayGreeting,
   loveLetter,
@@ -19,6 +20,7 @@ const order: Step[] = ['greeting', 'letter', 'why', 'timeline', 'final'];
 export function Birthday() {
   const navigate = useNavigate();
   const play = useSound();
+  const customLetter = useAppStore((s) => s.birthdayLetter);
   const [step, setStep] = useState<Step>('greeting');
   const [burst, setBurst] = useState(1);
 
@@ -103,7 +105,7 @@ export function Birthday() {
             >
               <h2 className="bday__h2">מכתב אהבה 💌</h2>
               <div className="bday__letter glass">
-                {loveLetter.split('\n\n').map((para, i) => (
+                {(customLetter || loveLetter).split('\n\n').map((para, i) => (
                   <motion.p
                     key={i}
                     initial={{ opacity: 0, y: 14 }}

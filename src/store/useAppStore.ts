@@ -33,6 +33,8 @@ interface AppState {
 
   /* birthday */
   birthdayDiscovered: boolean;
+  /** Custom love letter written by the user (overrides the default). */
+  birthdayLetter: string;
 
   /* actions */
   completeOnboarding: (names: { a: string; b: string }) => void;
@@ -58,6 +60,7 @@ interface AppState {
   recordQuiz: (scorePercent: number) => void;
   touchStreak: () => void;
   discoverBirthday: () => void;
+  setBirthdayLetter: (text: string) => void;
 
   snapshot: () => ProgressSnapshot;
   resetAll: () => void;
@@ -82,6 +85,7 @@ export interface CloudState {
   streak: number;
   lastActiveDay: string | null;
   birthdayDiscovered: boolean;
+  birthdayLetter: string;
 }
 
 export const CLOUD_KEYS: (keyof CloudState)[] = [
@@ -99,6 +103,7 @@ export const CLOUD_KEYS: (keyof CloudState)[] = [
   'streak',
   'lastActiveDay',
   'birthdayDiscovered',
+  'birthdayLetter',
 ];
 
 /** Extract just the persistable slice from the full store state. */
@@ -119,6 +124,7 @@ export const getCloudState = (): CloudState => {
     streak: s.streak,
     lastActiveDay: s.lastActiveDay,
     birthdayDiscovered: s.birthdayDiscovered,
+    birthdayLetter: s.birthdayLetter,
   };
 };
 
@@ -141,6 +147,7 @@ export const useAppStore = create<AppState>()(
       streak: 0,
       lastActiveDay: null,
       birthdayDiscovered: false,
+      birthdayLetter: '',
 
       completeOnboarding: (names) => set({ onboarded: true, names }),
       setNames: (names) => set({ names }),
@@ -212,6 +219,7 @@ export const useAppStore = create<AppState>()(
       },
 
       discoverBirthday: () => set({ birthdayDiscovered: true }),
+      setBirthdayLetter: (text) => set({ birthdayLetter: text }),
 
       snapshot: () => {
         const s = get();

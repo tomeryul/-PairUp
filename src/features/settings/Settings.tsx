@@ -14,10 +14,12 @@ export function Settings() {
     soundEnabled,
     musicEnabled,
     birthdayDiscovered,
+    birthdayLetter,
     setNames,
     toggleTheme,
     toggleSound,
     toggleMusic,
+    setBirthdayLetter,
     resetAll,
   } = useAppStore();
   const { user, logout } = useAuth();
@@ -26,6 +28,15 @@ export function Settings() {
   const [a, setA] = useState(names.a);
   const [b, setB] = useState(names.b);
   const [confirmReset, setConfirmReset] = useState(false);
+  const [letterDraft, setLetterDraft] = useState(birthdayLetter);
+  const [letterSaved, setLetterSaved] = useState(false);
+
+  const saveLetter = () => {
+    play('success');
+    setBirthdayLetter(letterDraft);
+    setLetterSaved(true);
+    setTimeout(() => setLetterSaved(false), 2000);
+  };
 
   const saveNames = () => {
     play('success');
@@ -105,6 +116,25 @@ export function Settings() {
           <Button block onClick={() => { play('sparkle'); navigate('/birthday'); }}>
             פתחו את ההפתעה ✨
           </Button>
+
+          <div className="settings__letter">
+            <label className="field">
+              <span className="field__label">מכתב האהבה שלך 💌</span>
+              <textarea
+                className="textarea"
+                rows={8}
+                value={letterDraft}
+                onChange={(e) => setLetterDraft(e.target.value)}
+                placeholder="כתוב כאן את המכתב שלך... הוא יופיע במצב יום ההולדת. אפשר להשאיר שורה ריקה בין פסקאות."
+              />
+            </label>
+            <p className="settings__hint">
+              המכתב נשמר באופן פרטי ומסתנכרן בין המכשירים. אם תשאיר ריק — יוצג מכתב ברירת מחדל.
+            </p>
+            <Button block onClick={saveLetter} disabled={letterDraft === birthdayLetter}>
+              {letterSaved ? '✓ המכתב נשמר' : 'שמירת המכתב'}
+            </Button>
+          </div>
         </section>
       )}
 
