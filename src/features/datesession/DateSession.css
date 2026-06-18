@@ -131,49 +131,100 @@
   background: var(--grad-romance);
   transition: width var(--dur-base) var(--ease-soft);
 }
-.date__pause-btn {
+.date__capture-btn {
   flex-shrink: 0;
-  width: 38px;
-  height: 38px;
+  padding: 8px 14px;
   border-radius: var(--r-pill);
   background: var(--surface);
   border: 1px solid var(--surface-border);
   color: var(--text-1);
-  font-size: 1rem;
+  font-size: var(--t-sm);
+  font-weight: 600;
+}
+.date__moment-hint {
+  align-self: flex-start;
+  margin-bottom: var(--s-4);
 }
 
-/* Pause overlay */
-.date__pause {
+/* Capture bottom sheet */
+.date__sheet-bg {
   position: fixed;
   inset: 0;
-  z-index: 80;
+  z-index: 90;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding: var(--s-5);
-  background: rgba(6, 3, 14, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(6, 3, 14, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
-.date__pause-card {
+.date__sheet {
   width: 100%;
-  max-width: 360px;
-  padding: var(--s-7) var(--s-5);
-  border-radius: var(--r-xl);
-  text-align: center;
+  max-width: var(--maxw);
+  padding: var(--s-4) var(--s-5)
+    calc(var(--safe-bottom) + var(--s-5));
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
 }
-.date__pause-emoji {
-  font-size: 4rem;
-  margin-bottom: var(--s-3);
-}
-.date__pause-title {
-  font-size: var(--t-2xl);
+.date__sheet-grip {
+  width: 42px;
+  height: 5px;
+  border-radius: var(--r-pill);
+  background: var(--surface-border-strong);
+  align-self: center;
   margin-bottom: var(--s-2);
 }
-.date__pause-text {
+.date__sheet-title {
+  font-size: var(--t-xl);
+}
+.date__sheet-text {
+  font-size: var(--t-sm);
   color: var(--text-2);
-  margin-bottom: var(--s-5);
-  line-height: 1.6;
+}
+.date__sheet-actions {
+  display: flex;
+  gap: var(--s-3);
+  margin-top: var(--s-2);
+}
+
+/* Moments grid in summary */
+.date__moments {
+  padding: var(--s-5);
+  border-radius: var(--r-lg);
+  margin-bottom: var(--s-4);
+}
+.date__moments-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s-3);
+}
+.date__moments-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-3);
+}
+.date__moment {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--r-md);
+  padding: var(--s-2);
+}
+.date__moment-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+}
+.date__moment-note {
+  font-size: var(--t-sm);
+  color: var(--text-1);
+  padding: 0 4px 4px;
 }
 
 /* Intro detail fields */

@@ -10,7 +10,7 @@ import { dares, type Dare } from '@/data/dares';
 import { buildGptPrompt, chatGptUrl } from '@/lib/gptPrompt';
 import { fileToThumbnail } from '@/lib/image';
 import { dayKey, formatDate } from '@/lib/date';
-import type { SessionQA } from '@/types';
+import type { SessionMoment, SessionQA } from '@/types';
 import './DateSession.css';
 
 const shuffle = <T,>(arr: T[]): T[] => {
@@ -26,21 +26,34 @@ type Round =
   | { kind: 'question'; text: string }
   | { kind: 'dare'; dare: Dare };
 
-const SESSION_CATS = ['deep', 'love', 'future', 'dreams', 'childhood'];
+const OTHER_CATS = ['deep', 'love', 'future', 'dreams', 'childhood', 'datenight'];
+
+const LENGTHS = [
+  { n: 10, label: 'קצר' },
+  { n: 16, label: 'בינוני' },
+  { n: 24, label: 'ארוך' },
+];
 
 function buildPlan(total: number): Round[] {
-  const numDares = Math.max(1, Math.round(total / 3));
+  const numDares = Math.max(2, Math.round(total / 3));
   const numQ = total - numDares;
-  const qs: Round[] = shuffle(
-    questions.filter((q) => SESSION_CATS.includes(q.category)),
-  )
-    .slice(0, numQ)
-    .map((q) => ({ kind: 'question', text: q.text }));
+
+  const aboutus = shuffle(questions.filter((q) => q.category === 'aboutus'));
+  const others = shuffle(questions.filter((q) => OTHER_CATS.includes(q.category)));
+
+  // Personal "our journey" questions are the heart of a session — prioritise them.
+  const numAbout = Math.min(aboutus.length, Math.ceil(numQ * 0.7));
+  const picked = [
+    ...aboutus.slice(0, numAbout),
+    ...others.slice(0, Math.max(0, numQ - numAbout)),
+  ];
+  const qs: Round[] = shuffle(picked).map((q) => ({ kind: 'question', text: q.text }));
+
   const ds: Round[] = shuffle(dares)
     .slice(0, numDares)
     .map((d) => ({ kind: 'dare', dare: d }));
 
-  // Interleave dares evenly between the questions.
+  // Interleave the dares evenly between the questions.
   const plan = [...qs];
   const gap = Math.floor(plan.length / (ds.length + 1)) || 1;
   ds.forEach((d, i) => plan.splice((i + 1) * gap + i, 0, d));
@@ -59,7 +72,7 @@ export function DateSession() {
   const play = useSound();
 
   const [phase, setPhase] = useState<Phase>('intro');
-  const [length, setLength] = useState(6);
+  const [length, setLength] = useState(16);
   const [dateOf, setDateOf] = useState<string>(dayKey());
   const [occasion, setOccasion] = useState('');
   const [plan, setPlan] = useState<Round[]>([]);
@@ -69,7 +82,8 @@ export function DateSession() {
   const [answerB, setAnswerB] = useState('');
   const [qa, setQa] = useState<SessionQA[]>([]);
   const [daresDone, setDaresDone] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [moments, setMoments] = useState<SessionMoment[]>([]);
+  const [capturing, setCapturing] = useState(false);
   const [burst, setBurst] = useState(0);
 
   const daresTotal = useMemo(
@@ -86,6 +100,7 @@ export function DateSession() {
     setAnswerB('');
     setQa([]);
     setDaresDone(0);
+    setMoments([]);
     setPhase('play');
   };
 
@@ -101,6 +116,8 @@ export function DateSession() {
       setAnswerB('');
     }
   };
+
+  const addMoment = (m: SessionMoment) => setMoments((prev) => [...prev, m]);
 
   const round = plan[idx];
 
@@ -125,7 +142,7 @@ export function DateSession() {
       {phase === 'play' && round && (
         <div className="date__play">
           <div className="date__progress-row">
-            <span className="chip">סבב {idx + 1} מתוך {plan.length}</span>
+            <span className="chip">סבב {idx + 1} / {plan.length}</span>
             <div className="date__bar">
               <div
                 className="date__bar-fill"
@@ -133,16 +150,21 @@ export function DateSession() {
               />
             </div>
             <button
-              className="date__pause-btn"
+              className="date__capture-btn"
               onClick={() => {
                 play('tap');
-                setPaused(true);
+                setCapturing(true);
               }}
-              aria-label="הפסקה"
             >
-              ⏸︎
+              📸 רגע
             </button>
           </div>
+
+          {moments.length > 0 && (
+            <div className="date__moment-hint chip">
+              💛 תיעדתם {moments.length} רגעים בדייט הזה
+            </div>
+          )}
 
           <AnimatePresence mode="wait">
             {round.kind === 'question' ? (
@@ -240,7 +262,7 @@ export function DateSession() {
                     block
                     onClick={() => {
                       play('success');
-                      setDaresDone((n) => n + 1);
+                      setDaresDone((n) => Math.min(daresTotal, n + 1));
                       setBurst((b) => b + 1);
                       advance();
                     }}
@@ -248,46 +270,6 @@ export function DateSession() {
                     ביצענו! ✅
                   </Button>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <AnimatePresence>
-            {paused && (
-              <motion.div
-                className="date__pause"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <motion.div
-                  className="date__pause-card glass"
-                  initial={{ scale: 0.9, y: 20 }}
-                  animate={{ scale: 1, y: 0 }}
-                  exit={{ scale: 0.95, opacity: 0 }}
-                >
-                  <motion.div
-                    className="date__pause-emoji"
-                    animate={{ rotate: [0, 8, -8, 0] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                  >
-                    🍽️
-                  </motion.div>
-                  <h2 className="date__pause-title">הפסקה</h2>
-                  <p className="date__pause-text">
-                    קחו את הזמן — תאכלו, תנשמו, תיהנו אחד מהשני. הסשן מחכה לכם.
-                  </p>
-                  <Button
-                    block
-                    size="lg"
-                    onClick={() => {
-                      play('reveal');
-                      setPaused(false);
-                    }}
-                  >
-                    ממשיכים ←
-                  </Button>
-                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -302,6 +284,11 @@ export function DateSession() {
           daresTotal={daresTotal}
           dateOf={dateOf}
           occasion={occasion}
+          moments={moments}
+          onCapture={() => {
+            play('tap');
+            setCapturing(true);
+          }}
           addSession={addSession}
           updateSession={updateSession}
           previousBest={sessions.find((s) => s.gptScore != null)?.gptScore ?? null}
@@ -311,7 +298,105 @@ export function DateSession() {
           }}
         />
       )}
+
+      <AnimatePresence>
+        {capturing && (
+          <CaptureSheet
+            onClose={() => setCapturing(false)}
+            onSave={(m) => {
+              addMoment(m);
+              setCapturing(false);
+              setBurst((b) => b + 1);
+              play('success');
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
+  );
+}
+
+/* ---------------- Capture sheet (a "moment") ---------------- */
+function CaptureSheet({
+  onClose,
+  onSave,
+}: {
+  onClose: () => void;
+  onSave: (m: SessionMoment) => void;
+}) {
+  const [note, setNote] = useState('');
+  const [photo, setPhoto] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  const onPhoto = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setBusy(true);
+    try {
+      setPhoto(await fileToThumbnail(file));
+    } catch {
+      /* ignore */
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <motion.div
+      className="date__sheet-bg"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className="date__sheet glass"
+        initial={{ y: '100%' }}
+        animate={{ y: 0 }}
+        exit={{ y: '100%' }}
+        transition={{ type: 'spring', stiffness: 320, damping: 32 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="date__sheet-grip" />
+        <h3 className="date__sheet-title">🍽️ רגע לתיעוד</h3>
+        <p className="date__sheet-text">
+          אוכלים? קורה משהו חמוד? שמרו אותו עכשיו והמשיכו בשאלון.
+        </p>
+        <textarea
+          className="textarea"
+          rows={2}
+          placeholder="מה אכלנו / מה קרה עכשיו..."
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+        />
+        {photo ? (
+          <img className="date__meal-photo" src={photo} alt="" />
+        ) : (
+          <label className="date__meal-add">
+            {busy ? 'טוען תמונה...' : '📷 הוסיפו תמונה'}
+            <input type="file" accept="image/*" hidden onChange={onPhoto} />
+          </label>
+        )}
+        <div className="date__sheet-actions">
+          <Button variant="ghost" onClick={onClose}>
+            סגירה
+          </Button>
+          <Button
+            block
+            disabled={!note.trim() && !photo}
+            onClick={() =>
+              onSave({
+                note: note.trim() || undefined,
+                photo: photo || undefined,
+                createdAt: Date.now(),
+              })
+            }
+          >
+            שמרו רגע 💛
+          </Button>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -343,7 +428,7 @@ function IntroView({
       <PageHeader
         eyebrow="הופכים כל יציאה לחוויה"
         title="דייט"
-        subtitle="התחילו סשן דייט — שאלות שמקרבות ואתגרים שמרגשים, עם ציון התאמה בסוף."
+        subtitle="סשן שמלווה אתכם לאורך כל הדייט — שאלות אישיות, אתגרים, ותיעוד רגעים תוך כדי."
       />
 
       <div className="date__intro glass">
@@ -375,11 +460,7 @@ function IntroView({
         </div>
 
         <div className="date__lengths">
-          {[
-            { n: 4, label: 'קצר' },
-            { n: 6, label: 'בינוני' },
-            { n: 8, label: 'ארוך' },
-          ].map((o) => (
+          {LENGTHS.map((o) => (
             <button
               key={o.n}
               className={`date__length${length === o.n ? ' is-active' : ''}`}
@@ -413,26 +494,30 @@ function IntroView({
               ))}
           </div>
           <div className="date__history-list">
-            {sessions.slice(0, 6).map((s) => (
-              <div key={s.id} className="date__history-row glass">
-                {s.mealPhoto && (
-                  <img className="date__history-photo" src={s.mealPhoto} alt="" />
-                )}
-                <div className="date__history-info">
-                  <span className="date__history-date">
-                    {formatDate(s.date ?? s.createdAt)}
-                    {s.occasion ? ` · ${s.occasion}` : ''}
+            {sessions.slice(0, 6).map((s) => {
+              const photo = s.moments?.find((m) => m.photo)?.photo;
+              const note = s.moments?.find((m) => m.note)?.note;
+              return (
+                <div key={s.id} className="date__history-row glass">
+                  {photo && <img className="date__history-photo" src={photo} alt="" />}
+                  <div className="date__history-info">
+                    <span className="date__history-date">
+                      {formatDate(s.date ?? s.createdAt)}
+                      {s.occasion ? ` · ${s.occasion}` : ''}
+                    </span>
+                    {(note || (s.moments && s.moments.length > 0)) && (
+                      <span className="date__history-meal">
+                        🍽️ {note || `${s.moments?.length} רגעים`}
+                      </span>
+                    )}
+                  </div>
+                  <span className="date__history-meta">
+                    🔥 {s.daresDone}/{s.daresTotal}
+                    {s.gptScore != null && <> · 💞 {s.gptScore}</>}
                   </span>
-                  {(s.mealDesc || s.mealPhoto) && (
-                    <span className="date__history-meal">🍽️ {s.mealDesc || 'תיעדנו את הארוחה'}</span>
-                  )}
                 </div>
-                <span className="date__history-meta">
-                  🔥 {s.daresDone}/{s.daresTotal}
-                  {s.gptScore != null && <> · 💞 {s.gptScore}</>}
-                </span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
@@ -448,6 +533,8 @@ function SummaryView({
   daresTotal,
   dateOf,
   occasion,
+  moments,
+  onCapture,
   addSession,
   updateSession,
   previousBest,
@@ -459,6 +546,8 @@ function SummaryView({
   daresTotal: number;
   dateOf: string;
   occasion: string;
+  moments: SessionMoment[];
+  onCapture: () => void;
   addSession: ReturnType<typeof useAppStore.getState>['addSession'];
   updateSession: ReturnType<typeof useAppStore.getState>['updateSession'];
   previousBest: number | null;
@@ -466,15 +555,10 @@ function SummaryView({
 }) {
   const play = useSound();
   const sessionIdRef = useRef<string | null>(null);
-  // Capture the previous session's score once, BEFORE this session is saved,
-  // so the improvement comparison isn't made against this same session.
   const prevScoreRef = useRef<number | null>(previousBest);
   const [score, setScore] = useState('');
   const [savedScore, setSavedScore] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
-  const [mealDesc, setMealDesc] = useState('');
-  const [mealPhoto, setMealPhoto] = useState<string | null>(null);
-  const [photoBusy, setPhotoBusy] = useState(false);
 
   // Auto-save the session once when the summary opens.
   useEffect(() => {
@@ -486,31 +570,16 @@ function SummaryView({
       gptScore: null,
       date: dateOf,
       occasion: occasion.trim() || undefined,
+      moments,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const persistMealDesc = () => {
-    if (sessionIdRef.current) {
-      updateSession(sessionIdRef.current, { mealDesc: mealDesc.trim() || undefined });
-    }
-  };
-
-  const onPhoto = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file || !sessionIdRef.current) return;
-    setPhotoBusy(true);
-    try {
-      const thumb = await fileToThumbnail(file);
-      setMealPhoto(thumb);
-      updateSession(sessionIdRef.current, { mealPhoto: thumb });
-      play('pop');
-    } catch {
-      /* ignore unreadable images */
-    } finally {
-      setPhotoBusy(false);
-    }
-  };
+  // Keep moments captured on the summary screen in sync with the saved record.
+  useEffect(() => {
+    if (sessionIdRef.current) updateSession(sessionIdRef.current, { moments });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [moments]);
 
   const prompt = useMemo(() => buildGptPrompt(names, qa), [names, qa]);
 
@@ -556,6 +625,10 @@ function SummaryView({
         <div className="date__stat">
           <span className="date__stat-num">{qa.length}</span>
           <span className="date__stat-label">שאלות</span>
+        </div>
+        <div className="date__stat">
+          <span className="date__stat-num">{moments.length}</span>
+          <span className="date__stat-label">רגעים</span>
         </div>
       </div>
 
@@ -605,29 +678,24 @@ function SummaryView({
         )}
       </div>
 
-      <div className="date__meal glass">
-        <h3 className="date__gpt-title">🍽️ מה אכלנו?</h3>
-        <textarea
-          className="textarea"
-          rows={2}
-          placeholder="תיאור קצר של הארוחה / המקום..."
-          value={mealDesc}
-          onChange={(e) => setMealDesc(e.target.value)}
-          onBlur={persistMealDesc}
-        />
-        {mealPhoto ? (
-          <div className="date__meal-photo-wrap">
-            <img className="date__meal-photo" src={mealPhoto} alt="הארוחה שלנו" />
-            <label className="date__meal-replace">
-              החליפו תמונה
-              <input type="file" accept="image/*" hidden onChange={onPhoto} />
-            </label>
-          </div>
+      <div className="date__moments glass">
+        <div className="date__moments-head">
+          <h3 className="date__gpt-title">📸 רגעים מהדייט</h3>
+          <button className="date__capture-btn" onClick={onCapture}>
+            + הוספה
+          </button>
+        </div>
+        {moments.length === 0 ? (
+          <p className="date__gpt-text">עוד לא תיעדתם רגעים. אפשר להוסיף עכשיו.</p>
         ) : (
-          <label className="date__meal-add">
-            {photoBusy ? 'טוען תמונה...' : '📷 הוסיפו תמונה של הארוחה'}
-            <input type="file" accept="image/*" hidden onChange={onPhoto} />
-          </label>
+          <div className="date__moments-grid">
+            {moments.map((m, i) => (
+              <div key={i} className="date__moment">
+                {m.photo && <img className="date__moment-photo" src={m.photo} alt="" />}
+                {m.note && <span className="date__moment-note">{m.note}</span>}
+              </div>
+            ))}
+          </div>
         )}
       </div>
 

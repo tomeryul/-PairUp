@@ -1,6 +1,7 @@
 export type ThemeMode = 'dark' | 'light';
 
 export type CategoryId =
+  | 'aboutus'
   | 'deep'
   | 'funny'
   | 'love'
@@ -95,6 +96,13 @@ export interface SessionQA {
   b: string;
 }
 
+/** A moment captured during a session (e.g. a meal), with note and/or photo. */
+export interface SessionMoment {
+  note?: string;
+  photo?: string;
+  createdAt: number;
+}
+
 /** A completed (or in-progress) date session, saved to the couple's history. */
 export interface DateSessionRecord {
   id: string;
@@ -108,8 +116,6 @@ export interface DateSessionRecord {
   date?: string;
   /** What the date was for, e.g. "יום שנה". */
   occasion?: string;
-  /** Free-text description of what they ate. */
-  mealDesc?: string;
-  /** Small resized photo of the meal, as a data URL. */
-  mealPhoto?: string;
+  /** Moments captured during/after the date (meals, snapshots, notes). */
+  moments?: SessionMoment[];
 }

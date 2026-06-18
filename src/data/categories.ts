@@ -2,6 +2,13 @@ import type { Category } from '@/types';
 
 export const categories: Category[] = [
   {
+    id: 'aboutus',
+    title: 'הסיפור שלנו',
+    emoji: '📖',
+    description: 'עלינו ועל הדרך שלנו',
+    gradient: 'linear-gradient(135deg, #ff6b9d 0%, #ffcf73 100%)',
+  },
+  {
     id: 'deep',
     title: 'שאלות עמוקות',
     emoji: '💭',
