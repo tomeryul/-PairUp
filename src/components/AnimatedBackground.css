@@ -9,85 +9,18 @@
 .bg-base {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-      120% 80% at 80% -10%,
-      var(--bg-2) 0%,
-      transparent 55%
-    ),
-    radial-gradient(110% 70% at 0% 110%, var(--bg-1) 0%, transparent 60%),
-    var(--bg-0);
+  background: var(--bg-0);
 }
 
+/* Orbs removed in the vintage paper aesthetic */
 .orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.55;
-  will-change: transform;
-}
-
-.orb--rose {
-  width: 46vw;
-  height: 46vw;
-  max-width: 420px;
-  max-height: 420px;
-  background: radial-gradient(circle, var(--brand-rose) 0%, transparent 70%);
-  top: -8%;
-  inset-inline-start: -6%;
-  animation: drift1 18s var(--ease-soft) infinite alternate;
-}
-
-.orb--violet {
-  width: 52vw;
-  height: 52vw;
-  max-width: 480px;
-  max-height: 480px;
-  background: radial-gradient(circle, var(--brand-violet) 0%, transparent 70%);
-  bottom: -12%;
-  inset-inline-end: -10%;
-  animation: drift2 22s var(--ease-soft) infinite alternate;
-}
-
-.orb--gold {
-  width: 34vw;
-  height: 34vw;
-  max-width: 320px;
-  max-height: 320px;
-  background: radial-gradient(circle, var(--brand-gold) 0%, transparent 70%);
-  top: 38%;
-  inset-inline-end: 18%;
-  opacity: 0.35;
-  animation: drift3 26s var(--ease-soft) infinite alternate;
+  display: none;
 }
 
 .bg-grain {
   position: absolute;
   inset: 0;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-@keyframes drift1 {
-  from {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  to {
-    transform: translate3d(8vw, 6vh, 0) scale(1.15);
-  }
-}
-@keyframes drift2 {
-  from {
-    transform: translate3d(0, 0, 0) scale(1.1);
-  }
-  to {
-    transform: translate3d(-7vw, -5vh, 0) scale(1);
-  }
-}
-@keyframes drift3 {
-  from {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  to {
-    transform: translate3d(-5vw, 8vh, 0) scale(1.2);
-  }
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }

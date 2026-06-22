@@ -9,7 +9,7 @@ export function useTheme() {
     document.documentElement.setAttribute('data-theme', theme);
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) {
-      meta.setAttribute('content', theme === 'dark' ? '#0c0718' : '#fff5f8');
+      meta.setAttribute('content', theme === 'dark' ? '#e5decf' : '#efeadd');
     }
   }, [theme]);
 

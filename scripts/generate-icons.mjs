@@ -15,8 +15,9 @@ const hex = (h) => [
   parseInt(h.slice(3, 5), 16),
   parseInt(h.slice(5, 7), 16),
 ];
-const c1 = hex('#ff6b9d');
-const c2 = hex('#a06bff');
+const c1 = hex('#ef9080');
+const c2 = hex('#d9705e');
+const heartRGB = hex('#f6f2e9');
 
 // Heart test: is point (x,y) in [-1.4,1.4] inside a heart curve?
 const insideHeart = (x, y) => {
@@ -50,7 +51,7 @@ function render(size) {
       const hx = (px / size - 0.5) * 2.9;
       const hy = -(py / size - 0.46) * 2.9;
       if (insideHeart(hx, hy)) {
-        R = 255; G = 255; B = 255;
+        R = heartRGB[0]; G = heartRGB[1]; B = heartRGB[2];
       }
 
       const i = (py * size + px) * 4;

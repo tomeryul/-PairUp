@@ -62,7 +62,7 @@ h4 {
   font-family: var(--font-display);
   font-weight: 700;
   line-height: 1.15;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 /* Prevent long/unbroken text (long words, names, URLs) from overflowing
@@ -85,8 +85,8 @@ li {
 }
 
 ::selection {
-  background: var(--brand-rose);
-  color: #fff;
+  background: var(--c-coral);
+  color: var(--ink-900);
 }
 
 /* Custom scrollbar */
@@ -94,7 +94,7 @@ li {
   width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--surface-border-strong);
+  background: var(--paper-400);
   border-radius: var(--r-pill);
 }
 

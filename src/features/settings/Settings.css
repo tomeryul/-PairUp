@@ -1,6 +1,20 @@
+/* Grouped cards (account, names, letter, reset) */
 .settings__group {
   padding: var(--s-5);
   border-radius: var(--r-lg);
+  margin-bottom: var(--s-4);
+  background: var(--surface);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 3px 3px 0 var(--ink-900);
+}
+.settings__title {
+  font-size: var(--t-lg);
+  margin-bottom: var(--s-4);
+  color: var(--ink-900);
+}
+.settings__hint {
+  font-size: var(--t-sm);
+  color: var(--text-2);
   margin-bottom: var(--s-4);
 }
 
@@ -16,13 +30,13 @@
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  border: 2px solid var(--surface-border-strong);
+  border: 2.5px solid var(--ink-900);
 }
 .settings__avatar--ph {
   display: grid;
   place-items: center;
-  background: var(--grad-romance);
-  color: #fff;
+  background: var(--c-coral);
+  color: var(--ink-900);
   font-weight: 800;
   font-size: var(--t-xl);
 }
@@ -31,26 +45,17 @@
 }
 .settings__account-name {
   font-weight: 700;
-  color: var(--text-1);
+  color: var(--ink-900);
 }
 .settings__account-email {
   font-size: var(--t-sm);
   color: var(--text-3);
 }
-.settings__title {
-  font-size: var(--t-lg);
-  margin-bottom: var(--s-4);
-  color: var(--text-1);
-}
-.settings__hint {
-  font-size: var(--t-sm);
-  color: var(--text-2);
-  margin-bottom: var(--s-4);
-}
+
 .settings__letter {
   margin-top: var(--s-4);
   padding-top: var(--s-4);
-  border-top: 1px solid var(--surface-border);
+  border-top: 2px solid var(--paper-400);
 }
 .settings__letter .textarea {
   font-family: var(--font-display);
@@ -58,12 +63,13 @@
 }
 
 .settings__birthday {
-  border-color: var(--brand-rose);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 207, 115, 0.1),
-    rgba(255, 107, 157, 0.1)
-  );
+  background: var(--c-coral-tint);
+}
+.settings__bday-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
 }
 
 /* Flat setting rows */
@@ -72,12 +78,6 @@
   flex-direction: column;
   gap: var(--s-3);
 }
-.settings__bday-head {
-  display: flex;
-  align-items: center;
-  gap: var(--s-3);
-  margin-bottom: var(--s-4);
-}
 .set-row {
   display: flex;
   align-items: center;
@@ -85,6 +85,9 @@
   gap: var(--s-3);
   padding: var(--s-4) var(--s-5);
   border-radius: var(--r-lg);
+  background: var(--surface);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 3px 3px 0 var(--ink-900);
 }
 .set-row__label {
   display: flex;
@@ -97,17 +100,17 @@
 }
 .set-row__title {
   font-weight: 700;
-  color: var(--text-1);
+  color: var(--ink-900);
 }
 .set-row__sub {
   font-size: var(--t-sm);
   color: var(--text-2);
 }
 .set-row__val {
-  color: var(--brand-rose);
+  color: var(--c-coral-deep);
   font-weight: 700;
   font-family: var(--font-display);
-  font-size: var(--t-lg);
+  font-size: var(--t-xl);
 }
 .set-row .badge--soft .ic {
   width: 20px;
@@ -115,30 +118,30 @@
 }
 
 .toggle {
-  width: 50px;
-  height: 29px;
+  width: 52px;
+  height: 30px;
   border-radius: var(--r-pill);
-  background: var(--surface-border-strong);
+  background: var(--paper-300);
+  border: 2.5px solid var(--ink-900);
   position: relative;
   transition: background var(--dur-base) var(--ease-soft);
   flex-shrink: 0;
 }
 .toggle.is-on {
-  background: var(--grad-romance);
+  background: var(--c-teal);
 }
 .toggle__knob {
   position: absolute;
-  top: 3px;
-  inset-inline-start: 3px;
-  width: 23px;
-  height: 23px;
+  top: 2px;
+  inset-inline-start: 2px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  background: var(--ink-900);
   transition: inset-inline-start var(--dur-base) var(--ease-spring);
 }
 .toggle.is-on .toggle__knob {
-  inset-inline-start: calc(100% - 26px);
+  inset-inline-start: calc(100% - 25px);
 }
 
 .settings__confirm {
@@ -150,4 +153,6 @@
   color: var(--text-3);
   font-size: var(--t-sm);
   margin-top: var(--s-6);
+  font-style: italic;
+  font-family: var(--font-display);
 }

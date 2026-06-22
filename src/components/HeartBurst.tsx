@@ -3,15 +3,14 @@ import { motion } from 'framer-motion';
 
 interface HeartBurstProps {
   count?: number;
-  /** Emoji palette for the floating particles. */
-  emojis?: string[];
+  /** Colour palette for the floating particles. */
+  colors?: string[];
 }
 
-/** A one-shot burst of floating emoji that drift upward and fade. */
-export function HeartBurst({
-  count = 18,
-  emojis = ['❤️', '💛', '💜', '✨', '💕'],
-}: HeartBurstProps) {
+const VINTAGE = ['#EF9080', '#9CC0BC', '#E8B84B', '#A9D178', '#D9705E', '#C79BFF'];
+
+/** A one-shot burst of small vintage dots that drift upward and fade. */
+export function HeartBurst({ count = 18, colors = VINTAGE }: HeartBurstProps) {
   const particles = useMemo(
     () =>
       Array.from({ length: count }, (_, i) => ({
@@ -19,11 +18,11 @@ export function HeartBurst({
         left: Math.random() * 100,
         delay: Math.random() * 0.6,
         duration: 2.4 + Math.random() * 2,
-        size: 16 + Math.random() * 24,
+        size: 7 + Math.random() * 9,
         drift: (Math.random() - 0.5) * 120,
-        emoji: emojis[i % emojis.length],
+        color: colors[i % colors.length],
       })),
-    [count, emojis],
+    [count, colors],
   );
 
   return (
@@ -55,11 +54,13 @@ export function HeartBurst({
           style={{
             position: 'absolute',
             insetInlineStart: `${p.left}%`,
-            fontSize: p.size,
+            width: p.size,
+            height: p.size,
+            borderRadius: '50%',
+            background: p.color,
+            border: '1.5px solid #1a1a1a',
           }}
-        >
-          {p.emoji}
-        </motion.span>
+        />
       ))}
     </div>
   );

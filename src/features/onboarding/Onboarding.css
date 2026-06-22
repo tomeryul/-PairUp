@@ -30,9 +30,10 @@
   display: grid;
   place-items: center;
   border-radius: var(--r-xl);
-  background: var(--grad-romance);
-  color: #fff;
-  box-shadow: var(--shadow-glow);
+  background: var(--c-coral);
+  color: var(--ink-900);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 4px 4px 0 var(--ink-900);
 }
 .onboarding__emoji .ic {
   width: 44px;
@@ -75,10 +76,11 @@
   width: 8px;
   height: 8px;
   border-radius: var(--r-pill);
-  background: var(--surface-border-strong);
+  background: var(--paper-400);
+  border: 1.5px solid var(--ink-900);
   transition: all var(--dur-base) var(--ease-spring);
 }
 .onboarding__dot.is-active {
   width: 26px;
-  background: var(--grad-romance);
+  background: var(--c-coral);
 }

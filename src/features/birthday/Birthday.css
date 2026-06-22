@@ -1,13 +1,7 @@
 .bday {
   position: relative;
   min-height: 100dvh;
-  background: radial-gradient(
-      120% 90% at 50% -5%,
-      rgba(255, 107, 157, 0.22),
-      transparent 58%
-    ),
-    radial-gradient(100% 80% at 50% 105%, rgba(160, 107, 255, 0.22), transparent 60%),
-    var(--bg-0);
+  background: var(--bg-0);
   overflow: hidden;
 }
 
@@ -29,16 +23,14 @@
   top: calc(var(--safe-top) + 14px);
   inset-inline-end: 16px;
   z-index: 70;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   display: grid;
   place-items: center;
   border-radius: var(--r-pill);
   background: var(--surface);
-  border: 1px solid var(--surface-border);
-  backdrop-filter: blur(var(--blur));
-  -webkit-backdrop-filter: blur(var(--blur));
-  color: var(--text-1);
+  border: 2.5px solid var(--ink-900);
+  color: var(--ink-900);
 }
 
 .bday__content {
@@ -58,6 +50,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--s-5);
+  animation: fadeUp 0.5s var(--ease-soft);
 }
 
 /* Greeting */
@@ -68,43 +61,28 @@
   display: grid;
   place-items: center;
   position: relative;
-}
-.bday__emblem::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: var(--grad-dawn);
-  opacity: 0.18;
+  background: var(--c-coral-tint);
+  border: 2.5px solid var(--ink-900);
 }
 .bday__emblem .ic {
   width: 52px;
   height: 52px;
-  color: var(--brand-rose);
+  color: var(--c-coral-deep);
   position: relative;
 }
 .bday__glowring {
-  position: absolute;
-  width: 170px;
-  height: 170px;
-  border-radius: 50%;
-  background: var(--grad-romance);
-  filter: blur(60px);
-  opacity: 0.4;
-  z-index: -1;
-  animation: pulse 4s ease-in-out infinite;
+  display: none;
 }
 .bday__hi {
   font-size: var(--t-lg);
   color: var(--text-2);
   letter-spacing: 0.04em;
+  font-family: var(--font-display);
+  font-style: italic;
 }
 .bday__name {
   font-size: var(--t-4xl);
-  background: var(--grad-dawn);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--c-coral-deep);
   line-height: 1.04;
 }
 .bday__sub {
@@ -114,22 +92,25 @@
   line-height: 1.6;
 }
 
-/* Headings */
 .bday__h2 {
   font-size: var(--t-2xl);
+  color: var(--ink-900);
 }
 
 /* Letter */
 .bday__letter {
   padding: var(--s-6) var(--s-5);
-  border-radius: var(--r-xl);
+  border-radius: var(--r-lg);
   text-align: start;
+  background: var(--paper-100);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 5px 5px 0 var(--ink-900);
 }
 .bday__letter p {
   font-family: var(--font-display);
   font-size: var(--t-lg);
   line-height: 1.85;
-  color: var(--text-1);
+  color: var(--ink-900);
   white-space: pre-line;
   margin-bottom: var(--s-4);
 }
@@ -155,6 +136,7 @@
 }
 .bday__why-title {
   font-size: var(--t-lg);
+  color: var(--ink-900);
 }
 .bday__why-body {
   font-size: var(--t-sm);
@@ -175,7 +157,7 @@
   inset-block: 18px;
   inset-inline-start: 19px;
   width: 2px;
-  background: linear-gradient(var(--brand-gold), var(--brand-rose), var(--brand-violet));
+  background: var(--paper-400);
 }
 .bday__milestone {
   position: relative;
@@ -189,10 +171,10 @@
   height: 40px;
   display: grid;
   place-items: center;
-  background: var(--bg-1);
-  border: 2px solid var(--brand-rose);
+  background: var(--c-teal);
+  border: 2.5px solid var(--ink-900);
   border-radius: var(--r-pill);
-  color: var(--brand-rose);
+  color: var(--ink-900);
 }
 .bday__milestone-dot .ic {
   width: 18px;
@@ -204,13 +186,14 @@
 }
 .bday__milestone-date {
   font-size: var(--t-xs);
-  color: var(--brand-rose);
+  color: var(--c-coral-deep);
   font-weight: 700;
   letter-spacing: 0.04em;
 }
 .bday__milestone-title {
   font-size: var(--t-lg);
   margin: 3px 0 4px;
+  color: var(--ink-900);
 }
 .bday__milestone-desc {
   font-size: var(--t-sm);
@@ -223,17 +206,7 @@
   position: relative;
 }
 .bday__final-glow {
-  position: absolute;
-  top: -12%;
-  inset-inline: 0;
-  margin-inline: auto;
-  width: 240px;
-  height: 240px;
-  border-radius: 50%;
-  background: var(--grad-romance);
-  filter: blur(80px);
-  z-index: -1;
-  opacity: 0.5;
+  display: none;
 }
 .bday__final-emblem {
   width: 96px;
@@ -241,9 +214,10 @@
   border-radius: var(--r-xl);
   display: grid;
   place-items: center;
-  background: var(--grad-romance);
-  color: #fff;
-  box-shadow: var(--shadow-glow);
+  background: var(--c-coral);
+  color: var(--ink-900);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 4px 4px 0 var(--ink-900);
 }
 .bday__final-emblem .ic {
   width: 44px;
@@ -251,18 +225,21 @@
 }
 .bday__final-title {
   font-size: var(--t-3xl);
+  color: var(--ink-900);
 }
 .bday__final-msg {
   font-family: var(--font-display);
   font-size: var(--t-lg);
   line-height: 1.75;
-  color: var(--text-1);
+  color: var(--ink-900);
   max-width: 36ch;
 }
 .bday__final-sign {
   font-size: var(--t-lg);
-  color: var(--brand-rose);
+  color: var(--c-coral-deep);
   font-weight: 600;
+  font-style: italic;
+  font-family: var(--font-display);
 }
 
 /* Progress dots */
@@ -273,14 +250,15 @@
   margin-top: var(--s-6);
 }
 .bday__progress-dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: var(--r-pill);
-  background: var(--surface-border-strong);
+  background: var(--paper-400);
+  border: 1.5px solid var(--ink-900);
   transition: all var(--dur-base) var(--ease-soft);
 }
 .bday__progress-dot.is-active {
-  background: var(--grad-romance);
+  background: var(--c-coral);
   width: 22px;
 }
 
@@ -298,17 +276,6 @@
   to {
     transform: translateY(-12vh);
     opacity: 0;
-  }
-}
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.4;
-  }
-  50% {
-    transform: scale(1.12);
-    opacity: 0.7;
   }
 }
 

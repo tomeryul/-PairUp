@@ -1,40 +1,60 @@
 /* ============================================================
-   PairUp — Design Tokens
-   A single source of truth for the design system.
+   PairUp — Design Tokens (Vintage / Lexicon)
+   Warm cream paper, sage & coral grounds, heavy ink outlines.
    ============================================================ */
 
 :root {
-  /* ---- Brand palette ---- */
-  --brand-rose: #ff6b9d;
-  --brand-rose-soft: #ff9ec1;
-  --brand-violet: #a06bff;
-  --brand-violet-soft: #c79bff;
-  --brand-gold: #ffcf73;
-  --brand-coral: #ff8e6e;
+  /* ---- Vintage palette ---- */
+  --paper-100: #f6f2e9;
+  --paper-200: #efeadd;
+  --paper-300: #e5decf;
+  --paper-400: #d8d0be;
+  --ink-900: #1a1a1a;
+  --ink-700: #3d3d3a;
+  --ink-500: #6b6b64;
+  --ink-300: #9a988e;
 
-  /* ---- Gradients ---- */
-  --grad-romance: linear-gradient(135deg, #ff6b9d 0%, #a06bff 100%);
-  --grad-sunset: linear-gradient(135deg, #ff8e6e 0%, #ff6b9d 55%, #a06bff 100%);
-  --grad-dawn: linear-gradient(135deg, #ffcf73 0%, #ff8e6e 50%, #ff6b9d 100%);
-  --grad-aurora: linear-gradient(135deg, #a06bff 0%, #6bb9ff 100%);
+  --c-teal: #9cc0bc;
+  --c-teal-deep: #6e938e;
+  --c-teal-tint: #d7e7e4;
+  --c-coral: #ef9080;
+  --c-coral-deep: #d9705e;
+  --c-coral-tint: #fad3ca;
+  --c-gold: #e8b84b;
+  --c-green: #a9d178;
+  --c-green-tint: #e6f1d4;
+
+  /* Legacy brand aliases (kept so existing rules resolve) */
+  --brand-rose: #d9705e;
+  --brand-rose-soft: #ef9080;
+  --brand-violet: #6e938e;
+  --brand-violet-soft: #9cc0bc;
+  --brand-gold: #e8b84b;
+  --brand-coral: #ef9080;
+
+  /* "Gradients" are flat vintage colours now */
+  --grad-romance: #ef9080;
+  --grad-sunset: #9cc0bc;
+  --grad-dawn: #d9705e;
+  --grad-aurora: #9cc0bc;
 
   /* ---- Radii ---- */
-  --r-xs: 10px;
-  --r-sm: 14px;
-  --r-md: 18px;
-  --r-lg: 24px;
-  --r-xl: 32px;
+  --r-xs: 8px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-xl: 28px;
   --r-pill: 999px;
 
-  /* ---- Spacing scale ---- */
+  /* ---- Spacing ---- */
   --s-1: 4px;
   --s-2: 8px;
   --s-3: 12px;
   --s-4: 16px;
-  --s-5: 24px;
-  --s-6: 32px;
-  --s-7: 48px;
-  --s-8: 64px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 36px;
+  --s-8: 56px;
 
   /* ---- Typography ---- */
   --font-ui: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -43,65 +63,70 @@
   --t-xs: 0.78rem;
   --t-sm: 0.9rem;
   --t-base: 1rem;
-  --t-lg: 1.18rem;
-  --t-xl: 1.5rem;
-  --t-2xl: 2rem;
-  --t-3xl: 2.7rem;
-  --t-4xl: 3.6rem;
+  --t-lg: 1.15rem;
+  --t-xl: 1.45rem;
+  --t-2xl: 1.85rem;
+  --t-3xl: 2.5rem;
+  --t-4xl: 3.4rem;
 
   /* ---- Motion ---- */
-  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --dur-fast: 0.18s;
-  --dur-base: 0.32s;
-  --dur-slow: 0.6s;
+  --dur-fast: 0.12s;
+  --dur-base: 0.2s;
+  --dur-slow: 0.32s;
 
   /* ---- Layout ---- */
   --maxw: 540px;
-  --nav-h: 72px;
+  --nav-h: 74px;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Signature heavy outline width */
+  --stroke: 2.5px;
 }
 
-/* ---- Dark theme (default) ---- */
+/* ---- Light (default) — warm cream paper ---- */
 :root,
-[data-theme='dark'] {
-  --bg-0: #0a0614;
-  --bg-1: #120a24;
-  --bg-2: #1a1133;
+[data-theme='light'] {
+  --bg-0: #efeadd;
+  --bg-1: #f6f2e9;
+  --bg-2: #e5decf;
 
-  --surface: rgba(255, 255, 255, 0.045);
-  --surface-strong: rgba(255, 255, 255, 0.08);
-  --surface-border: rgba(255, 255, 255, 0.1);
-  --surface-border-strong: rgba(255, 255, 255, 0.18);
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --surface-border: #d8d0be;
+  --surface-border-strong: #1a1a1a;
 
-  --text-1: #f4f0fb;
-  --text-2: rgba(244, 240, 251, 0.66);
-  --text-3: rgba(244, 240, 251, 0.4);
+  --text-1: #1a1a1a;
+  --text-2: #6b6b64;
+  --text-3: #9a988e;
 
-  --shadow-card: 0 22px 60px -28px rgba(0, 0, 0, 0.85);
-  --shadow-glow: 0 0 60px -10px rgba(160, 107, 255, 0.45);
-  --blur: 26px;
-  --hair: rgba(255, 255, 255, 0.08);
+  --shadow-card: 0 6px 20px rgba(60, 50, 35, 0.13);
+  --shadow-soft: 0 2px 8px rgba(60, 50, 35, 0.1);
+  --shadow-glow: 0 6px 20px rgba(60, 50, 35, 0.14);
+  --blur: 0px;
+  --hair: #d8d0be;
 }
 
-/* ---- Light theme ---- */
-[data-theme='light'] {
-  --bg-0: #fbf6fb;
-  --bg-1: #f4ebf8;
-  --bg-2: #efe6fb;
+/* ---- Dark — deeper sun-faded cream ---- */
+[data-theme='dark'] {
+  --bg-0: #e5decf;
+  --bg-1: #efeadd;
+  --bg-2: #dcd3c0;
 
-  --surface: rgba(255, 255, 255, 0.66);
-  --surface-strong: rgba(255, 255, 255, 0.85);
-  --surface-border: rgba(90, 40, 120, 0.12);
-  --surface-border-strong: rgba(90, 40, 120, 0.24);
+  --surface: #f6f2e9;
+  --surface-strong: #ffffff;
+  --surface-border: #cbbfa6;
+  --surface-border-strong: #1a1a1a;
 
-  --text-1: #251338;
-  --text-2: rgba(37, 19, 56, 0.66);
-  --text-3: rgba(37, 19, 56, 0.42);
+  --text-1: #1a1a1a;
+  --text-2: #6b6b64;
+  --text-3: #9a988e;
 
-  --shadow-card: 0 22px 50px -30px rgba(120, 70, 160, 0.5);
-  --shadow-glow: 0 0 50px -12px rgba(255, 107, 157, 0.4);
-  --blur: 24px;
-  --hair: rgba(90, 40, 120, 0.08);
+  --shadow-card: 0 6px 20px rgba(60, 50, 35, 0.17);
+  --shadow-soft: 0 2px 8px rgba(60, 50, 35, 0.12);
+  --shadow-glow: 0 6px 20px rgba(60, 50, 35, 0.16);
+  --blur: 0px;
+  --hair: #cbbfa6;
 }

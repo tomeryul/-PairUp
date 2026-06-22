@@ -3,6 +3,20 @@
   flex-direction: column;
 }
 
+/* shared card pop treatment */
+.date__intro,
+.date__card,
+.date__stats,
+.date__gpt,
+.date__meal,
+.date__moments,
+.date__trend,
+.date__history-row {
+  background: var(--surface);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 3px 3px 0 var(--ink-900);
+}
+
 /* Intro */
 .date__intro {
   padding: var(--s-6) var(--s-5);
@@ -17,9 +31,9 @@
   display: grid;
   place-items: center;
   border-radius: var(--r-lg);
-  background: var(--grad-sunset);
-  color: #fff;
-  box-shadow: var(--shadow-glow);
+  background: var(--c-teal);
+  color: var(--ink-900);
+  border: 2.5px solid var(--ink-900);
 }
 .date__intro-emoji .ic {
   width: 32px;
@@ -39,8 +53,8 @@
   padding: var(--s-3);
   border-radius: var(--r-md);
   background: var(--surface);
-  border: 1.5px solid var(--surface-border);
-  color: var(--text-2);
+  border: 2px solid var(--ink-900);
+  color: var(--ink-700);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,9 +62,8 @@
   transition: all var(--dur-base) var(--ease-soft);
 }
 .date__length.is-active {
-  border-color: transparent;
-  background: var(--grad-romance);
-  color: #fff;
+  background: var(--c-coral);
+  color: var(--ink-900);
 }
 .date__length-n {
   font-size: var(--t-xl);
@@ -65,6 +78,8 @@
 .date__history-title {
   font-size: var(--t-lg);
   margin-bottom: var(--s-3);
+  color: var(--ink-900);
+  font-family: var(--font-display);
 }
 .date__trend {
   display: flex;
@@ -88,7 +103,8 @@
   width: 100%;
   min-height: 6px;
   border-radius: var(--r-sm);
-  background: var(--grad-romance);
+  background: var(--c-coral);
+  border: 2px solid var(--ink-900);
 }
 .date__trend-val {
   font-size: var(--t-xs);
@@ -103,6 +119,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--s-3);
   padding: var(--s-3) var(--s-4);
   border-radius: var(--r-md);
 }
@@ -112,20 +129,39 @@
 }
 .date__history-meta {
   font-size: var(--t-sm);
-  font-weight: 600;
-  color: var(--text-1);
+  font-weight: 700;
+  color: var(--ink-900);
   display: inline-flex;
   align-items: center;
   gap: 4px;
   white-space: nowrap;
 }
 .date__history-meta .ic {
-  color: var(--brand-rose);
+  color: var(--c-coral-deep);
+}
+.date__history-photo {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid var(--ink-900);
+}
+.date__history-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 .date__history-meal {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  font-size: var(--t-xs);
+  color: var(--text-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .date__history-meal .ic {
   color: var(--text-3);
@@ -146,15 +182,15 @@
 }
 .date__bar {
   flex: 1;
-  height: 8px;
+  height: 10px;
   border-radius: var(--r-pill);
-  background: var(--surface-strong);
+  background: var(--paper-300);
+  border: 2px solid var(--ink-900);
   overflow: hidden;
 }
 .date__bar-fill {
   height: 100%;
-  border-radius: var(--r-pill);
-  background: var(--grad-romance);
+  background: var(--c-coral);
   transition: width var(--dur-base) var(--ease-soft);
 }
 .date__capture-btn {
@@ -162,13 +198,13 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 8px 14px;
+  padding: 7px 13px;
   border-radius: var(--r-pill);
   background: var(--surface);
-  border: 1px solid var(--surface-border);
-  color: var(--text-1);
+  border: 2px solid var(--ink-900);
+  color: var(--ink-900);
   font-size: var(--t-sm);
-  font-weight: 600;
+  font-weight: 700;
 }
 .date__moment-hint {
   align-self: flex-start;
@@ -183,30 +219,30 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  background: rgba(6, 3, 14, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(40, 35, 25, 0.45);
 }
 .date__sheet {
   width: 100%;
   max-width: var(--maxw);
-  padding: var(--s-4) var(--s-5)
-    calc(var(--safe-bottom) + var(--s-5));
+  padding: var(--s-4) var(--s-5) calc(var(--safe-bottom) + var(--s-5));
   border-radius: var(--r-xl) var(--r-xl) 0 0;
   display: flex;
   flex-direction: column;
   gap: var(--s-3);
+  background: var(--surface);
+  border: 2.5px solid var(--ink-900);
 }
 .date__sheet-grip {
   width: 42px;
   height: 5px;
   border-radius: var(--r-pill);
-  background: var(--surface-border-strong);
+  background: var(--ink-300);
   align-self: center;
   margin-bottom: var(--s-2);
 }
 .date__sheet-title {
   font-size: var(--t-xl);
+  color: var(--ink-900);
 }
 .date__sheet-text {
   font-size: var(--t-sm);
@@ -239,8 +275,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--s-2);
-  background: var(--surface);
-  border: 1px solid var(--surface-border);
+  background: var(--paper-100);
+  border: 2px solid var(--ink-900);
   border-radius: var(--r-md);
   padding: var(--s-2);
 }
@@ -252,7 +288,7 @@
 }
 .date__moment-note {
   font-size: var(--t-sm);
-  color: var(--text-1);
+  color: var(--ink-900);
   padding: 0 4px 4px;
 }
 
@@ -279,12 +315,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   padding: 13px;
   border-radius: var(--r-md);
-  background: var(--surface);
-  border: 1.5px dashed var(--surface-border-strong);
-  color: var(--text-2);
-  font-weight: 600;
+  background: var(--paper-100);
+  border: 2px dashed var(--ink-900);
+  color: var(--ink-700);
+  font-weight: 700;
   font-size: var(--t-sm);
   cursor: pointer;
 }
@@ -299,63 +336,40 @@
   max-height: 280px;
   object-fit: cover;
   border-radius: var(--r-md);
+  border: 2px solid var(--ink-900);
 }
 .date__meal-replace {
   border-style: solid;
   align-self: stretch;
 }
 
-/* History extras */
-.date__history-row {
-  gap: var(--s-3);
-}
-.date__history-photo {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--r-sm);
-  object-fit: cover;
-  flex-shrink: 0;
-}
-.date__history-info {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-.date__history-meal {
-  font-size: var(--t-xs);
-  color: var(--text-3);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
+/* Cards (question / dare) */
 .date__card {
   padding: var(--s-6) var(--s-5);
-  border-radius: var(--r-xl);
+  border-radius: var(--r-lg);
   display: flex;
   flex-direction: column;
   gap: var(--s-4);
+  box-shadow: 5px 5px 0 var(--ink-900);
 }
 .date__card--dare {
   text-align: center;
   align-items: center;
-  border-color: var(--brand-coral);
 }
 .date__kind {
   align-self: flex-start;
 }
 .date__kind--dare {
   align-self: center;
-  background: linear-gradient(135deg, #ff8e6e, #ff6b9d);
-  color: #fff;
-  border: none;
+  background: var(--c-coral);
+  color: var(--ink-900);
+  border: 2px solid var(--ink-900);
 }
 .date__q {
   font-family: var(--font-display);
   font-size: var(--t-2xl);
   line-height: 1.4;
-  color: var(--text-1);
+  color: var(--ink-900);
 }
 .date__q--sm {
   font-size: var(--t-lg);
@@ -363,30 +377,31 @@
 }
 .date__turn {
   align-self: flex-start;
-  background: var(--grad-romance);
-  color: #fff;
-  border: none;
+  background: var(--c-coral);
+  color: var(--ink-900);
+  border: 2px solid var(--ink-900);
 }
 .date__bubble {
   background: var(--surface);
-  border: 1px solid var(--surface-border);
+  border: 2.5px solid var(--ink-900);
   border-radius: var(--r-md);
   padding: var(--s-4);
-  color: var(--text-1);
+  color: var(--ink-900);
   white-space: pre-wrap;
 }
 .date__bubble b {
-  color: var(--brand-rose);
+  color: var(--c-coral-deep);
 }
 .date__bubble--b {
-  border-color: var(--brand-rose);
+  background: var(--c-coral-tint);
 }
 
 .date__dare-emoji {
   width: 64px;
   height: 64px;
   border-radius: var(--r-lg);
-  box-shadow: 0 14px 30px -12px rgba(255, 142, 110, 0.6);
+  border: 2.5px solid var(--ink-900);
+  color: var(--ink-900);
 }
 .date__dare-emoji .ic {
   width: 32px;
@@ -396,7 +411,7 @@
   font-family: var(--font-display);
   font-size: var(--t-xl);
   line-height: 1.5;
-  color: var(--text-1);
+  color: var(--ink-900);
 }
 .date__dare-actions {
   display: flex;
@@ -420,14 +435,14 @@
   text-align: center;
 }
 .date__stat + .date__stat {
-  border-inline-start: 1px solid var(--surface-border);
+  border-inline-start: 2px solid var(--paper-400);
 }
 .date__stat-num {
   display: block;
   font-family: var(--font-display);
   font-size: var(--t-2xl);
   font-weight: 800;
-  color: var(--text-1);
+  color: var(--ink-900);
 }
 .date__stat-label {
   font-size: var(--t-sm);
@@ -444,6 +459,8 @@
 }
 .date__gpt-title {
   font-size: var(--t-lg);
+  color: var(--ink-900);
+  font-family: var(--font-display);
 }
 .date__gpt-text {
   font-size: var(--t-sm);
@@ -463,16 +480,18 @@
   text-align: center;
   margin-top: var(--s-3);
   padding-top: var(--s-4);
-  border-top: 1px solid var(--surface-border);
+  border-top: 2px solid var(--paper-400);
 }
 .date__result-num {
   font-family: var(--font-display);
   font-size: 3.4rem;
   font-weight: 900;
   line-height: 1;
+  color: var(--c-coral-deep);
+  -webkit-text-fill-color: var(--c-coral-deep);
 }
 .date__result-delta {
   margin-top: var(--s-2);
-  font-weight: 600;
-  color: var(--text-1);
+  font-weight: 700;
+  color: var(--ink-900);
 }

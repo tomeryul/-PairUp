@@ -3,6 +3,9 @@
   border-radius: var(--r-lg);
   margin-top: var(--s-4);
   overflow: hidden;
+  background: var(--surface);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 3px 3px 0 var(--ink-900);
 }
 .capsule-form__actions {
   display: flex;
@@ -17,15 +20,14 @@
   padding: 12px;
   border-radius: var(--r-md);
   background: var(--surface);
-  border: 1px solid var(--surface-border);
-  color: var(--text-2);
-  font-weight: 600;
+  border: 2px solid var(--ink-900);
+  color: var(--ink-700);
+  font-weight: 700;
   transition: all var(--dur-base) var(--ease-soft);
 }
 .capsule-author__btn.is-active {
-  background: var(--grad-romance);
-  color: #fff;
-  border-color: transparent;
+  background: var(--c-coral);
+  color: var(--ink-900);
 }
 
 .capsule-list {
@@ -38,10 +40,12 @@
 .capsule {
   padding: var(--s-5);
   border-radius: var(--r-lg);
+  background: var(--surface);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 3px 3px 0 var(--ink-900);
 }
 .capsule.is-ready {
-  border-color: var(--brand-rose);
-  box-shadow: var(--shadow-glow);
+  background: var(--c-teal-tint);
 }
 .capsule__head {
   display: flex;
@@ -49,8 +53,7 @@
   align-items: flex-start;
 }
 .capsule__lock {
-  font-size: 1.8rem;
-  line-height: 1.2;
+  flex-shrink: 0;
 }
 .capsule__meta {
   flex: 1;
@@ -58,22 +61,32 @@
 }
 .capsule__title {
   font-size: var(--t-lg);
-  color: var(--text-1);
+  color: var(--ink-900);
+  font-family: var(--font-display);
 }
 .capsule__sub {
   font-size: var(--t-xs);
   color: var(--text-3);
 }
 .capsule__del {
-  color: var(--text-3);
-  width: 26px;
-  height: 26px;
+  color: var(--ink-300);
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-pill);
+  border: 2px solid var(--ink-300);
+  flex-shrink: 0;
+}
+.capsule__del:hover {
+  color: var(--c-coral-deep);
+  border-color: var(--c-coral-deep);
 }
 .capsule__message {
   margin-top: var(--s-4);
   padding-top: var(--s-4);
-  border-top: 1px solid var(--surface-border);
-  color: var(--text-1);
+  border-top: 2px solid var(--paper-400);
+  color: var(--ink-900);
   white-space: pre-wrap;
   line-height: 1.6;
 }

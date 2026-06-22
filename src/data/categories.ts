@@ -7,7 +7,7 @@ export const categories: Category[] = [
     emoji: '📖',
     icon: 'book',
     description: 'עלינו ועל הדרך שלנו',
-    gradient: 'linear-gradient(135deg, #ff6b9d 0%, #ffcf73 100%)',
+    gradient: '#EF9080',
   },
   {
     id: 'deep',
@@ -15,7 +15,7 @@ export const categories: Category[] = [
     emoji: '💭',
     icon: 'layers',
     description: 'שיחות שנוגעות בלב',
-    gradient: 'linear-gradient(135deg, #a06bff 0%, #6bb9ff 100%)',
+    gradient: '#9CC0BC',
   },
   {
     id: 'funny',
@@ -23,7 +23,7 @@ export const categories: Category[] = [
     emoji: '😂',
     icon: 'smile',
     description: 'צחוק שמקרב',
-    gradient: 'linear-gradient(135deg, #ffcf73 0%, #ff8e6e 100%)',
+    gradient: '#E8B84B',
   },
   {
     id: 'love',
@@ -31,7 +31,7 @@ export const categories: Category[] = [
     emoji: '❤️',
     icon: 'heart',
     description: 'הלב שלנו, גלוי',
-    gradient: 'linear-gradient(135deg, #ff6b9d 0%, #ff3d7f 100%)',
+    gradient: '#D9705E',
   },
   {
     id: 'dreams',
@@ -39,7 +39,7 @@ export const categories: Category[] = [
     emoji: '🌍',
     icon: 'globe',
     description: 'לאן הלב לוקח אותנו',
-    gradient: 'linear-gradient(135deg, #6bb9ff 0%, #a06bff 100%)',
+    gradient: '#84ABA6',
   },
   {
     id: 'childhood',
@@ -47,7 +47,7 @@ export const categories: Category[] = [
     emoji: '👶',
     icon: 'balloon',
     description: 'מאיפה באנו',
-    gradient: 'linear-gradient(135deg, #ff9ec1 0%, #ffcf73 100%)',
+    gradient: '#F4A695',
   },
   {
     id: 'future',
@@ -55,7 +55,7 @@ export const categories: Category[] = [
     emoji: '✨',
     icon: 'sun',
     description: 'מה שעוד מחכה לנו',
-    gradient: 'linear-gradient(135deg, #a06bff 0%, #ff6b9d 100%)',
+    gradient: '#A9D178',
   },
   {
     id: 'datenight',
@@ -63,7 +63,7 @@ export const categories: Category[] = [
     emoji: '🍷',
     icon: 'moon',
     description: 'שאלות לאור נרות',
-    gradient: 'linear-gradient(135deg, #ff6b9d 0%, #a06bff 100%)',
+    gradient: '#6E938E',
   },
   {
     id: 'random',
@@ -71,7 +71,7 @@ export const categories: Category[] = [
     emoji: '🎲',
     icon: 'spark',
     description: 'משאירים את זה לגורל',
-    gradient: 'linear-gradient(135deg, #ff8e6e 0%, #ff6b9d 100%)',
+    gradient: '#84ABA6',
   },
 ];
 

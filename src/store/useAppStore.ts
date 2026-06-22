@@ -135,7 +135,7 @@ export const useAppStore = create<AppState>()(
     (set, get) => ({
       onboarded: false,
       names: { a: '', b: '' },
-      theme: 'dark',
+      theme: 'light',
       soundEnabled: true,
       musicEnabled: false,
       saved: [],
