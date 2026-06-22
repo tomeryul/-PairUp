@@ -201,3 +201,29 @@
 .textarea::placeholder {
   color: var(--text-3);
 }
+
+/* ---- Native date input in RTL ----
+   Without this the value/calendar icon cluster on the wrong side and look
+   misaligned. Pin the value to the inline-start edge (right, in RTL) while
+   keeping the numeric order natural, and move the calendar control to the
+   inline-end edge (left, in RTL). */
+.input[type='date'] {
+  direction: rtl;
+  text-align: right;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.input[type='date']::-webkit-datetime-edit {
+  direction: ltr;
+  text-align: right;
+  flex: 1;
+}
+.input[type='date']::-webkit-calendar-picker-indicator {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.input[type='date']::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
