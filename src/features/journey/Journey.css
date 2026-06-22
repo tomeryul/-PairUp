@@ -122,3 +122,16 @@
   color: var(--text-1);
   font-size: var(--t-base);
 }
+
+.journey__tab .ic {
+  width: 16px;
+  height: 16px;
+}
+.memory__del .ic {
+  width: 15px;
+  height: 15px;
+}
+.timeline__dot .ic {
+  width: 14px;
+  height: 14px;
+}

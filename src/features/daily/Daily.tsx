@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 import { HeartBurst } from '@/components/HeartBurst';
 import { useDailyQuestion } from '@/hooks/useDailyQuestion';
 import { useAppStore } from '@/store/useAppStore';
@@ -45,23 +46,19 @@ export function Daily() {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         <span className="chip daily__chip">
-          {cat?.emoji} {cat?.title}
+          {cat && <Icon name={cat.icon} />} {cat?.title}
         </span>
-        <motion.div
-          className="daily__sun"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-        >
-          ☀️
-        </motion.div>
+        <div className="daily__sun">
+          <Icon name="sun" />
+        </div>
         <p className="daily__q">{daily.text}</p>
         <p className="daily__note">
           קחו רגע, שבו אחד מול השני, וענו בלי למהר. זו השאלה של היום.
         </p>
       </motion.div>
 
-      <Button block size="lg" onClick={save} disabled={saved}>
-        {saved ? '💖 נשמר לזכרונות' : '🤍 שמרו את הרגע הזה'}
+      <Button block size="lg" onClick={save} disabled={saved} className={`heart-btn${saved ? ' is-saved' : ''}`}>
+        <Icon name="heart" size={18} /> {saved ? 'נשמר לזכרונות' : 'שמרו את הרגע הזה'}
       </Button>
     </div>
   );

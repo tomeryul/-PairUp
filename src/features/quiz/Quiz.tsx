@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 import { HeartBurst } from '@/components/HeartBurst';
 import { quizQuestions } from '@/data/quiz';
 import { useAppStore } from '@/store/useAppStore';
@@ -86,12 +87,12 @@ export function Quiz() {
   const percent = Math.round((score / deck.length) * 100);
   const verdict =
     percent === 100
-      ? 'נשמות תאומות! 💞'
+      ? 'נשמות תאומות'
       : percent >= 66
-        ? 'אתם מכירים זה את זה מצוין! ❤️'
+        ? 'אתם מכירים זה את זה מצוין'
         : percent >= 33
-          ? 'יש עוד הרבה לגלות 😊'
-          : 'הרפתקה של היכרות מחכה לכם! 🌱';
+          ? 'יש עוד הרבה לגלות'
+          : 'הרפתקה של היכרות מחכה לכם';
 
   return (
     <div className="page quiz">
@@ -110,13 +111,15 @@ export function Quiz() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
           >
-            <div className="quiz__emoji">🧠💕</div>
+            <div className="quiz__icon">
+              <Icon name="target" size={30} />
+            </div>
             <p className="quiz__intro">
               ב-{deck.length} סבבים, {names.a} ינחש/תנחש מה {names.b} יענה/תענה.
               נראה כמה אתם באמת מכירים אחד את השני!
             </p>
             <Button block size="lg" onClick={start}>
-              בואו נתחיל →
+              בואו נתחיל <Icon name="arrowL" size={18} />
             </Button>
           </motion.div>
         )}
@@ -139,7 +142,7 @@ export function Quiz() {
               {phase === 'guess' && `${names.a}: מה לדעתך ${names.b} יבחר/תבחר?`}
               {phase === 'actual' && `${names.b}: מה התשובה האמיתית שלך?`}
               {phase === 'feedback' &&
-                (actual === guess ? 'פגעתם בול! 🎯' : 'כמעט! 💫')}
+                (actual === guess ? 'פגעתם בול' : 'כמעט')}
             </p>
             <p className="quiz__q">{q.prompt}</p>
 
@@ -163,9 +166,9 @@ export function Quiz() {
                       phase === 'guess' ? pickGuess(i) : phase === 'actual' && pickActual(i)
                     }
                   >
-                    {opt}
-                    {phase === 'feedback' && isActual && ' ✓'}
-                    {phase === 'actual' && isGuess && ' 👈 הניחוש'}
+                    <span>{opt}</span>
+                    {phase === 'feedback' && isActual && <Icon name="check" />}
+                    {phase === 'actual' && isGuess && <small>הניחוש</small>}
                   </button>
                 );
               })}
@@ -173,7 +176,8 @@ export function Quiz() {
 
             {phase === 'feedback' && (
               <Button block onClick={next}>
-                {round + 1 >= deck.length ? 'לתוצאות 🎉' : 'הסבב הבא ←'}
+                {round + 1 >= deck.length ? 'לתוצאות' : 'הסבב הבא'}{' '}
+                <Icon name="arrowL" size={18} />
               </Button>
             )}
           </motion.div>
@@ -196,7 +200,7 @@ export function Quiz() {
               ניחשתם נכון {score} מתוך {deck.length}
             </p>
             <Button block size="lg" onClick={restart}>
-              שחקו שוב 🔄
+              שחקו שוב
             </Button>
           </motion.div>
         )}

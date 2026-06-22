@@ -12,9 +12,23 @@
   border: none;
   font-weight: 700;
 }
+.daily__chip .ic {
+  color: #3a1d00;
+}
 .daily__sun {
-  font-size: 3rem;
-  margin: var(--s-5) 0;
+  width: 64px;
+  height: 64px;
+  margin: var(--s-5) auto;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--grad-dawn);
+  color: #fff;
+  box-shadow: var(--shadow-glow);
+}
+.daily__sun .ic {
+  width: 32px;
+  height: 32px;
 }
 .daily__q {
   font-family: var(--font-display);

@@ -66,53 +66,79 @@
   );
 }
 
-.settings__row {
+/* Flat setting rows */
+.settings__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+.settings__bday-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+.set-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--s-3);
-  padding: var(--s-3) 0;
-  border-bottom: 1px solid var(--surface-border);
+  padding: var(--s-4) var(--s-5);
+  border-radius: var(--r-lg);
 }
-.settings__row:last-child {
-  border-bottom: none;
+.set-row__label {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
 }
-.settings__row-label {
-  font-weight: 600;
+.set-row__txt {
+  display: flex;
+  flex-direction: column;
+}
+.set-row__title {
+  font-weight: 700;
   color: var(--text-1);
 }
-.settings__row-desc {
+.set-row__sub {
   font-size: var(--t-sm);
-  color: var(--text-3);
+  color: var(--text-2);
+}
+.set-row__val {
+  color: var(--brand-rose);
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: var(--t-lg);
+}
+.set-row .badge--soft .ic {
+  width: 20px;
+  height: 20px;
 }
 
 .toggle {
-  width: 52px;
-  height: 30px;
+  width: 50px;
+  height: 29px;
   border-radius: var(--r-pill);
-  background: var(--surface-strong);
-  border: 1px solid var(--surface-border);
+  background: var(--surface-border-strong);
   position: relative;
   transition: background var(--dur-base) var(--ease-soft);
   flex-shrink: 0;
 }
 .toggle.is-on {
   background: var(--grad-romance);
-  border-color: transparent;
 }
 .toggle__knob {
   position: absolute;
   top: 3px;
   inset-inline-start: 3px;
-  width: 22px;
-  height: 22px;
+  width: 23px;
+  height: 23px;
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
   transition: inset-inline-start var(--dur-base) var(--ease-spring);
 }
 .toggle.is-on .toggle__knob {
-  inset-inline-start: calc(100% - 25px);
+  inset-inline-start: calc(100% - 26px);
 }
 
 .settings__confirm {

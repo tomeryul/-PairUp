@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 import { HeartBurst } from '@/components/HeartBurst';
 import { useAppStore } from '@/store/useAppStore';
 import { useSound } from '@/hooks/useSound';
@@ -48,7 +49,7 @@ export function Capsules() {
 
       {!creating && (
         <Button block size="lg" onClick={() => { play('tap'); setCreating(true); }}>
-          ✨ קפסולה חדשה
+          <Icon name="plus" size={18} /> קפסולה חדשה
         </Button>
       )}
 
@@ -109,7 +110,7 @@ export function Capsules() {
                 ביטול
               </Button>
               <Button block onClick={save} disabled={!canSave}>
-                נעל את הקפסולה 🔒
+                נעל את הקפסולה
               </Button>
             </div>
           </motion.div>
@@ -119,7 +120,9 @@ export function Capsules() {
       <div className="capsule-list">
         {capsules.length === 0 && !creating && (
           <div className="empty glass">
-            <div className="empty__emoji">⏳</div>
+            <div className="empty__icon">
+              <Icon name="clock" />
+            </div>
             <h2 className="empty__title">אין עדיין קפסולות</h2>
             <p>צרו מסר ראשון שיחכה לכם בעתיד.</p>
           </div>
@@ -137,7 +140,9 @@ export function Capsules() {
               animate={{ opacity: 1, y: 0 }}
             >
               <div className="capsule__head">
-                <span className="capsule__lock">{unlocked ? '💌' : ready ? '🔓' : '🔒'}</span>
+                <span className="capsule__lock badge badge--soft badge--md">
+                  <Icon name={unlocked ? 'send' : ready ? 'gift' : 'clock'} />
+                </span>
                 <div className="capsule__meta">
                   <h3 className="capsule__title">{c.title}</h3>
                   <span className="capsule__sub">
@@ -150,7 +155,7 @@ export function Capsules() {
                   onClick={() => { play('tap'); removeCapsule(c.id); }}
                   aria-label="מחק"
                 >
-                  ✕
+                  <Icon name="x" size={15} />
                 </button>
               </div>
 
@@ -171,7 +176,7 @@ export function Capsules() {
                     setBurst((b) => b + 1);
                   }}
                 >
-                  פתחו את הקפסולה 💝
+                  פתחו את הקפסולה
                 </Button>
               ) : (
                 <p className="capsule__teaser">

@@ -34,31 +34,37 @@ export const loveLetter = `אהובה שלי,
 export const whyILoveYou: LoveCard[] = [
   {
     emoji: '😍',
+    icon: 'smile',
     title: 'החיוך שלך',
     body: 'יש לך חיוך שמסוגל להפוך לי את היום, גם ברגעים הכי אפורים.',
   },
   {
     emoji: '🫶',
+    icon: 'heart',
     title: 'הלב הגדול שלך',
     body: 'את אוהבת בלי תנאים, ודואגת לכולם לפני שאת דואגת לעצמך.',
   },
   {
     emoji: '😂',
+    icon: 'star',
     title: 'הצחוק שלך',
     body: 'אין דבר שאני אוהב יותר מלגרום לך לצחוק עד שאת בקושי נושמת.',
   },
   {
     emoji: '💪',
+    icon: 'flame',
     title: 'הכוח שלך',
     body: 'את מתמודדת עם הכול בחן ובעוצמה, ומעוררת בי השראה כל יום.',
   },
   {
     emoji: '🏡',
+    icon: 'house',
     title: 'הבית שיצרנו',
     body: 'איתך כל מקום מרגיש כמו בית, וכל יום מרגיש כמו הרפתקה.',
   },
   {
     emoji: '✨',
+    icon: 'spark',
     title: 'פשוט את',
     body: 'בלי סיבה מיוחדת, ועם אלף סיבות — אני פשוט אוהב אותך.',
   },
@@ -71,18 +77,21 @@ export const milestones: Milestone[] = [
     title: 'נפגשנו בבאמבל',
     description: 'סווייפ אחד וההודעה הראשונה שהתחילה את כל הסיפור שלנו.',
     emoji: '💬',
+    icon: 'chat',
   },
   {
     date: 'אוקטובר 2024',
     title: 'הדייט השני',
     description: 'אחרי חודש שלם בנפרד, כשחזרת מארצות הברית — והבנו ששנינו בפנים.',
     emoji: '✈️',
+    icon: 'plane',
   },
   {
     date: '21 באוקטובר 2024',
     title: 'אמרנו "אני אוהב אותך"',
     description: 'שלוש המילים שכבר ידענו מזמן, סוף סוף נאמרו בקול.',
     emoji: '❤️',
+    icon: 'heart',
   },
   {
     date: 'היום',
@@ -90,6 +99,7 @@ export const milestones: Milestone[] = [
     description:
       'אחרי כל הדרך, אני עדיין בוחר בך בכל בוקר מחדש — ו"A Thousand Years" עדיין מנגן.',
     emoji: '💫',
+    icon: 'spark',
   },
 ];
 

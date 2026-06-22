@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 import { useAuth } from '@/auth/AuthProvider';
 import './Login.css';
 
@@ -15,7 +16,7 @@ export function AuthDenied() {
   const { error, signIn, logout } = useAuth();
   return (
     <div className="auth-status">
-      <div className="auth-status__emoji">🔒</div>
+      <div className="auth-status__emoji"><Icon name="x" size={48} /></div>
       <h1 className="auth-status__title">אין הרשאת גישה</h1>
       <p className="auth-status__text">
         {error ?? 'המשתמש הזה לא מורשה להיכנס לאפליקציה.'}
@@ -31,7 +32,7 @@ export function AuthDenied() {
 export function AuthUnconfigured() {
   return (
     <div className="auth-status">
-      <div className="auth-status__emoji">⚙️</div>
+      <div className="auth-status__emoji"><Icon name="more" size={48} /></div>
       <h1 className="auth-status__title">Firebase עדיין לא מוגדר</h1>
       <p className="auth-status__text">
         כדי להפעיל התחברות וסנכרון נתונים, יש להגדיר את משתני הסביבה של Firebase

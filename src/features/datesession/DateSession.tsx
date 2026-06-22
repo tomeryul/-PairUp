@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 import { HeartBurst } from '@/components/HeartBurst';
 import { useAppStore } from '@/store/useAppStore';
 import { useSound } from '@/hooks/useSound';
@@ -156,13 +157,13 @@ export function DateSession() {
                 setCapturing(true);
               }}
             >
-              📸 רגע
+              <Icon name="camera" size={16} /> רגע
             </button>
           </div>
 
           {moments.length > 0 && (
             <div className="date__moment-hint chip">
-              💛 תיעדתם {moments.length} רגעים בדייט הזה
+              <Icon name="heart" /> תיעדתם {moments.length} רגעים בדייט הזה
             </div>
           )}
 
@@ -176,7 +177,7 @@ export function DateSession() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
               >
-                <span className="chip date__kind">💬 שאלה</span>
+                <span className="chip date__kind"><Icon name="chat" /> שאלה</span>
                 {qsub !== 'reveal' ? (
                   <>
                     <p className="date__q">{round.text}</p>
@@ -204,7 +205,11 @@ export function DateSession() {
                         else setQsub('reveal');
                       }}
                     >
-                      {qsub === 'a' ? `תורו של ${names.b} ←` : 'גלו תשובות 🎭'}
+                      {qsub === 'a' ? (
+                        <>תורו של {names.b} <Icon name="arrowL" size={18} /></>
+                      ) : (
+                        'גלו תשובות'
+                      )}
                     </Button>
                   </>
                 ) : (
@@ -229,7 +234,11 @@ export function DateSession() {
                         advance();
                       }}
                     >
-                      {idx + 1 >= plan.length ? 'לסיכום 🎉' : 'הסבב הבא ←'}
+                      {idx + 1 >= plan.length ? (
+                        'לסיכום'
+                      ) : (
+                        <>הסבב הבא <Icon name="arrowL" size={18} /></>
+                      )}
                     </Button>
                   </>
                 )}
@@ -244,9 +253,11 @@ export function DateSession() {
                 transition={{ type: 'spring', stiffness: 220, damping: 20 }}
               >
                 <span className="chip date__kind date__kind--dare">
-                  🔥 אתגר · {round.dare.type}
+                  <Icon name="flame" /> אתגר · {round.dare.type}
                 </span>
-                <div className="date__dare-emoji">{round.dare.emoji}</div>
+                <span className="badge date__dare-emoji" style={{ background: 'var(--grad-sunset)' }}>
+                  <Icon name="flame" />
+                </span>
                 <p className="date__dare-text">{round.dare.text}</p>
                 <div className="date__dare-actions">
                   <Button
@@ -267,7 +278,7 @@ export function DateSession() {
                       advance();
                     }}
                   >
-                    ביצענו! ✅
+                    <Icon name="check" size={18} /> ביצענו!
                   </Button>
                 </div>
               </motion.div>
@@ -358,7 +369,7 @@ function CaptureSheet({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="date__sheet-grip" />
-        <h3 className="date__sheet-title">🍽️ רגע לתיעוד</h3>
+        <h3 className="date__sheet-title">רגע לתיעוד</h3>
         <p className="date__sheet-text">
           אוכלים? קורה משהו חמוד? שמרו אותו עכשיו והמשיכו בשאלון.
         </p>
@@ -373,7 +384,7 @@ function CaptureSheet({
           <img className="date__meal-photo" src={photo} alt="" />
         ) : (
           <label className="date__meal-add">
-            {busy ? 'טוען תמונה...' : '📷 הוסיפו תמונה'}
+            <Icon name="camera" size={18} /> {busy ? 'טוען תמונה...' : 'הוסיפו תמונה'}
             <input type="file" accept="image/*" hidden onChange={onPhoto} />
           </label>
         )}
@@ -392,7 +403,7 @@ function CaptureSheet({
               })
             }
           >
-            שמרו רגע 💛
+            שמרו רגע
           </Button>
         </div>
       </motion.div>
@@ -432,7 +443,9 @@ function IntroView({
       />
 
       <div className="date__intro glass">
-        <div className="date__intro-emoji">🥂</div>
+        <div className="date__intro-emoji">
+          <Icon name="spark" />
+        </div>
         <p className="date__intro-text">
           {names.a} ו{names.b}, מוכנים? בחרו אורך סשן והתחילו.
         </p>
@@ -472,7 +485,7 @@ function IntroView({
           ))}
         </div>
         <Button block size="lg" onClick={onStart}>
-          בואו נתחיל 🔥
+          בואו נתחיל
         </Button>
       </div>
 
@@ -507,13 +520,18 @@ function IntroView({
                     </span>
                     {(note || (s.moments && s.moments.length > 0)) && (
                       <span className="date__history-meal">
-                        🍽️ {note || `${s.moments?.length} רגעים`}
+                        <Icon name="camera" size={13} /> {note || `${s.moments?.length} רגעים`}
                       </span>
                     )}
                   </div>
                   <span className="date__history-meta">
-                    🔥 {s.daresDone}/{s.daresTotal}
-                    {s.gptScore != null && <> · 💞 {s.gptScore}</>}
+                    <Icon name="flame" size={14} /> {s.daresDone}/{s.daresTotal}
+                    {s.gptScore != null && (
+                      <>
+                        {' · '}
+                        <Icon name="heart" size={14} /> {s.gptScore}
+                      </>
+                    )}
                   </span>
                 </div>
               );
@@ -613,7 +631,7 @@ function SummaryView({
   return (
     <div className="date__summary">
       <PageHeader
-        eyebrow={occasion.trim() ? `לכבוד ${occasion.trim()} 💛` : 'כל הכבוד 💛'}
+        eyebrow={occasion.trim() ? `לכבוד ${occasion.trim()}` : 'כל הכבוד'}
         title="סיכום הדייט"
       />
 
@@ -633,16 +651,16 @@ function SummaryView({
       </div>
 
       <div className="date__gpt glass">
-        <h3 className="date__gpt-title">💞 ציון ההתאמה</h3>
+        <h3 className="date__gpt-title">ציון ההתאמה</h3>
         <p className="date__gpt-text">
           פתחו את ChatGPT עם הפרומפט המוכן (כולל התשובות שלכם), קבלו ציון התאמה,
           והזינו אותו כאן כדי לעקוב אם השתפרתם.
         </p>
         <Button block size="lg" onClick={openGpt}>
-          נתחו את ההתאמה ב-ChatGPT ↗
+          נתחו את ההתאמה ב-ChatGPT
         </Button>
         <Button variant="ghost" block onClick={copyPrompt}>
-          {copied ? '✓ הפרומפט הועתק' : 'העתיקו את הפרומפט'}
+          {copied ? 'הפרומפט הועתק ✓' : 'העתיקו את הפרומפט'}
         </Button>
 
         <div className="date__score-row">
@@ -670,19 +688,19 @@ function SummaryView({
             <div className="date__result-num gradient-text">{savedScore}</div>
             {delta != null && delta !== 0 && (
               <div className="date__result-delta">
-                {delta > 0 ? `📈 השתפרתם ב-${delta} נקודות!` : `${delta} מהפעם הקודמת`}
+                {delta > 0 ? `השתפרתם ב-${delta} נקודות!` : `${delta} מהפעם הקודמת`}
               </div>
             )}
-            {delta === 0 && <div className="date__result-delta">בדיוק כמו קודם 💫</div>}
+            {delta === 0 && <div className="date__result-delta">בדיוק כמו קודם</div>}
           </motion.div>
         )}
       </div>
 
       <div className="date__moments glass">
         <div className="date__moments-head">
-          <h3 className="date__gpt-title">📸 רגעים מהדייט</h3>
+          <h3 className="date__gpt-title">רגעים מהדייט</h3>
           <button className="date__capture-btn" onClick={onCapture}>
-            + הוספה
+            <Icon name="plus" size={15} /> הוספה
           </button>
         </div>
         {moments.length === 0 ? (

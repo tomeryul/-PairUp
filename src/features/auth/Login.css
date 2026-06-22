@@ -14,9 +14,19 @@
   align-items: center;
 }
 .login__logo {
-  font-size: 5rem;
-  filter: drop-shadow(0 12px 36px rgba(255, 107, 157, 0.5));
-  margin-bottom: var(--s-4);
+  width: 88px;
+  height: 88px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-xl);
+  background: var(--grad-romance);
+  color: #fff;
+  box-shadow: var(--shadow-glow);
+  margin-bottom: var(--s-5);
+}
+.login__logo .ic {
+  width: 44px;
+  height: 44px;
 }
 .login__title {
   font-size: var(--t-4xl);

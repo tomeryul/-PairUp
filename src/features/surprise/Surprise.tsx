@@ -2,9 +2,13 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
+import { Icon, type IconName } from '@/components/ui/Icon';
 import { surprises } from '@/data/surprises';
 import { useSound } from '@/hooks/useSound';
 import './Surprise.css';
+
+const iconForType = (type: string): IconName =>
+  type === 'אתגר' ? 'spark' : type === 'רעיון לדייט' ? 'moon' : 'users';
 
 export function Surprise() {
   const play = useSound();
@@ -47,14 +51,15 @@ export function Surprise() {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ type: 'spring', stiffness: 260, damping: 20 }}
             >
-              <span className="surprise__type chip">{item.type}</span>
-              <motion.div
-                className="surprise__emoji"
-                animate={spinning ? {} : { scale: [1, 1.2, 1] }}
+              <motion.span
+                className="badge surprise__badge"
+                style={{ background: 'var(--grad-romance)' }}
+                animate={spinning ? {} : { scale: [1, 1.12, 1] }}
                 transition={{ duration: 0.6 }}
               >
-                {item.emoji}
-              </motion.div>
+                <Icon name={iconForType(item.type)} />
+              </motion.span>
+              <span className="surprise__type">{item.type}</span>
               <p className="surprise__text">{item.text}</p>
             </motion.div>
           ) : (
@@ -65,13 +70,13 @@ export function Surprise() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <motion.div
-                className="surprise__emoji"
-                animate={{ rotate: [0, 12, -12, 0] }}
+              <motion.span
+                className="badge surprise__badge badge--soft"
+                animate={{ rotate: [0, 10, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
               >
-                🎁
-              </motion.div>
+                <Icon name="gift" />
+              </motion.span>
               <p className="surprise__text surprise__text--muted">
                 לחצו על הכפתור כדי לגלות את ההפתעה שלכם
               </p>
@@ -81,7 +86,7 @@ export function Surprise() {
       </div>
 
       <Button block size="lg" onClick={roll} disabled={spinning}>
-        {current === null ? 'הפתיעו אותי ✨' : 'הפתעה נוספת 🎲'}
+        {current === null ? 'הפתיעו אותי' : 'הפתעה נוספת'}
       </Button>
     </div>
   );

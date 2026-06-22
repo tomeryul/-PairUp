@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 import { useAppStore } from '@/store/useAppStore';
 import { useSound } from '@/hooks/useSound';
 import { categoryMap } from '@/data/categories';
@@ -27,12 +28,16 @@ export function Journey() {
           subtitle="כאן נאספים הרגעים והתשובות שבחרתם לשמור."
         />
         <div className="empty glass">
-          <div className="empty__emoji">💝</div>
+          <div className="empty__icon">
+            <Icon name="heart" />
+          </div>
           <h2 className="empty__title">עוד לא שמרתם זכרונות</h2>
           <p>ענו על שאלות ושמרו את הרגעים האהובים עליכם — הם יופיעו כאן.</p>
           <div style={{ marginTop: 'var(--s-5)' }}>
             <Link to="/categories">
-              <Button>בואו נתחיל לדבר →</Button>
+              <Button>
+                בואו נתחיל לדבר <Icon name="arrowL" size={18} />
+              </Button>
             </Link>
           </div>
         </div>
@@ -61,7 +66,8 @@ export function Journey() {
             {tab === t && (
               <motion.span layoutId="journey-tab-pill" className="journey__tab-pill" />
             )}
-            <span>{t === 'memories' ? '💎 זכרונות' : '🕰️ ציר זמן'}</span>
+            <Icon name={t === 'memories' ? 'star' : 'clock'} size={16} />
+            <span>{t === 'memories' ? 'זכרונות' : 'ציר זמן'}</span>
           </button>
         ))}
       </div>
@@ -88,7 +94,7 @@ export function Journey() {
                 >
                   <div className="memory__head">
                     <span className="chip">
-                      {cat?.emoji} {cat?.title}
+                      {cat && <Icon name={cat.icon} />} {cat?.title}
                     </span>
                     <button
                       className="memory__del"
@@ -98,7 +104,7 @@ export function Journey() {
                       }}
                       aria-label="מחק"
                     >
-                      ✕
+                      <Icon name="x" size={15} />
                     </button>
                   </div>
                   <p className="memory__q">{item.questionText}</p>
@@ -138,7 +144,9 @@ export function Journey() {
                 transition={{ delay: i * 0.04 }}
               >
                 <span className="timeline__dot">
-                  {categoryMap[item.category]?.emoji}
+                  {categoryMap[item.category] && (
+                    <Icon name={categoryMap[item.category].icon} size={14} />
+                  )}
                 </span>
                 <div className="timeline__content glass">
                   <time className="timeline__date">{formatDate(item.createdAt)}</time>

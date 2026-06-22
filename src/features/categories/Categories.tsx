@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { PageHeader } from '@/components/ui/PageHeader';
+import { Icon } from '@/components/ui/Icon';
 import { categories } from '@/data/categories';
 import { useSound } from '@/hooks/useSound';
 import './Categories.css';
@@ -29,9 +30,13 @@ export function Categories() {
               style={{ ['--cat-grad' as string]: c.gradient }}
             >
               <div className="cat-card__glow" />
-              <span className="cat-card__emoji">{c.emoji}</span>
-              <span className="cat-card__title">{c.title}</span>
-              <span className="cat-card__desc">{c.description}</span>
+              <span className="badge badge--md cat-card__badge">
+                <Icon name={c.icon} />
+              </span>
+              <span>
+                <span className="cat-card__title">{c.title}</span>
+                <span className="cat-card__desc">{c.description}</span>
+              </span>
             </Link>
           </motion.div>
         ))}

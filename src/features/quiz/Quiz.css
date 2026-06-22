@@ -3,9 +3,16 @@
   border-radius: var(--r-xl);
   text-align: center;
 }
-.quiz__emoji {
-  font-size: 3.5rem;
-  margin-bottom: var(--s-4);
+.quiz__icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto var(--s-5);
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-lg);
+  background: var(--grad-romance);
+  color: #fff;
+  box-shadow: var(--shadow-glow);
 }
 .quiz__intro {
   color: var(--text-2);
@@ -52,9 +59,26 @@
   font-size: var(--t-base);
   text-align: start;
   transition: all var(--dur-fast) var(--ease-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
 }
 .quiz__opt:active {
   transform: scale(0.98);
+}
+.quiz__opt small {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  opacity: 0.8;
+}
+.quiz__opt .ic {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.quiz__opt.is-correct .ic {
+  color: #4ade80;
 }
 .quiz__opt.is-guessed {
   border-color: var(--brand-violet);

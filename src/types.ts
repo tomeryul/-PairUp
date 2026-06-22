@@ -1,3 +1,5 @@
+import type { IconName } from '@/components/ui/Icon';
+
 export type ThemeMode = 'dark' | 'light';
 
 export type CategoryId =
@@ -16,6 +18,8 @@ export interface Category {
   id: CategoryId;
   title: string;
   emoji: string;
+  /** Line-icon name from the Icon component. */
+  icon: IconName;
   description: string;
   /** CSS gradient applied to the category card */
   gradient: string;
@@ -63,6 +67,7 @@ export interface Achievement {
   title: string;
   description: string;
   emoji: string;
+  icon: IconName;
   /** Returns 0..1 completion ratio given the current state. */
   progress: (state: ProgressSnapshot) => number;
 }
@@ -81,10 +86,12 @@ export interface Milestone {
   title: string;
   description: string;
   emoji: string;
+  icon: IconName;
 }
 
 export interface LoveCard {
   emoji: string;
+  icon: IconName;
   title: string;
   body: string;
 }

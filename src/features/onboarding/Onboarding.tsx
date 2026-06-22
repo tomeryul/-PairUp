@@ -1,23 +1,24 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
+import { Icon, type IconName } from '@/components/ui/Icon';
 import { useAppStore } from '@/store/useAppStore';
 import { useSound } from '@/hooks/useSound';
 import './Onboarding.css';
 
-const slides = [
+const slides: { icon: IconName; title: string; body: string }[] = [
   {
-    emoji: '💞',
+    icon: 'heart',
     title: 'ברוכים הבאים ל-PairUp',
     body: 'המקום שבו השיחות שלכם הופכות לחוויה. שאלות עמוקות, צחוקים וזכרונות — הכול במקום אחד.',
   },
   {
-    emoji: '🗝️',
+    icon: 'chat',
     title: 'שיחות שמקרבות',
     body: 'בחרו קטגוריה, ענו בתורות, וגלו זה את זה מחדש בכל פעם. שמרו את הרגעים היפים שלכם לתמיד.',
   },
   {
-    emoji: '⏳',
+    icon: 'clock',
     title: 'קפסולות לעתיד',
     body: 'כתבו מסרים שייפתחו בתאריך עתידי, אספו הישגים, ושמרו על רצף שיחות יומי.',
   },
@@ -63,7 +64,7 @@ export function Onboarding() {
                 animate={{ y: [0, -12, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               >
-                {slides[step].emoji}
+                <Icon name={slides[step].icon} />
               </motion.div>
               <h1 className="onboarding__title">{slides[step].title}</h1>
               <p className="onboarding__body">{slides[step].body}</p>
@@ -77,7 +78,9 @@ export function Onboarding() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="onboarding__emoji">✍️</div>
+              <div className="onboarding__emoji">
+                <Icon name="users" />
+              </div>
               <h1 className="onboarding__title">איך קוראים לכם?</h1>
               <p className="onboarding__body">
                 כדי שנוכל להפוך את החוויה לאישית שלכם.
@@ -122,7 +125,7 @@ export function Onboarding() {
           </div>
           {isNames ? (
             <Button size="lg" block onClick={finish}>
-              בואו נתחיל ❤️
+              בואו נתחיל
             </Button>
           ) : (
             <Button size="lg" block onClick={next}>

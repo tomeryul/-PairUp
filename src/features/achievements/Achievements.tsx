@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { PageHeader } from '@/components/ui/PageHeader';
+import { Icon } from '@/components/ui/Icon';
 import { achievements } from '@/data/achievements';
 import { useAppStore } from '@/store/useAppStore';
 import type { ProgressSnapshot } from '@/types';
@@ -41,12 +42,16 @@ export function Achievements() {
               transition={{ delay: i * 0.05 }}
             >
               <div className={`ach__badge${done ? ' is-done' : ''}`}>
-                <span>{a.emoji}</span>
+                <Icon name={a.icon} />
               </div>
               <div className="ach__body">
                 <div className="ach__head">
                   <h3 className="ach__title">{a.title}</h3>
-                  {done && <span className="ach__check">✓</span>}
+                  {done && (
+                    <span className="ach__check">
+                      <Icon name="check" size={16} />
+                    </span>
+                  )}
                 </div>
                 <p className="ach__desc">{a.description}</p>
                 <div className="ach__bar">

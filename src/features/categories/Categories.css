@@ -8,12 +8,14 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  justify-content: space-between;
+  gap: var(--s-5);
   padding: var(--s-5);
-  min-height: 150px;
+  min-height: 158px;
   border-radius: var(--r-lg);
   overflow: hidden;
   transition: transform var(--dur-base) var(--ease-spring);
+  text-align: start;
 }
 .cat-card:active {
   transform: scale(0.96);
@@ -42,18 +44,20 @@
   border-radius: 50%;
 }
 
-.cat-card__emoji {
-  font-size: 2.4rem;
-  margin-top: auto;
+.cat-card__badge {
+  background: var(--cat-grad);
   position: relative;
 }
 .cat-card__title {
   font-weight: 700;
   font-size: var(--t-lg);
   position: relative;
+  display: block;
 }
 .cat-card__desc {
   font-size: var(--t-sm);
   color: var(--text-2);
   position: relative;
+  display: block;
+  margin-top: 3px;
 }

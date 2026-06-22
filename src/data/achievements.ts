@@ -6,6 +6,7 @@ export const achievements: Achievement[] = [
     title: 'הצעד הראשון',
     description: 'עניתם על השאלה הראשונה שלכם',
     emoji: '🌱',
+    icon: 'spark',
     progress: (s) => Math.min(1, s.answeredCount / 1),
   },
   {
@@ -13,6 +14,7 @@ export const achievements: Achievement[] = [
     title: 'מאה שיחות',
     description: 'עניתם על 100 שאלות יחד',
     emoji: '💯',
+    icon: 'star',
     progress: (s) => Math.min(1, s.answeredCount / 100),
   },
   {
@@ -20,6 +22,7 @@ export const achievements: Achievement[] = [
     title: 'הזיכרון הראשון',
     description: 'שמרתם רגע ראשון לזכרונות',
     emoji: '📸',
+    icon: 'camera',
     progress: (s) => Math.min(1, s.savedCount / 1),
   },
   {
@@ -27,6 +30,7 @@ export const achievements: Achievement[] = [
     title: 'שומרי הרגעים',
     description: 'אספתם 25 זכרונות יקרים',
     emoji: '💎',
+    icon: 'gem',
     progress: (s) => Math.min(1, s.savedCount / 25),
   },
   {
@@ -34,6 +38,7 @@ export const achievements: Achievement[] = [
     title: 'מסר לעתיד',
     description: 'יצרתם קפסולת זמן ראשונה',
     emoji: '⏳',
+    icon: 'clock',
     progress: (s) => Math.min(1, s.capsuleCount / 1),
   },
   {
@@ -41,6 +46,7 @@ export const achievements: Achievement[] = [
     title: 'מכירים זה את זה',
     description: 'שיחקתם בחידון ההיכרות חמש פעמים',
     emoji: '🧠',
+    icon: 'target',
     progress: (s) => Math.min(1, s.quizPlays / 5),
   },
   {
@@ -48,6 +54,7 @@ export const achievements: Achievement[] = [
     title: 'נשמות תאומות',
     description: 'השגתם ציון מושלם בחידון',
     emoji: '💞',
+    icon: 'heart',
     progress: (s) => (s.bestQuizScore >= 100 ? 1 : 0),
   },
   {
@@ -55,6 +62,7 @@ export const achievements: Achievement[] = [
     title: 'שבוע של קרבה',
     description: 'שבעה ימים רצופים של שיחה',
     emoji: '🔥',
+    icon: 'flame',
     progress: (s) => Math.min(1, s.streak / 7),
   },
 ];

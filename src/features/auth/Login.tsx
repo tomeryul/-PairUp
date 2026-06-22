@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 import { useAuth } from '@/auth/AuthProvider';
 import './Login.css';
 
@@ -19,7 +20,7 @@ export function Login() {
           animate={{ scale: [1, 1.08, 1] }}
           transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
         >
-          💞
+          <Icon name="heart" />
         </motion.div>
         <h1 className="login__title gradient-text">PairUp</h1>
         <p className="login__subtitle">

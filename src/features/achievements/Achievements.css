@@ -14,23 +14,33 @@
   border-color: var(--brand-rose);
 }
 .ach__badge {
-  width: 58px;
-  height: 58px;
+  width: 54px;
+  height: 54px;
   flex-shrink: 0;
   border-radius: var(--r-md);
   display: grid;
   place-items: center;
-  font-size: 1.8rem;
   background: var(--surface-strong);
-  filter: grayscale(0.7);
-  opacity: 0.7;
+  border: 1px solid var(--surface-border);
+  color: var(--text-3);
+  opacity: 0.85;
   transition: all var(--dur-base) var(--ease-soft);
+}
+.ach__badge .ic {
+  width: 26px;
+  height: 26px;
 }
 .ach__badge.is-done {
   background: var(--grad-romance);
-  filter: none;
+  border-color: transparent;
+  color: #fff;
   opacity: 1;
   box-shadow: 0 8px 20px -8px rgba(255, 107, 157, 0.6);
+}
+.ach__check {
+  display: grid;
+  place-items: center;
+  color: #4ade80;
 }
 .ach__body {
   flex: 1;

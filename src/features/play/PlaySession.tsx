@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 import { HeartBurst } from '@/components/HeartBurst';
 import { categoryMap } from '@/data/categories';
 import { questionsByCategory } from '@/data/questions';
@@ -79,18 +80,10 @@ export function PlaySession() {
 
       <header className="play__top">
         <button className="play__back" onClick={() => navigate(-1)} aria-label="חזור">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-            <path
-              d="M9 6l6 6-6 6"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <Icon name="arrowL" size={22} />
         </button>
         <div className="chip">
-          {category.emoji} {category.title}
+          <Icon name={category.icon} /> {category.title}
         </div>
         <div className="play__counter">{(index % deck.length) + 1}/{deck.length}</div>
       </header>
@@ -109,7 +102,13 @@ export function PlaySession() {
               <span className="play__quote">”</span>
               <p className="play__question">{question.text}</p>
               <span className="play__hint">
-                {saved ? '✓ נשמר לזכרונות' : 'קחו את הזמן, אין תשובות נכונות'}
+                {saved ? (
+                  <>
+                    <Icon name="check" /> נשמר לזכרונות
+                  </>
+                ) : (
+                  'קחו את הזמן, אין תשובות נכונות'
+                )}
               </span>
             </motion.div>
           )}
@@ -182,7 +181,7 @@ export function PlaySession() {
                     setRevealB(true);
                   }}
                 >
-                  גלו את התשובה של {names.b} ✨
+                  גלו את התשובה של {names.b}
                 </Button>
               )}
             </motion.div>
@@ -201,19 +200,19 @@ export function PlaySession() {
                 setPhase('answerA');
               }}
             >
-              ✍️ ענו בתורות
+              ענו בתורות
             </Button>
             <div className="play__row">
               <Button
                 variant="ghost"
                 onClick={() => saveCurrent(false)}
                 disabled={saved}
-                className="play__icon-btn"
+                className={`play__icon-btn heart-btn${saved ? ' is-saved' : ''}`}
               >
-                {saved ? '💖' : '🤍'} שמור
+                <Icon name="heart" size={18} /> שמור
               </Button>
               <Button block onClick={nextQuestion}>
-                השאלה הבאה ←
+                השאלה הבאה <Icon name="arrowL" size={18} />
               </Button>
             </div>
           </>
@@ -228,7 +227,7 @@ export function PlaySession() {
               setPhase('answerB');
             }}
           >
-            עכשיו תורו של {names.b} ←
+            עכשיו תורו של {names.b} <Icon name="arrowL" size={18} />
           </Button>
         )}
 
@@ -241,7 +240,7 @@ export function PlaySession() {
               setPhase('reveal');
             }}
           >
-            גלו את התשובות 🎭
+            גלו את התשובות
           </Button>
         )}
 
@@ -251,11 +250,12 @@ export function PlaySession() {
               variant="ghost"
               onClick={() => saveCurrent(true)}
               disabled={saved}
+              className={`heart-btn${saved ? ' is-saved' : ''}`}
             >
-              {saved ? '💖' : '🤍'} לזכרונות
+              <Icon name="heart" size={18} /> לזכרונות
             </Button>
             <Button block onClick={nextQuestion}>
-              שאלה הבאה ←
+              שאלה הבאה <Icon name="arrowL" size={18} />
             </Button>
           </div>
         )}

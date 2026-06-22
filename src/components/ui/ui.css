@@ -3,9 +3,44 @@
   background: var(--surface);
   border: 1px solid var(--surface-border);
   border-radius: var(--r-lg);
-  backdrop-filter: blur(var(--blur)) saturate(140%);
-  -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
+  backdrop-filter: blur(var(--blur)) saturate(135%);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(135%);
   box-shadow: var(--shadow-card);
+}
+
+/* ---- Icon ---- */
+.ic {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* ---- Icon badge ---- */
+.badge {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-md);
+  color: #fff;
+  position: relative;
+}
+.badge .ic {
+  width: 50%;
+  height: 50%;
+}
+.badge--lg {
+  width: 54px;
+  height: 54px;
+}
+.badge--md {
+  width: 46px;
+  height: 46px;
+}
+.badge--soft {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  color: var(--brand-rose);
 }
 
 /* ---- Button ---- */
@@ -63,25 +98,30 @@
   font-size: var(--t-lg);
 }
 
+/* ---- Eyebrow ---- */
+.eyebrow {
+  font-size: var(--t-xs);
+  color: var(--text-3);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
 /* ---- Page header ---- */
 .page-header {
-  padding-top: calc(var(--safe-top) + var(--s-5));
-  margin-bottom: var(--s-5);
-}
-.page-header__eyebrow {
-  font-size: var(--t-sm);
-  color: var(--text-3);
-  font-weight: 600;
+  padding-top: calc(var(--safe-top) + var(--s-6));
+  margin-bottom: var(--s-6);
 }
 .page-header__title {
   font-size: var(--t-3xl);
-  margin-top: var(--s-1);
+  margin-top: var(--s-2);
 }
 .page-header__subtitle {
   color: var(--text-2);
-  margin-top: var(--s-2);
+  margin-top: var(--s-3);
   font-size: var(--t-base);
-  max-width: 40ch;
+  max-width: 42ch;
+  line-height: 1.6;
 }
 
 /* ---- Generic page scaffold ---- */
@@ -94,8 +134,8 @@
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
+  gap: 7px;
+  padding: 7px 14px;
   border-radius: var(--r-pill);
   background: var(--surface);
   border: 1px solid var(--surface-border);
@@ -103,12 +143,32 @@
   font-weight: 600;
   color: var(--text-2);
 }
+.chip .ic {
+  width: 15px;
+  height: 15px;
+  color: var(--brand-rose);
+}
 
 /* ---- Empty state ---- */
 .empty {
   text-align: center;
   padding: var(--s-7) var(--s-4);
   color: var(--text-2);
+}
+.empty__icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto var(--s-4);
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  color: var(--brand-rose);
+}
+.empty__icon .ic {
+  width: 28px;
+  height: 28px;
 }
 .empty__emoji {
   font-size: 3rem;

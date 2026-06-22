@@ -11,8 +11,19 @@
   margin-bottom: var(--s-5);
 }
 .date__intro-emoji {
-  font-size: 3.4rem;
-  margin-bottom: var(--s-3);
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--s-3);
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-lg);
+  background: var(--grad-sunset);
+  color: #fff;
+  box-shadow: var(--shadow-glow);
+}
+.date__intro-emoji .ic {
+  width: 32px;
+  height: 32px;
 }
 .date__intro-text {
   color: var(--text-2);
@@ -103,6 +114,21 @@
   font-size: var(--t-sm);
   font-weight: 600;
   color: var(--text-1);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.date__history-meta .ic {
+  color: var(--brand-rose);
+}
+.date__history-meal {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.date__history-meal .ic {
+  color: var(--text-3);
 }
 
 /* Play */
@@ -133,6 +159,9 @@
 }
 .date__capture-btn {
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   padding: 8px 14px;
   border-radius: var(--r-pill);
   background: var(--surface);
@@ -354,8 +383,14 @@
 }
 
 .date__dare-emoji {
-  font-size: 4rem;
-  filter: drop-shadow(0 10px 26px rgba(255, 142, 110, 0.5));
+  width: 64px;
+  height: 64px;
+  border-radius: var(--r-lg);
+  box-shadow: 0 14px 30px -12px rgba(255, 142, 110, 0.6);
+}
+.date__dare-emoji .ic {
+  width: 32px;
+  height: 32px;
 }
 .date__dare-text {
   font-family: var(--font-display);

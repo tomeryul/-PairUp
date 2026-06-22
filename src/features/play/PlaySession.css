@@ -143,3 +143,12 @@
 .play__icon-btn {
   flex-shrink: 0;
 }
+
+.heart-btn .ic {
+  width: 18px;
+  height: 18px;
+}
+.heart-btn.is-saved .ic {
+  fill: var(--brand-rose);
+  color: var(--brand-rose);
+}

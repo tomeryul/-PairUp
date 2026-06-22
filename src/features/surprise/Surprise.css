@@ -20,18 +20,21 @@
   align-items: center;
   gap: var(--s-4);
 }
-.surprise__type {
-  background: var(--grad-romance);
-  color: #fff;
-  border: none;
+.surprise__badge {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--r-lg);
 }
-.surprise__emoji {
-  font-size: 4.5rem;
-  filter: drop-shadow(0 12px 30px rgba(255, 107, 157, 0.4));
+.surprise__type {
+  color: var(--brand-rose);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: var(--t-xs);
 }
 .surprise__text {
   font-family: var(--font-display);
-  font-size: var(--t-xl);
+  font-size: var(--t-2xl);
   line-height: 1.5;
   color: var(--text-1);
 }

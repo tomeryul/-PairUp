@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useAppStore } from '@/store/useAppStore';
 import { useDailyQuestion } from '@/hooks/useDailyQuestion';
 import { useSound } from '@/hooks/useSound';
-import { categoryMap } from '@/data/categories';
+import { Icon, type IconName } from '@/components/ui/Icon';
 import './Home.css';
 
 const greetingForHour = () => {
@@ -16,13 +16,21 @@ const greetingForHour = () => {
   return 'לילה טוב';
 };
 
-const features = [
-  { to: '/categories', emoji: '💬', title: 'שאלות', sub: 'בחרו קטגוריה' },
-  { to: '/quiz', emoji: '🧠', title: 'חידון היכרות', sub: 'נחשו תשובות' },
-  { to: '/surprise', emoji: '🎲', title: 'הפתעה', sub: 'אתגר רומנטי' },
-  { to: '/journey', emoji: '💝', title: 'המסע שלנו', sub: 'זכרונות' },
-  { to: '/capsules', emoji: '⏳', title: 'קפסולות זמן', sub: 'מסר לעתיד' },
-  { to: '/achievements', emoji: '🏆', title: 'הישגים', sub: 'מה השגנו' },
+interface Feature {
+  to: string;
+  icon: IconName;
+  grad: string;
+  title: string;
+  sub: string;
+}
+
+const features: Feature[] = [
+  { to: '/categories', icon: 'chat', grad: 'linear-gradient(135deg,#ff6b9d,#a06bff)', title: 'שאלות', sub: 'בחרו קטגוריה' },
+  { to: '/quiz', icon: 'target', grad: 'linear-gradient(135deg,#a06bff,#6bb9ff)', title: 'חידון היכרות', sub: 'נחשו תשובות' },
+  { to: '/surprise', icon: 'gift', grad: 'linear-gradient(135deg,#ffcf73,#ff8e6e)', title: 'הפתעה', sub: 'אתגר רומנטי' },
+  { to: '/journey', icon: 'heart', grad: 'linear-gradient(135deg,#ff6b9d,#ff3d7f)', title: 'המסע שלנו', sub: 'זכרונות' },
+  { to: '/capsules', icon: 'clock', grad: 'linear-gradient(135deg,#a06bff,#ff6b9d)', title: 'קפסולות זמן', sub: 'מסר לעתיד' },
+  { to: '/achievements', icon: 'trophy', grad: 'linear-gradient(135deg,#ffcf73,#ff6b9d)', title: 'הישגים', sub: 'מה השגנו' },
 ];
 
 export function Home() {
@@ -45,56 +53,60 @@ export function Home() {
     }
   };
 
-  const dailyCat = categoryMap[daily.category];
-
   return (
     <div className="page home">
-      <header className="home__top">
-        <div>
-          <p className="home__greeting">{greetingForHour()},</p>
-          <h1 className="home__names">
-            {names.a} <span className="home__amp">&amp;</span> {names.b}
-          </h1>
-        </div>
-        <button
-          className="home__secret"
-          onClick={onSecretTap}
-          aria-label="לב"
-          title="❤"
-        >
+      <div className="home__bar">
+        <span className="home__wordmark">PairUp</span>
+        <button className="home__secret" onClick={onSecretTap} aria-label="לב">
           <motion.span
-            animate={{ scale: [1, 1.15, 1] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ display: 'grid', placeItems: 'center' }}
+            animate={{ scale: [1, 1.16, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           >
-            ❤️
+            <Icon name="heart" size={20} />
           </motion.span>
         </button>
-      </header>
+      </div>
+
+      <p className="home__greeting">{greetingForHour()},</p>
+      <h1 className="home__names">
+        {names.a} <span className="home__amp">&amp;</span> {names.b}
+      </h1>
 
       <div className="home__stats">
-        <div className="chip">🔥 רצף {streak} ימים</div>
-        <div className="chip">💬 {answered} שאלות</div>
+        <div className="chip">
+          <Icon name="flame" /> רצף {streak} ימים
+        </div>
+        <div className="chip">
+          <Icon name="chat" /> {answered} שאלות
+        </div>
       </div>
 
       <Link to="/date" className="home__date" onClick={() => play('sparkle')}>
         <div className="home__date-glow" />
         <div className="home__date-content">
           <span className="home__date-eyebrow">החוויה המלאה</span>
-          <h2 className="home__date-title">התחילו דייט 🔥</h2>
+          <h2 className="home__date-title">התחילו דייט</h2>
           <p className="home__date-sub">שאלות, אתגרים וציון התאמה בסוף</p>
         </div>
-        <span className="home__date-arrow">←</span>
+        <span className="home__date-arrow">
+          <Icon name="arrowL" size={26} />
+        </span>
       </Link>
 
       <Link to="/daily" className="home__daily glass" onClick={() => play('tap')}>
-        <div className="home__daily-head">
-          <span className="chip home__daily-chip">
-            {dailyCat?.emoji} השאלה היומית
-          </span>
-        </div>
+        <span className="chip home__daily-chip">
+          <Icon name="heart" /> השאלה היומית
+        </span>
         <p className="home__daily-q">{daily.text}</p>
-        <span className="home__daily-cta">פתחו את היום שלכם ←</span>
+        <span className="home__daily-cta">
+          פתחו את היום שלכם <Icon name="arrowL" size={15} />
+        </span>
       </Link>
+
+      <div className="home__section-label">
+        <span>גלו עוד</span>
+      </div>
 
       <div className="home__grid">
         {features.map((f, i) => (
@@ -104,12 +116,10 @@ export function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 * i, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Link
-              to={f.to}
-              className="home__tile glass"
-              onClick={() => play('tap')}
-            >
-              <span className="home__tile-emoji">{f.emoji}</span>
+            <Link to={f.to} className="home__tile glass" onClick={() => play('tap')}>
+              <span className="badge badge--md" style={{ background: f.grad }}>
+                <Icon name={f.icon} />
+              </span>
               <span className="home__tile-text">
                 <span className="home__tile-title">{f.title}</span>
                 <span className="home__tile-sub">{f.sub}</span>
