@@ -55,6 +55,17 @@ a {
   text-decoration: none;
 }
 
+/* Stop long-press on tappable controls from triggering iOS text selection
+   and the copy/share callout. Real content text stays selectable. */
+button,
+a,
+.btn,
+[role='button'] {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 h1,
 h2,
 h3,
