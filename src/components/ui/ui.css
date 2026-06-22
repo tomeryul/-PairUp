@@ -1,9 +1,9 @@
 /* ---- Card surface ---- */
 .glass {
   background: var(--surface);
-  border: 1px solid var(--hair);
+  border: var(--stroke) solid var(--ink-900);
   border-radius: var(--r-lg);
-  box-shadow: var(--shadow-card);
+  box-shadow: 4px 4px 0 var(--ink-900);
 }
 
 /* ---- Icon ---- */
