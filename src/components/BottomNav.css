@@ -41,7 +41,7 @@
   position: absolute;
   inset: 4px 5px;
   border-radius: var(--r-md);
-  background: var(--c-teal);
+  background: var(--c-coral);
   border: 2px solid var(--ink-900);
   z-index: -1;
 }

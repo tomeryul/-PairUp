@@ -17,7 +17,7 @@ import './Birthday.css';
 
 type Step = 'greeting' | 'letter' | 'why' | 'timeline' | 'final';
 const order: Step[] = ['greeting', 'letter', 'why', 'timeline', 'final'];
-const PART_COLORS = ['#ff6b9d', '#ffcf73', '#a06bff', '#ff9ec1', '#c79bff'];
+const PART_COLORS = ['#ef7fa3', '#c479a0', '#d85f86', '#ef9ec0', '#b98ac4'];
 
 export function Birthday() {
   const navigate = useNavigate();

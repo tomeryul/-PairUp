@@ -1,42 +1,44 @@
 /* ============================================================
-   PairUp — Design Tokens (Vintage / Lexicon)
-   Warm cream paper, sage & coral grounds, heavy ink outlines.
+   PairUp — Design Tokens (Vintage / Rosé)
+   Pale blush paper, bright rose & dusty mauve grounds, heavy ink
+   outlines. A romantic rosy palette for Valentine's & birthday.
    ============================================================ */
 
 :root {
-  /* ---- Vintage palette ---- */
-  --paper-100: #f6f2e9;
-  --paper-200: #efeadd;
-  --paper-300: #e5decf;
-  --paper-400: #d8d0be;
+  /* ---- Vintage rosé palette ---- */
+  --paper-100: #fdf6f8;
+  --paper-200: #f7edf0;
+  --paper-300: #f0dde3;
+  --paper-400: #e2c9d1;
   --ink-900: #1a1a1a;
-  --ink-700: #3d3d3a;
-  --ink-500: #6b6b64;
-  --ink-300: #9a988e;
+  --ink-700: #3d3a3b;
+  --ink-500: #6b6464;
+  --ink-300: #9a8e90;
 
-  --c-teal: #9cc0bc;
-  --c-teal-deep: #6e938e;
-  --c-teal-tint: #d7e7e4;
-  --c-coral: #ef9080;
-  --c-coral-deep: #d9705e;
-  --c-coral-tint: #fad3ca;
+  /* Mauve takes the old "teal" slot; bright rose takes the "coral" slot. */
+  --c-teal: #c479a0;
+  --c-teal-deep: #a85a84;
+  --c-teal-tint: #ecd4e2;
+  --c-coral: #ef7fa3;
+  --c-coral-deep: #d85f86;
+  --c-coral-tint: #fbd9e4;
   --c-gold: #e8b84b;
   --c-green: #a9d178;
   --c-green-tint: #e6f1d4;
 
   /* Legacy brand aliases (kept so existing rules resolve) */
-  --brand-rose: #d9705e;
-  --brand-rose-soft: #ef9080;
-  --brand-violet: #6e938e;
-  --brand-violet-soft: #9cc0bc;
+  --brand-rose: #d85f86;
+  --brand-rose-soft: #ef7fa3;
+  --brand-violet: #a85a84;
+  --brand-violet-soft: #c479a0;
   --brand-gold: #e8b84b;
-  --brand-coral: #ef9080;
+  --brand-coral: #ef7fa3;
 
   /* "Gradients" are flat vintage colours now */
-  --grad-romance: #ef9080;
-  --grad-sunset: #9cc0bc;
-  --grad-dawn: #d9705e;
-  --grad-aurora: #9cc0bc;
+  --grad-romance: #ef7fa3;
+  --grad-sunset: #c479a0;
+  --grad-dawn: #d85f86;
+  --grad-aurora: #c479a0;
 
   /* ---- Radii ---- */
   --r-xs: 8px;
@@ -86,47 +88,47 @@
   --stroke: 2.5px;
 }
 
-/* ---- Light (default) — warm cream paper ---- */
+/* ---- Light (default) — pale blush cream ---- */
 :root,
 [data-theme='light'] {
-  --bg-0: #efeadd;
-  --bg-1: #f6f2e9;
-  --bg-2: #e5decf;
+  --bg-0: #f7edf0;
+  --bg-1: #fdf5f7;
+  --bg-2: #f1dfe4;
 
   --surface: #ffffff;
   --surface-strong: #ffffff;
-  --surface-border: #d8d0be;
+  --surface-border: #e2c9d1;
   --surface-border-strong: #1a1a1a;
 
   --text-1: #1a1a1a;
-  --text-2: #6b6b64;
-  --text-3: #9a988e;
+  --text-2: #6b5b60;
+  --text-3: #a08e94;
 
-  --shadow-card: 0 6px 20px rgba(60, 50, 35, 0.13);
-  --shadow-soft: 0 2px 8px rgba(60, 50, 35, 0.1);
-  --shadow-glow: 0 6px 20px rgba(60, 50, 35, 0.14);
+  --shadow-card: 0 6px 20px rgba(150, 70, 100, 0.13);
+  --shadow-soft: 0 2px 8px rgba(150, 70, 100, 0.1);
+  --shadow-glow: 0 6px 20px rgba(150, 70, 100, 0.14);
   --blur: 0px;
-  --hair: #d8d0be;
+  --hair: #e2c9d1;
 }
 
-/* ---- Dark — deeper sun-faded cream ---- */
+/* ---- Dark — deeper rose-dusk blush ---- */
 [data-theme='dark'] {
-  --bg-0: #e5decf;
-  --bg-1: #efeadd;
-  --bg-2: #dcd3c0;
+  --bg-0: #ecd6dc;
+  --bg-1: #f4e4e9;
+  --bg-2: #e6cdd5;
 
-  --surface: #f6f2e9;
+  --surface: #fdf6f8;
   --surface-strong: #ffffff;
-  --surface-border: #cbbfa6;
+  --surface-border: #d6bcc4;
   --surface-border-strong: #1a1a1a;
 
   --text-1: #1a1a1a;
-  --text-2: #6b6b64;
-  --text-3: #9a988e;
+  --text-2: #6b5b60;
+  --text-3: #a08e94;
 
-  --shadow-card: 0 6px 20px rgba(60, 50, 35, 0.17);
-  --shadow-soft: 0 2px 8px rgba(60, 50, 35, 0.12);
-  --shadow-glow: 0 6px 20px rgba(60, 50, 35, 0.16);
+  --shadow-card: 0 6px 20px rgba(150, 70, 100, 0.17);
+  --shadow-soft: 0 2px 8px rgba(150, 70, 100, 0.12);
+  --shadow-glow: 0 6px 20px rgba(150, 70, 100, 0.16);
   --blur: 0px;
-  --hair: #cbbfa6;
+  --hair: #d6bcc4;
 }

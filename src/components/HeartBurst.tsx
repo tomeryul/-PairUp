@@ -7,7 +7,7 @@ interface HeartBurstProps {
   colors?: string[];
 }
 
-const VINTAGE = ['#EF9080', '#9CC0BC', '#E8B84B', '#A9D178', '#D9705E', '#C79BFF'];
+const VINTAGE = ['#ef7fa3', '#c479a0', '#d85f86', '#ef9ec0', '#b98ac4', '#f3b6a0'];
 
 /** A one-shot burst of small vintage dots that drift upward and fade. */
 export function HeartBurst({ count = 18, colors = VINTAGE }: HeartBurstProps) {

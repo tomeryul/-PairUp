@@ -25,12 +25,12 @@ interface Feature {
 }
 
 const features: Feature[] = [
-  { to: '/categories', icon: 'chat', grad: 'linear-gradient(135deg,#ff6b9d,#a06bff)', title: 'שאלות', sub: 'בחרו קטגוריה' },
-  { to: '/quiz', icon: 'target', grad: 'linear-gradient(135deg,#a06bff,#6bb9ff)', title: 'חידון היכרות', sub: 'נחשו תשובות' },
-  { to: '/surprise', icon: 'gift', grad: 'linear-gradient(135deg,#ffcf73,#ff8e6e)', title: 'הפתעה', sub: 'אתגר רומנטי' },
-  { to: '/journey', icon: 'heart', grad: 'linear-gradient(135deg,#ff6b9d,#ff3d7f)', title: 'המסע שלנו', sub: 'זכרונות' },
-  { to: '/capsules', icon: 'clock', grad: 'linear-gradient(135deg,#a06bff,#ff6b9d)', title: 'קפסולות זמן', sub: 'מסר לעתיד' },
-  { to: '/achievements', icon: 'trophy', grad: 'linear-gradient(135deg,#ffcf73,#ff6b9d)', title: 'הישגים', sub: 'מה השגנו' },
+  { to: '/categories', icon: 'chat', grad: '#ef7fa3', title: 'שאלות', sub: 'בחרו קטגוריה' },
+  { to: '/quiz', icon: 'target', grad: '#c479a0', title: 'חידון היכרות', sub: 'נחשו תשובות' },
+  { to: '/surprise', icon: 'gift', grad: '#f3b6a0', title: 'הפתעה', sub: 'אתגר רומנטי' },
+  { to: '/journey', icon: 'heart', grad: '#d85f86', title: 'המסע שלנו', sub: 'זכרונות' },
+  { to: '/capsules', icon: 'clock', grad: '#b98ac4', title: 'קפסולות זמן', sub: 'מסר לעתיד' },
+  { to: '/achievements', icon: 'trophy', grad: '#e8b84b', title: 'הישגים', sub: 'מה השגנו' },
 ];
 
 export function Home() {

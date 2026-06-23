@@ -7,7 +7,7 @@ export const categories: Category[] = [
     emoji: '📖',
     icon: 'book',
     description: 'עלינו ועל הדרך שלנו',
-    gradient: '#EF9080',
+    gradient: '#ef7fa3',
   },
   {
     id: 'deep',
@@ -15,7 +15,7 @@ export const categories: Category[] = [
     emoji: '💭',
     icon: 'layers',
     description: 'שיחות שנוגעות בלב',
-    gradient: '#9CC0BC',
+    gradient: '#c479a0',
   },
   {
     id: 'funny',
@@ -23,7 +23,7 @@ export const categories: Category[] = [
     emoji: '😂',
     icon: 'smile',
     description: 'צחוק שמקרב',
-    gradient: '#E8B84B',
+    gradient: '#f3b6a0',
   },
   {
     id: 'love',
@@ -31,7 +31,7 @@ export const categories: Category[] = [
     emoji: '❤️',
     icon: 'heart',
     description: 'הלב שלנו, גלוי',
-    gradient: '#D9705E',
+    gradient: '#d85f86',
   },
   {
     id: 'dreams',
@@ -39,7 +39,7 @@ export const categories: Category[] = [
     emoji: '🌍',
     icon: 'globe',
     description: 'לאן הלב לוקח אותנו',
-    gradient: '#84ABA6',
+    gradient: '#b98ac4',
   },
   {
     id: 'childhood',
@@ -47,7 +47,7 @@ export const categories: Category[] = [
     emoji: '👶',
     icon: 'balloon',
     description: 'מאיפה באנו',
-    gradient: '#F4A695',
+    gradient: '#ef9ec0',
   },
   {
     id: 'future',
@@ -55,7 +55,7 @@ export const categories: Category[] = [
     emoji: '✨',
     icon: 'sun',
     description: 'מה שעוד מחכה לנו',
-    gradient: '#A9D178',
+    gradient: '#e8b84b',
   },
   {
     id: 'datenight',
@@ -63,7 +63,7 @@ export const categories: Category[] = [
     emoji: '🍷',
     icon: 'moon',
     description: 'שאלות לאור נרות',
-    gradient: '#6E938E',
+    gradient: '#a85a84',
   },
   {
     id: 'random',
@@ -71,7 +71,7 @@ export const categories: Category[] = [
     emoji: '🎲',
     icon: 'spark',
     description: 'משאירים את זה לגורל',
-    gradient: '#84ABA6',
+    gradient: '#cf8fb0',
   },
 ];
 
