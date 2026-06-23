@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
@@ -63,99 +62,80 @@ export function Journey() {
               setTab(t);
             }}
           >
-            {tab === t && (
-              <motion.span layoutId="journey-tab-pill" className="journey__tab-pill" />
-            )}
+            {tab === t && <span className="journey__tab-pill" />}
             <Icon name={t === 'memories' ? 'star' : 'clock'} size={16} />
             <span>{t === 'memories' ? 'זכרונות' : 'ציר זמן'}</span>
           </button>
         ))}
       </div>
 
-      <AnimatePresence mode="wait">
-        {tab === 'memories' ? (
-          <motion.div
-            key="memories"
-            className="journey__list"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            {saved.map((item) => {
-              const cat = categoryMap[item.category];
-              return (
-                <motion.article
-                  key={item.id}
-                  className="memory glass"
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                >
-                  <div className="memory__head">
-                    <span className="chip">
-                      {cat && <Icon name={cat.icon} />} {cat?.title}
-                    </span>
-                    <button
-                      className="memory__del"
-                      onClick={() => {
-                        play('tap');
-                        removeSaved(item.id);
-                      }}
-                      aria-label="מחק"
-                    >
-                      <Icon name="x" size={15} />
-                    </button>
-                  </div>
-                  <p className="memory__q">{item.questionText}</p>
-                  {(item.answerA || item.answerB) && (
-                    <div className="memory__answers">
-                      {item.answerA && (
-                        <p className="memory__a">
-                          <b>{names.a}:</b> {item.answerA}
-                        </p>
-                      )}
-                      {item.answerB && (
-                        <p className="memory__a">
-                          <b>{names.b}:</b> {item.answerB}
-                        </p>
-                      )}
-                    </div>
-                  )}
-                  <time className="memory__date">{formatDate(item.createdAt)}</time>
-                </motion.article>
-              );
-            })}
-          </motion.div>
-        ) : (
-          <motion.div
-            key="timeline"
-            className="timeline"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            {saved.map((item, i) => (
-              <motion.div
+      {tab === 'memories' ? (
+        <div className="journey__list">
+          {saved.map((item, i) => {
+            const cat = categoryMap[item.category];
+            return (
+              <article
                 key={item.id}
-                className="timeline__item"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.04 }}
+                className="memory glass jr-in"
+                style={{ animationDelay: `${Math.min(i, 8) * 0.04}s` }}
+              >
+                <div className="memory__head">
+                  <span className="chip">
+                    {cat && <Icon name={cat.icon} />} {cat?.title}
+                  </span>
+                  <button
+                    className="memory__del"
+                    onClick={() => {
+                      play('tap');
+                      removeSaved(item.id);
+                    }}
+                    aria-label="מחק"
+                  >
+                    <Icon name="x" size={15} />
+                  </button>
+                </div>
+                <p className="memory__q">{item.questionText}</p>
+                {(item.answerA || item.answerB) && (
+                  <div className="memory__answers">
+                    {item.answerA && (
+                      <p className="memory__a">
+                        <b>{names.a}:</b> {item.answerA}
+                      </p>
+                    )}
+                    {item.answerB && (
+                      <p className="memory__a">
+                        <b>{names.b}:</b> {item.answerB}
+                      </p>
+                    )}
+                  </div>
+                )}
+                <time className="memory__date">{formatDate(item.createdAt)}</time>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="timeline">
+          {saved.map((item, i) => {
+            const cat = categoryMap[item.category];
+            return (
+              <div
+                key={item.id}
+                className="timeline__item jr-in"
+                style={{ animationDelay: `${Math.min(i, 8) * 0.04}s` }}
               >
                 <span className="timeline__dot">
-                  {categoryMap[item.category] && (
-                    <Icon name={categoryMap[item.category].icon} size={14} />
-                  )}
+                  {cat && <Icon name={cat.icon} size={14} />}
                 </span>
                 <div className="timeline__content glass">
                   <time className="timeline__date">{formatDate(item.createdAt)}</time>
                   <p className="timeline__q">{item.questionText}</p>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

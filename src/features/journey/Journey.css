@@ -43,7 +43,6 @@
 .memory {
   padding: var(--s-5);
   border-radius: var(--r-lg);
-  animation: fadeUp 0.35s var(--ease-soft);
 }
 .memory__head {
   display: flex;
@@ -146,4 +145,19 @@
   color: var(--ink-900);
   font-size: var(--t-base);
   font-family: var(--font-display);
+}
+
+/* CSS-only entrance (no Framer Motion on this screen). */
+.jr-in {
+  animation: jr-in 0.35s var(--ease-soft) both;
+}
+@keyframes jr-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

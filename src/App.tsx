@@ -70,34 +70,34 @@ function MainApp() {
     <>
       <MusicController />
       <main className="app-container">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={location.pathname}
-            variants={pageVariants}
-            initial="initial"
-            animate="in"
-            exit="out"
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <ErrorBoundary resetKey={location.pathname}>
-            <Routes location={location}>
-              <Route path="/" element={<Home />} />
-              <Route path="/date" element={<DateSession />} />
-              <Route path="/categories" element={<Categories />} />
-              <Route path="/play/:categoryId" element={<PlaySession />} />
-              <Route path="/journey" element={<Journey />} />
-              <Route path="/capsules" element={<Capsules />} />
-              <Route path="/quiz" element={<Quiz />} />
-              <Route path="/surprise" element={<Surprise />} />
-              <Route path="/achievements" element={<Achievements />} />
-              <Route path="/daily" element={<Daily />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/birthday" element={<Birthday />} />
-              <Route path="*" element={<Home />} />
-            </Routes>
-            </ErrorBoundary>
-          </motion.div>
-        </AnimatePresence>
+        <ErrorBoundary resetKey={location.pathname}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              variants={pageVariants}
+              initial="initial"
+              animate="in"
+              exit="out"
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Routes location={location}>
+                <Route path="/" element={<Home />} />
+                <Route path="/date" element={<DateSession />} />
+                <Route path="/categories" element={<Categories />} />
+                <Route path="/play/:categoryId" element={<PlaySession />} />
+                <Route path="/journey" element={<Journey />} />
+                <Route path="/capsules" element={<Capsules />} />
+                <Route path="/quiz" element={<Quiz />} />
+                <Route path="/surprise" element={<Surprise />} />
+                <Route path="/achievements" element={<Achievements />} />
+                <Route path="/daily" element={<Daily />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/birthday" element={<Birthday />} />
+                <Route path="*" element={<Home />} />
+              </Routes>
+            </motion.div>
+          </AnimatePresence>
+        </ErrorBoundary>
       </main>
       {!isBirthday && <BottomNav />}
     </>
