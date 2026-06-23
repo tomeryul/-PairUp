@@ -6,6 +6,7 @@ import { useAppStore } from '@/store/useAppStore';
 import { useAuth } from '@/auth/AuthProvider';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
 import { BottomNav } from '@/components/BottomNav';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { MusicController } from '@/components/MusicController';
 import { Login } from '@/features/auth/Login';
 import {
@@ -78,6 +79,7 @@ function MainApp() {
             exit="out"
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
+            <ErrorBoundary resetKey={location.pathname}>
             <Routes location={location}>
               <Route path="/" element={<Home />} />
               <Route path="/date" element={<DateSession />} />
@@ -93,6 +95,7 @@ function MainApp() {
               <Route path="/birthday" element={<Birthday />} />
               <Route path="*" element={<Home />} />
             </Routes>
+            </ErrorBoundary>
           </motion.div>
         </AnimatePresence>
       </main>

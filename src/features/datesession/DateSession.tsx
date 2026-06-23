@@ -8,7 +8,7 @@ import { useAppStore } from '@/store/useAppStore';
 import { useSound } from '@/hooks/useSound';
 import { questions } from '@/data/questions';
 import { dares, type Dare } from '@/data/dares';
-import { buildGptPrompt, chatGptUrl } from '@/lib/gptPrompt';
+import { buildGptPrompt } from '@/lib/gptPrompt';
 import { fileToThumbnail } from '@/lib/image';
 import { dayKey, formatDate } from '@/lib/date';
 import type { SessionMoment, SessionQA } from '@/types';
@@ -601,9 +601,19 @@ function SummaryView({
 
   const prompt = useMemo(() => buildGptPrompt(names, qa), [names, qa]);
 
-  const openGpt = () => {
+  const openGpt = async () => {
     play('sparkle');
-    window.open(chatGptUrl(prompt), '_blank', 'noopener');
+    // Copy the full prompt and open ChatGPT plainly. Passing the whole prompt
+    // in the URL (?q=) overflows the length limit and returns HTTP 400, so the
+    // questions/answers never arrive — the user just pastes them instead.
+    try {
+      await navigator.clipboard.writeText(prompt);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      /* clipboard unavailable */
+    }
+    window.open('https://chatgpt.com/', '_blank', 'noopener');
   };
 
   const copyPrompt = async () => {
@@ -653,11 +663,12 @@ function SummaryView({
       <div className="date__gpt glass">
         <h3 className="date__gpt-title">ציון ההתאמה</h3>
         <p className="date__gpt-text">
-          פתחו את ChatGPT עם הפרומפט המוכן (כולל התשובות שלכם), קבלו ציון התאמה,
-          והזינו אותו כאן כדי לעקוב אם השתפרתם.
+          נעתיק לכם את הפרומפט המלא (כל השאלות והתשובות שלכם) ונפתח את ChatGPT —
+          רק הדביקו אותו בצ׳אט (Paste) ושלחו. קבלו ציון התאמה והזינו אותו כאן כדי
+          לעקוב אם השתפרתם.
         </p>
         <Button block size="lg" onClick={openGpt}>
-          נתחו את ההתאמה ב-ChatGPT
+          {copied ? 'הפרומפט הועתק — הדביקו ב-ChatGPT ✓' : 'נתחו את ההתאמה ב-ChatGPT'}
         </Button>
         <Button variant="ghost" block onClick={copyPrompt}>
           {copied ? 'הפרומפט הועתק ✓' : 'העתיקו את הפרומפט'}

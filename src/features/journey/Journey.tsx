@@ -86,7 +86,6 @@ export function Journey() {
               return (
                 <motion.article
                   key={item.id}
-                  layout
                   className="memory glass"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
