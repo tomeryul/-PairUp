@@ -92,6 +92,33 @@ export function Settings() {
       </div>
 
       <section className="settings__group glass" style={{ marginTop: 'var(--s-4)' }}>
+        <div className="settings__bday-head">
+          <span className="badge badge--soft badge--md">
+            <Icon name="music" />
+          </span>
+          <div>
+            <h3 className="settings__title" style={{ marginBottom: 2 }}>השיר שלנו</h3>
+            <p className="settings__hint" style={{ margin: 0 }}>
+              A Thousand Years · Christina Perri
+            </p>
+          </div>
+        </div>
+        <Button
+          block
+          onClick={() => {
+            play('sparkle');
+            window.open(
+              'https://music.apple.com/search?term=A%20Thousand%20Years%20Christina%20Perri',
+              '_blank',
+              'noopener',
+            );
+          }}
+        >
+          <Icon name="music" size={18} /> השמיעו ב-Apple Music
+        </Button>
+      </section>
+
+      <section className="settings__group glass" style={{ marginTop: 'var(--s-4)' }}>
         <h3 className="settings__title">השמות שלכם</h3>
         <label className="field">
           <span className="field__label">שם ראשון</span>

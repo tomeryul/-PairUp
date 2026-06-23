@@ -50,6 +50,8 @@ const PATHS = {
     '<path d="M5 8h12v5a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/><path d="M17 9h2.2a2.2 2.2 0 0 1 0 4.4H17"/><path d="M8 3v2"/><path d="M12 3v2"/>',
   calendar:
     '<rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 10h16"/><path d="M8 3.5v3.5"/><path d="M16 3.5v3.5"/>',
+  music:
+    '<path d="M9 17V4.5l10-1.8V15"/><circle cx="6" cy="17.3" r="2.7"/><circle cx="16" cy="15.2" r="2.7"/>',
 } as const;
 
 export type IconName = keyof typeof PATHS;
