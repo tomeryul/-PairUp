@@ -54,6 +54,72 @@
   flex-wrap: wrap;
 }
 
+/* ---- Birthday celebration hero (shown on the day) ---- */
+.home__bday {
+  display: block;
+  width: 100%;
+  text-align: start;
+  margin-top: var(--s-5);
+  padding: var(--s-6) var(--s-5);
+  border-radius: var(--r-xl);
+  background: var(--c-coral);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 4px 4px 0 var(--ink-900);
+  color: var(--ink-900);
+  transition: transform var(--dur-fast) var(--ease-soft),
+    box-shadow var(--dur-fast) var(--ease-soft);
+}
+.home__bday:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--ink-900);
+}
+.home__bday-eyebrow {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.8;
+}
+.home__bday-title {
+  font-size: var(--t-2xl);
+  margin: 6px 0 4px;
+  color: var(--ink-900);
+}
+.home__bday-sub {
+  font-size: var(--t-sm);
+  opacity: 0.88;
+}
+.home__bday-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: var(--s-4);
+  font-weight: 700;
+  font-size: var(--t-sm);
+  padding: 9px 16px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  border: 2px solid var(--ink-900);
+}
+
+/* ---- Birthday countdown (shown in the days before) ---- */
+.home__bday-soon {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+  padding: var(--s-4);
+  border-radius: var(--r-lg);
+  background: var(--c-coral-tint);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 3px 3px 0 var(--ink-900);
+}
+.home__bday-soon-txt {
+  font-weight: 700;
+  font-size: var(--t-sm);
+  color: var(--ink-900);
+}
+
 .home__date {
   position: relative;
   display: flex;

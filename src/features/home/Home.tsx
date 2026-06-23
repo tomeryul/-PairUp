@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAppStore } from '@/store/useAppStore';
 import { useDailyQuestion } from '@/hooks/useDailyQuestion';
 import { useSound } from '@/hooks/useSound';
 import { Icon, type IconName } from '@/components/ui/Icon';
+import { birthdayDate, birthdayGreeting } from '@/data/birthday';
+import { daysUntilDate, isDateToday } from '@/lib/date';
 import './Home.css';
 
 const greetingForHour = () => {
@@ -53,6 +55,20 @@ export function Home() {
     }
   };
 
+  const isBday = isDateToday(birthdayDate.day, birthdayDate.month);
+  const daysToBday = daysUntilDate(birthdayDate.day, birthdayDate.month);
+
+  // On the birthday itself, open the surprise automatically — once per device
+  // per year, so it doesn't reopen every time they return to Home.
+  useEffect(() => {
+    if (!isBday) return;
+    const key = `pairup-bday-opened-${new Date().getFullYear()}`;
+    if (localStorage.getItem(key)) return;
+    localStorage.setItem(key, '1');
+    discoverBirthday();
+    navigate('/birthday');
+  }, [isBday, discoverBirthday, navigate]);
+
   return (
     <div className="page home">
       <div className="home__bar">
@@ -72,6 +88,38 @@ export function Home() {
       <h1 className="home__names">
         {names.a} <span className="home__amp">&amp;</span> {names.b}
       </h1>
+
+      {isBday && (
+        <button
+          className="home__bday"
+          onClick={() => {
+            play('sparkle');
+            discoverBirthday();
+            navigate('/birthday');
+          }}
+        >
+          <span className="home__bday-eyebrow">היום חוגגים</span>
+          <h2 className="home__bday-title">
+            יום הולדת שמח, {birthdayGreeting.name}!
+          </h2>
+          <p className="home__bday-sub">הכנו לך משהו קטן וקסום — לחצי כדי לפתוח</p>
+          <span className="home__bday-cta">
+            פתחו את ההפתעה <Icon name="gift" size={18} />
+          </span>
+        </button>
+      )}
+
+      {!isBday && daysToBday <= 14 && (
+        <div className="home__bday-soon">
+          <span className="badge badge--soft badge--md">
+            <Icon name="gift" />
+          </span>
+          <span className="home__bday-soon-txt">
+            עוד {daysToBday === 1 ? 'יום אחד' : `${daysToBday} ימים`} ליום ההולדת
+            של {birthdayGreeting.name} ✨
+          </span>
+        </div>
+      )}
 
       <div className="home__stats">
         <div className="chip">

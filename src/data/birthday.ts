@@ -12,6 +12,9 @@ export const birthdayGreeting = {
   subtitle: 'בנינו לך מקום קטן וקסום, רק בשבילך',
 };
 
+/** תאריך יום ההולדת של דקל (25 ביוני) — להופעת מצב יום ההולדת אוטומטית. */
+export const birthdayDate = { day: 25, month: 6 };
+
 /** מכתב האהבה הדיגיטלי. */
 export const loveLetter = `אהובה שלי,
 

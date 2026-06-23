@@ -52,3 +52,20 @@ export const timeUntil = (isoDay: string): string => {
   const years = Math.floor(diff / 365);
   return years === 1 ? 'עוד כשנה' : `עוד כ-${years} שנים`;
 };
+
+/** Whole days until the next occurrence of a recurring day/month (0 = today). */
+export const daysUntilDate = (day: number, month: number): number => {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let next = new Date(now.getFullYear(), month - 1, day);
+  if (next.getTime() < today.getTime()) {
+    next = new Date(now.getFullYear() + 1, month - 1, day);
+  }
+  return Math.round((next.getTime() - today.getTime()) / 86_400_000);
+};
+
+/** True when today is the given day/month (any year). */
+export const isDateToday = (day: number, month: number): boolean => {
+  const now = new Date();
+  return now.getDate() === day && now.getMonth() === month - 1;
+};
