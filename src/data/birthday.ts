@@ -94,12 +94,28 @@ export const milestones: Milestone[] = [
     icon: 'heart',
   },
   {
+    date: 'הבית הראשון שלנו',
+    title: 'עברנו לגור יחד',
+    description:
+      'מצאנו יחידת דיור קטנה ועברנו אליה. כולם הפחידו אותנו — ואנחנו פשוט נהנים מכל רגע.',
+    emoji: '🏠',
+    icon: 'house',
+  },
+  {
     date: 'היום',
     title: 'אנחנו, כאן',
     description:
       'אחרי כל הדרך, אני עדיין בוחר בך בכל בוקר מחדש — ו"A Thousand Years" עדיין מנגן.',
     emoji: '💫',
     icon: 'spark',
+  },
+  {
+    date: '10 בדצמבר',
+    title: 'מתחתנים',
+    description:
+      'הפרק הכי יפה שלנו עוד לפנינו — היום שבו אגיד לך "כן" מול כל העולם.',
+    emoji: '💍',
+    icon: 'gem',
   },
 ];
 
