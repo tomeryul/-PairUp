@@ -44,7 +44,7 @@ googleProvider.setCustomParameters({ prompt: 'select_account' });
  */
 const DEFAULT_ALLOWED_EMAILS = [
   'tomer.yul@gmail.com',
-  // 'partner@gmail.com',
+  'dekel1997@gmail.com',
 ];
 
 export const allowedEmails = (
