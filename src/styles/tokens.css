@@ -1,0 +1,134 @@
+/* ============================================================
+   PairUp — Design Tokens (Vintage / Rosé)
+   Pale blush paper, bright rose & dusty mauve grounds, heavy ink
+   outlines. A romantic rosy palette for Valentine's & birthday.
+   ============================================================ */
+
+:root {
+  /* ---- Vintage rosé palette ---- */
+  --paper-100: #fdf6f8;
+  --paper-200: #f7edf0;
+  --paper-300: #f0dde3;
+  --paper-400: #e2c9d1;
+  --ink-900: #1a1a1a;
+  --ink-700: #3d3a3b;
+  --ink-500: #6b6464;
+  --ink-300: #9a8e90;
+
+  /* Mauve takes the old "teal" slot; bright rose takes the "coral" slot. */
+  --c-teal: #c479a0;
+  --c-teal-deep: #a85a84;
+  --c-teal-tint: #ecd4e2;
+  --c-coral: #ef7fa3;
+  --c-coral-deep: #d85f86;
+  --c-coral-tint: #fbd9e4;
+  --c-gold: #e8b84b;
+  --c-green: #a9d178;
+  --c-green-tint: #e6f1d4;
+
+  /* Legacy brand aliases (kept so existing rules resolve) */
+  --brand-rose: #d85f86;
+  --brand-rose-soft: #ef7fa3;
+  --brand-violet: #a85a84;
+  --brand-violet-soft: #c479a0;
+  --brand-gold: #e8b84b;
+  --brand-coral: #ef7fa3;
+
+  /* "Gradients" are flat vintage colours now */
+  --grad-romance: #ef7fa3;
+  --grad-sunset: #c479a0;
+  --grad-dawn: #d85f86;
+  --grad-aurora: #c479a0;
+
+  /* ---- Radii ---- */
+  --r-xs: 8px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* ---- Spacing ---- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 36px;
+  --s-8: 56px;
+
+  /* ---- Typography ---- */
+  --font-ui: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Frank Ruhl Libre', 'Heebo', serif;
+
+  --t-xs: 0.78rem;
+  --t-sm: 0.9rem;
+  --t-base: 1rem;
+  --t-lg: 1.15rem;
+  --t-xl: 1.45rem;
+  --t-2xl: 1.85rem;
+  --t-3xl: 2.5rem;
+  --t-4xl: 3.4rem;
+
+  /* ---- Motion ---- */
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 0.12s;
+  --dur-base: 0.2s;
+  --dur-slow: 0.32s;
+
+  /* ---- Layout ---- */
+  --maxw: 540px;
+  --nav-h: 74px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Signature heavy outline width */
+  --stroke: 2.5px;
+}
+
+/* ---- Light (default) — pale blush cream ---- */
+:root,
+[data-theme='light'] {
+  --bg-0: #f7edf0;
+  --bg-1: #fdf5f7;
+  --bg-2: #f1dfe4;
+
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --surface-border: #e2c9d1;
+  --surface-border-strong: #1a1a1a;
+
+  --text-1: #1a1a1a;
+  --text-2: #6b5b60;
+  --text-3: #a08e94;
+
+  --shadow-card: 0 6px 20px rgba(150, 70, 100, 0.13);
+  --shadow-soft: 0 2px 8px rgba(150, 70, 100, 0.1);
+  --shadow-glow: 0 6px 20px rgba(150, 70, 100, 0.14);
+  --blur: 0px;
+  --hair: #e2c9d1;
+}
+
+/* ---- Dark — deeper rose-dusk blush ---- */
+[data-theme='dark'] {
+  --bg-0: #ecd6dc;
+  --bg-1: #f4e4e9;
+  --bg-2: #e6cdd5;
+
+  --surface: #fdf6f8;
+  --surface-strong: #ffffff;
+  --surface-border: #d6bcc4;
+  --surface-border-strong: #1a1a1a;
+
+  --text-1: #1a1a1a;
+  --text-2: #6b5b60;
+  --text-3: #a08e94;
+
+  --shadow-card: 0 6px 20px rgba(150, 70, 100, 0.17);
+  --shadow-soft: 0 2px 8px rgba(150, 70, 100, 0.12);
+  --shadow-glow: 0 6px 20px rgba(150, 70, 100, 0.16);
+  --blur: 0px;
+  --hair: #d6bcc4;
+}

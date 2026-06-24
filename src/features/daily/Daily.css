@@ -1,0 +1,48 @@
+.daily__card {
+  padding: var(--s-7) var(--s-5);
+  border-radius: var(--r-lg);
+  text-align: center;
+  margin-bottom: var(--s-5);
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 5px 5px 0 var(--ink-900);
+}
+.daily__chip {
+  background: var(--c-gold);
+  color: var(--ink-900);
+  border: 2px solid var(--ink-900);
+  font-weight: 700;
+}
+.daily__chip .ic {
+  color: var(--ink-900);
+}
+.daily__sun {
+  width: 64px;
+  height: 64px;
+  margin: var(--s-5) auto;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--c-gold);
+  color: var(--ink-900);
+  border: 2.5px solid var(--ink-900);
+}
+.daily__sun .ic {
+  width: 32px;
+  height: 32px;
+}
+.daily__q {
+  font-family: var(--font-display);
+  font-size: var(--t-2xl);
+  line-height: 1.4;
+  color: var(--ink-900);
+  margin-bottom: var(--s-4);
+}
+.daily__note {
+  color: var(--text-2);
+  font-size: var(--t-sm);
+  max-width: 32ch;
+  margin-inline: auto;
+}

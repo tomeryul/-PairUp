@@ -1,0 +1,100 @@
+.capsule-form {
+  padding: var(--s-5);
+  border-radius: var(--r-lg);
+  margin-top: var(--s-4);
+  overflow: hidden;
+  background: var(--surface);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 3px 3px 0 var(--ink-900);
+}
+.capsule-form__actions {
+  display: flex;
+  gap: var(--s-3);
+}
+.capsule-author {
+  display: flex;
+  gap: var(--s-2);
+}
+.capsule-author__btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  border: 2px solid var(--ink-900);
+  color: var(--ink-700);
+  font-weight: 700;
+  transition: all var(--dur-base) var(--ease-soft);
+}
+.capsule-author__btn.is-active {
+  background: var(--c-coral);
+  color: var(--ink-900);
+}
+
+.capsule-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+}
+
+.capsule {
+  padding: var(--s-5);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  border: 2.5px solid var(--ink-900);
+  box-shadow: 3px 3px 0 var(--ink-900);
+}
+.capsule.is-ready {
+  background: var(--c-teal-tint);
+}
+.capsule__head {
+  display: flex;
+  gap: var(--s-3);
+  align-items: flex-start;
+}
+.capsule__lock {
+  flex-shrink: 0;
+}
+.capsule__meta {
+  flex: 1;
+  min-width: 0;
+}
+.capsule__title {
+  font-size: var(--t-lg);
+  color: var(--ink-900);
+  font-family: var(--font-display);
+}
+.capsule__sub {
+  font-size: var(--t-xs);
+  color: var(--text-3);
+}
+.capsule__del {
+  color: var(--ink-300);
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-pill);
+  border: 2px solid var(--ink-300);
+  flex-shrink: 0;
+}
+.capsule__del:hover {
+  color: var(--c-coral-deep);
+  border-color: var(--c-coral-deep);
+}
+.capsule__message {
+  margin-top: var(--s-4);
+  padding-top: var(--s-4);
+  border-top: 2px solid var(--paper-400);
+  color: var(--ink-900);
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+.capsule__teaser {
+  margin-top: var(--s-3);
+  font-size: var(--t-sm);
+  color: var(--text-3);
+}
+.capsule .btn {
+  margin-top: var(--s-4);
+}
